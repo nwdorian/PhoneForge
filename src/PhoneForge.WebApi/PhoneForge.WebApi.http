@@ -1,0 +1,6 @@
+@PhoneForge.WebApi_HostAddress = http://localhost:5111
+
+GET {{PhoneForge.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
