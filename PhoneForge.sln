@@ -21,6 +21,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneForge.UnitTests", "tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneForge.Console", "src\PhoneForge.Console\PhoneForge.Console.csproj", "{44808F61-EF0E-4854-90A7-2554235FDAD9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "src\SharedKernel\SharedKernel.csproj", "{B9C5B96B-5763-47D3-ADDE-F840127A53C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{089100B1-113F-4E66-888A-E83F3999EAFD}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.Props = Directory.Build.Props
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +64,10 @@ Global
 		{44808F61-EF0E-4854-90A7-2554235FDAD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44808F61-EF0E-4854-90A7-2554235FDAD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44808F61-EF0E-4854-90A7-2554235FDAD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9C5B96B-5763-47D3-ADDE-F840127A53C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9C5B96B-5763-47D3-ADDE-F840127A53C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9C5B96B-5763-47D3-ADDE-F840127A53C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9C5B96B-5763-47D3-ADDE-F840127A53C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,5 +80,6 @@ Global
 		{6FCDD768-EB98-42DA-B5CA-D92072E6AD66} = {B28046D9-09AF-4324-BACA-938288D63BB8}
 		{18E039F8-BFDD-4DC2-B973-2F90371D3939} = {9BA151AB-1A46-4852-9403-A041A84D4CC7}
 		{44808F61-EF0E-4854-90A7-2554235FDAD9} = {B28046D9-09AF-4324-BACA-938288D63BB8}
+		{B9C5B96B-5763-47D3-ADDE-F840127A53C4} = {B28046D9-09AF-4324-BACA-938288D63BB8}
 	EndGlobalSection
 EndGlobal

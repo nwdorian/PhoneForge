@@ -8,6 +8,5 @@
     <ItemGroup>
         <ProjectReference Include="..\PhoneForge.Infrastructure\PhoneForge.Infrastructure.csproj" />
         <ProjectReference Include="..\PhoneForge.Persistence\PhoneForge.Persistence.csproj" />
-        <ProjectReference Include="..\PhoneForge.UseCases\PhoneForge.UseCases.csproj" />
     </ItemGroup>
 </Project>
