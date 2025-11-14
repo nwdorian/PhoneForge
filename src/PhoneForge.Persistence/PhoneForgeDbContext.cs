@@ -10,4 +10,9 @@ public sealed class PhoneForgeDbContext : DbContext, IDbContext
         : base(options) { }
 
     public DbSet<Contact> Contacts { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(PhoneForgeDbContext).Assembly);
+    }
 }
