@@ -26,6 +26,11 @@ public sealed record LastName
     /// </summary>
     public string Value { get; }
 
+    /// <summary>
+    /// Implicitly converts a <see cref="LastName"/> instance to its underlying string value.
+    /// </summary>
+    /// <param name="lastName">The <see cref="LastName"/> instance to convert.</param>
+    /// <returns>The last name as a string.</returns>
     public static implicit operator string(LastName lastName)
     {
         return lastName.Value;

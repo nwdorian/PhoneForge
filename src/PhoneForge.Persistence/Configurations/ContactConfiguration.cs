@@ -9,6 +9,10 @@ namespace PhoneForge.Persistence.Configurations;
 /// </summary>
 public class ContactConfiguration : IEntityTypeConfiguration<Contact>
 {
+    /// <summary>
+    /// Configures the <see cref="Contact"/> entity.
+    /// </summary>
+    /// <param name="builder">The builder used to configure the <see cref="Contact"/> entity.</param>
     public void Configure(EntityTypeBuilder<Contact> builder)
     {
         builder.HasKey(contact => contact.Id);

@@ -31,6 +31,11 @@ public sealed record PhoneNumber
     /// </summary>
     public string Value { get; }
 
+    /// <summary>
+    /// Implicitly converts a <see cref="PhoneNumber"/> instance to its underlying string value.
+    /// </summary>
+    /// <param name="phoneNumber">The <see cref="PhoneNumber"/> instance to convert.</param>
+    /// <returns>The phone number as a string.</returns>
     public static implicit operator string(PhoneNumber phoneNumber)
     {
         return phoneNumber.Value;

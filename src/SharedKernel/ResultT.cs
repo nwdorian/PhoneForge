@@ -28,11 +28,25 @@ public class Result<TValue> : Result
     public TValue Value =>
         IsSuccess ? _value! : throw new InvalidOperationException("The value of a failure result can't be accessed.");
 
+    /// <summary>
+    /// Implicitly converts a value of type <typeparamref name="TValue"/>
+    /// into a successful <see cref="Result{TValue}"/>.
+    /// </summary>
+    /// <param name="value">The value to wrap in a success result.</param>
+    /// <returns>A successful <see cref="Result{TValue}"/> containing the specified value.</returns>
     public static implicit operator Result<TValue>(TValue value)
     {
         return Success(value);
     }
 
+    /// <summary>
+    /// Implicitly converts an <see cref="Error"/>
+    /// into a failed <see cref="Result{TValue}"/>.
+    /// </summary>
+    /// <param name="error">The error to wrap in a failure result.</param>
+    /// <returns>
+    /// A failed <see cref="Result{TValue}"/> containing the specified error.
+    /// </returns>
     public static implicit operator Result<TValue>(Error error)
     {
         return Failure<TValue>(error);
