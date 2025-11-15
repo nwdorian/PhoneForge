@@ -34,17 +34,19 @@ public sealed class Contact : Entity, ISoftDeletableEntity, IAuditableEntity
     /// <remarks>
     /// Required by EF Core.
     /// </remarks>
+#pragma warning disable CS8618
     private Contact() { }
+#pragma warning restore CS8618
 
     /// <summary>
     /// Gets or sets the contact first name.
     /// </summary>
-    public FirstName? FirstName { get; private set; }
+    public FirstName FirstName { get; private set; }
 
     /// <summary>
     /// Gets or sets the contact last name.
     /// </summary>
-    public LastName? LastName { get; private set; }
+    public LastName LastName { get; private set; }
 
     /// <summary>
     /// Gets the contact full name.
@@ -54,12 +56,12 @@ public sealed class Contact : Entity, ISoftDeletableEntity, IAuditableEntity
     /// <summary>
     /// Gets or sets the contact email.
     /// </summary>
-    public Email? Email { get; private set; }
+    public Email Email { get; private set; }
 
     /// <summary>
     /// Gets or sets the contact phone number.
     /// </summary>
-    public PhoneNumber? PhoneNumber { get; private set; }
+    public PhoneNumber PhoneNumber { get; private set; }
 
     /// <inheritdoc />
     public DateTime? DeletedOnUtc { get; }

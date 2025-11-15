@@ -26,6 +26,11 @@ public sealed record Email
     /// </summary>
     public string Value { get; }
 
+    /// <summary>
+    /// Implicitly converts an <see cref="Email"/> instance to its underlying string value.
+    /// </summary>
+    /// <param name="email">The <see cref="Email"/> instance to convert.</param>
+    /// <returns>The email address as a string.</returns>
     public static implicit operator string(Email email)
     {
         return email.Value;
