@@ -1,4 +1,10 @@
+using PhoneForge.Infrastructure;
+using PhoneForge.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddInfrastructure();
+builder.Services.AddPersistence(builder.Configuration);
 
 builder.Services.AddOpenApi();
 
