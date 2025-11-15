@@ -67,27 +67,24 @@ public sealed class PhoneForgeDbContext : DbContext, IDbContext
 
             entity.State = EntityState.Modified;
 
-            UpdateDeletedEntityReferencesToUnchanged(entity);
+            if (entity.References.Any())
+            {
+                UpdateDeletedEntityReferencesToUnchanged(entity);
+            }
         }
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage(
-        "Minor Code Smell",
-        "S3267:Loops should be simplified with \"LINQ\" expressions",
-        Justification = "Explicit foreach with a Where filter is clearer for recursive EF Core change-tracker mutation. Using a LINQ Select projection would reduce readability and make recursion harder to follow."
-    )]
     private static void UpdateDeletedEntityReferencesToUnchanged(EntityEntry entity)
     {
-        if (!entity.References.Any())
-        {
-            return;
-        }
+        var references = entity
+            .References.Where(r => r.TargetEntry?.State == EntityState.Deleted)
+            .Select(r => r.TargetEntry!);
 
-        foreach (var reference in entity.References.Where(r => r.TargetEntry!.State == EntityState.Deleted))
+        foreach (var reference in references)
         {
-            reference.TargetEntry!.State = EntityState.Unchanged;
+            reference.State = EntityState.Unchanged;
 
-            UpdateDeletedEntityReferencesToUnchanged(reference.TargetEntry);
+            UpdateDeletedEntityReferencesToUnchanged(reference);
         }
     }
 }
