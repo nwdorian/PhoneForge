@@ -1,3 +1,4 @@
+using System.Net.Mail;
 using SharedKernel;
 
 namespace PhoneForge.Domain.Contacts;
@@ -53,11 +54,25 @@ public sealed record Email
             return ContactErrors.Email.LongerThanAllowed;
         }
 
-        if (!email.Contains('@'))
+        if (!IsValidEmail(email))
         {
             return ContactErrors.Email.InvalidFormat;
         }
 
         return new Email(email);
+    }
+
+    private static bool IsValidEmail(string email)
+    {
+        try
+        {
+            var mailAdress = new MailAddress(email);
+
+            return mailAdress.Address == email;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }
