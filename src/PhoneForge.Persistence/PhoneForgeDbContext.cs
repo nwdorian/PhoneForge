@@ -86,10 +86,7 @@ public sealed class PhoneForgeDbContext : DbContext, IDbContext
 
             entity.State = EntityState.Modified;
 
-            if (entity.References.Any())
-            {
-                UpdateDeletedEntityReferencesToUnchanged(entity);
-            }
+            UpdateDeletedEntityReferencesToUnchanged(entity);
         }
     }
 
@@ -100,6 +97,11 @@ public sealed class PhoneForgeDbContext : DbContext, IDbContext
     /// <param name="entity">The entity entry.</param>
     private static void UpdateDeletedEntityReferencesToUnchanged(EntityEntry entity)
     {
+        if (entity.References.Any())
+        {
+            return;
+        }
+
         var references = entity
             .References.Where(r => r.TargetEntry?.State == EntityState.Deleted)
             .Select(r => r.TargetEntry!);
