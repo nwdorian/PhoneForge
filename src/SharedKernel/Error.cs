@@ -8,7 +8,11 @@ public sealed record Error
     /// <summary>
     /// Gets the empty error instance.
     /// </summary>
-    public static readonly Error None = new(string.Empty, string.Empty, ErrorType.Failure);
+    public static readonly Error None = new(
+        string.Empty,
+        string.Empty,
+        ErrorType.Failure
+    );
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Error"/> class.

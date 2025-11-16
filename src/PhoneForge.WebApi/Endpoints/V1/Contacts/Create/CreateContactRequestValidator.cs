@@ -15,6 +15,8 @@ public class CreateContactRequestValidator : AbstractValidator<CreateContactRequ
         RuleFor(x => x.FirstName).NotEmpty().WithMessage("The first name is required.");
         RuleFor(x => x.LastName).NotEmpty().WithMessage("The last name is required.");
         RuleFor(x => x.Email).NotEmpty().WithMessage("The email is required.");
-        RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("The phone number is required.");
+        RuleFor(x => x.PhoneNumber)
+            .NotEmpty()
+            .WithMessage("The phone number is required.");
     }
 }

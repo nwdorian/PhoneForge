@@ -18,7 +18,10 @@ public sealed class PhoneForgeDbContext : DbContext, IDbContext
     /// </summary>
     /// <param name="options">The database context options.</param>
     /// <param name="dateTimeProvider">The current date and time in UTC format.</param>
-    public PhoneForgeDbContext(DbContextOptions<PhoneForgeDbContext> options, IDateTimeProvider dateTimeProvider)
+    public PhoneForgeDbContext(
+        DbContextOptions<PhoneForgeDbContext> options,
+        IDateTimeProvider dateTimeProvider
+    )
         : base(options)
     {
         _dateTimeProvider = dateTimeProvider;
@@ -30,11 +33,15 @@ public sealed class PhoneForgeDbContext : DbContext, IDbContext
     /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(PhoneForgeDbContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(
+            typeof(PhoneForgeDbContext).Assembly
+        );
     }
 
     /// <inheritdoc />
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    public override async Task<int> SaveChangesAsync(
+        CancellationToken cancellationToken = default
+    )
     {
         var utcNow = _dateTimeProvider.UtcNow;
 
@@ -57,12 +64,14 @@ public sealed class PhoneForgeDbContext : DbContext, IDbContext
         {
             if (entity.State == EntityState.Added)
             {
-                entity.Property(nameof(IAuditableEntity.CreatedOnUtc)).CurrentValue = utcNow;
+                entity.Property(nameof(IAuditableEntity.CreatedOnUtc)).CurrentValue =
+                    utcNow;
             }
 
             if (entity.State == EntityState.Modified)
             {
-                entity.Property(nameof(IAuditableEntity.ModifiedOnUtc)).CurrentValue = utcNow;
+                entity.Property(nameof(IAuditableEntity.ModifiedOnUtc)).CurrentValue =
+                    utcNow;
             }
         }
     }
@@ -80,7 +89,8 @@ public sealed class PhoneForgeDbContext : DbContext, IDbContext
 
         foreach (var entity in entities)
         {
-            entity.Property(nameof(ISoftDeletableEntity.DeletedOnUtc)).CurrentValue = utcNow;
+            entity.Property(nameof(ISoftDeletableEntity.DeletedOnUtc)).CurrentValue =
+                utcNow;
 
             entity.Property(nameof(ISoftDeletableEntity.Deleted)).CurrentValue = true;
 
