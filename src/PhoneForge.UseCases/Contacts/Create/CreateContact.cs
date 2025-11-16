@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using PhoneForge.Domain.Contacts;
 using PhoneForge.UseCases.Abstractions.Data;
 using SharedKernel;
@@ -11,14 +12,17 @@ namespace PhoneForge.UseCases.Contacts.Create;
 public sealed class CreateContact
 {
     private readonly IDbContext _context;
+    private readonly ILogger<CreateContact> _logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CreateContact"/> class.
     /// </summary>
     /// <param name="context">The database context used to persist the new contact.</param>
-    public CreateContact(IDbContext context)
+    /// <param name="logger">The logger used to record diagnostic information</param>
+    public CreateContact(IDbContext context, ILogger<CreateContact> logger)
     {
         _context = context;
+        _logger = logger;
     }
 
     /// <summary>
@@ -30,6 +34,8 @@ public sealed class CreateContact
         CancellationToken cancellationToken
     )
     {
+        _logger.LogInformation("Processing request {Request}", request);
+
         var firstNameResult = FirstName.Create(request.FirstName);
         var lastNameResult = LastName.Create(request.LastName);
         var emailResult = Email.Create(request.Email);
@@ -44,6 +50,7 @@ public sealed class CreateContact
 
         if (firstFailOrSuccess.IsFailure)
         {
+            _logger.LogWarning("Error: {@Error}", firstFailOrSuccess.Error);
             return firstFailOrSuccess.Error;
         }
 
@@ -54,6 +61,7 @@ public sealed class CreateContact
             )
         )
         {
+            _logger.LogWarning("Error: {@Error}", ContactErrors.EmailNotUnique);
             return ContactErrors.EmailNotUnique;
         }
 
@@ -78,6 +86,7 @@ public sealed class CreateContact
             contact.CreatedOnUtc
         );
 
+        _logger.LogInformation("Completed request {@Request}", request);
         return response;
     }
 }

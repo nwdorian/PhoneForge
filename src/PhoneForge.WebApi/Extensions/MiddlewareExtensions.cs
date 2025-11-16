@@ -2,6 +2,8 @@ using Asp.Versioning;
 using Microsoft.EntityFrameworkCore;
 using PhoneForge.Persistence;
 using PhoneForge.WebApi.Endpoints.V1.Contacts;
+using PhoneForge.WebApi.Middleware;
+using Serilog;
 
 namespace PhoneForge.WebApi.Extensions;
 
@@ -23,6 +25,9 @@ public static class MiddlewareExtensions
 
         app.UseOpenApi();
         app.UseHttpsRedirection();
+
+        app.UseRequestContextLogging();
+        app.UseSerilogRequestLogging();
 
         await app.ApplyMigrations();
 
@@ -48,6 +53,11 @@ public static class MiddlewareExtensions
         {
             app.MapOpenApi();
         }
+    }
+
+    private static void UseRequestContextLogging(this WebApplication app)
+    {
+        app.UseMiddleware<RequestLogContextMiddleware>();
     }
 
     private static async Task ApplyMigrations(this IApplicationBuilder app)
