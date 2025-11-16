@@ -36,7 +36,6 @@ public static class ServiceCollectionExtensions
 
     private static void AddPresentation(this IServiceCollection services)
     {
-        services.AddEndpointsApiExplorer();
         services.AddOpenApi();
     }
 
