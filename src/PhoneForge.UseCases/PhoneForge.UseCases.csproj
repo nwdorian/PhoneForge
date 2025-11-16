@@ -3,6 +3,7 @@
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
     </PropertyGroup>
     <ItemGroup>
+        <ProjectReference Include="..\PhoneForge.Contracts\PhoneForge.Contracts.csproj" />
         <ProjectReference Include="..\PhoneForge.Domain\PhoneForge.Domain.csproj" />
     </ItemGroup>
     <ItemGroup>

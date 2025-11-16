@@ -14,7 +14,12 @@ public sealed class Contact : Entity, ISoftDeletableEntity, IAuditableEntity
     /// <param name="lastName">The contact last name.</param>
     /// <param name="email">The contact email.</param>
     /// <param name="phoneNumber">The contact phone number.</param>
-    private Contact(FirstName firstName, LastName lastName, Email email, PhoneNumber phoneNumber)
+    private Contact(
+        FirstName firstName,
+        LastName lastName,
+        Email email,
+        PhoneNumber phoneNumber
+    )
         : base(Guid.NewGuid())
     {
         Ensure.NotNull(firstName, "The first name is required", nameof(firstName));
@@ -51,7 +56,7 @@ public sealed class Contact : Entity, ISoftDeletableEntity, IAuditableEntity
     /// <summary>
     /// Gets the contact full name.
     /// </summary>
-    public string FullName => $"{FirstName} {LastName}";
+    public string FullName => $"{FirstName.Value} {LastName.Value}";
 
     /// <summary>
     /// Gets or sets the contact email.
@@ -83,7 +88,12 @@ public sealed class Contact : Entity, ISoftDeletableEntity, IAuditableEntity
     /// <param name="email">The email.</param>
     /// <param name="phoneNumber">The phone number.</param>
     /// <returns>The newly created contact instance.</returns>
-    public static Contact Create(FirstName firstName, LastName lastName, Email email, PhoneNumber phoneNumber)
+    public static Contact Create(
+        FirstName firstName,
+        LastName lastName,
+        Email email,
+        PhoneNumber phoneNumber
+    )
     {
         var contact = new Contact(firstName, lastName, email, phoneNumber);
         return contact;
