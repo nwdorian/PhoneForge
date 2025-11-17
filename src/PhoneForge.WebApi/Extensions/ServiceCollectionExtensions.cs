@@ -3,6 +3,7 @@ using FluentValidation;
 using PhoneForge.Infrastructure;
 using PhoneForge.Persistence;
 using PhoneForge.UseCases;
+using PhoneForge.WebApi.Infrastructure;
 
 namespace PhoneForge.WebApi.Extensions;
 
@@ -31,6 +32,8 @@ public static class ServiceCollectionExtensions
 
         services.AddApiVersioning();
 
+        services.AddCustomExceptionHandler();
+
         return services;
     }
 
@@ -58,5 +61,20 @@ public static class ServiceCollectionExtensions
                 options.GroupNameFormat = "'v'V";
                 options.SubstituteApiVersionInUrl = true;
             });
+    }
+
+    private static void AddCustomExceptionHandler(this IServiceCollection services)
+    {
+        services.AddExceptionHandler<GlobalExceptionHandler>();
+        services.AddProblemDetails(configure =>
+        {
+            configure.CustomizeProblemDetails = context =>
+            {
+                context.ProblemDetails.Extensions.TryAdd(
+                    "requestId",
+                    context.HttpContext.TraceIdentifier
+                );
+            };
+        });
     }
 }

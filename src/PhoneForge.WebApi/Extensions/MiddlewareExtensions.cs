@@ -29,6 +29,8 @@ public static class MiddlewareExtensions
         app.UseRequestContextLogging();
         app.UseSerilogRequestLogging();
 
+        app.UseExceptionHandler();
+
         await app.ApplyMigrations();
 
         return app;
