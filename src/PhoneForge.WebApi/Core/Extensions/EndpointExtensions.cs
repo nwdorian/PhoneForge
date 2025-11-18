@@ -34,7 +34,7 @@ internal static class EndpointExtensions
         Assembly assembly
     )
     {
-        var serviceDescriptors = assembly
+        var types = assembly
             .DefinedTypes.Where(type =>
                 type is { IsAbstract: false, IsInterface: false }
                 && type.IsAssignableTo(typeof(IEndpoint))
@@ -42,7 +42,7 @@ internal static class EndpointExtensions
             .Select(type => ServiceDescriptor.Transient(typeof(IEndpoint), type))
             .ToArray();
 
-        services.TryAddEnumerable(serviceDescriptors);
+        services.TryAddEnumerable(types);
 
         return services;
     }

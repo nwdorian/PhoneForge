@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using PhoneForge.Domain.Contacts;
+using PhoneForge.UseCases.Abstractions;
 using PhoneForge.UseCases.Abstractions.Data;
 using SharedKernel;
 
@@ -9,7 +10,7 @@ namespace PhoneForge.UseCases.Contacts.Create;
 /// <summary>
 /// Represents the <see cref="CreateContactRequest"/> handler.
 /// </summary>
-public sealed class CreateContact
+public sealed class CreateContact : IUseCase
 {
     private readonly IDbContext _context;
     private readonly ILogger<CreateContact> _logger;

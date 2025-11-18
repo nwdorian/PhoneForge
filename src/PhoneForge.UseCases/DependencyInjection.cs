@@ -1,7 +1,7 @@
 using System.Reflection;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using PhoneForge.UseCases.Contacts.Create;
+using PhoneForge.UseCases.Abstractions;
 
 namespace PhoneForge.UseCases;
 
@@ -17,11 +17,26 @@ public static class DependencyInjection
     /// <returns>The same <see cref="IServiceCollection"/> instance, allowing for method chaining.</returns>
     public static IServiceCollection AddUseCases(this IServiceCollection services)
     {
-        services.AddScoped<CreateContact>();
+        services.AddUseCases(typeof(IUseCase).Assembly);
 
         services.AddFluentValidation();
 
         return services;
+    }
+
+    private static void AddUseCases(this IServiceCollection services, Assembly assembly)
+    {
+        var types = assembly
+            .DefinedTypes.Where(type =>
+                type is { IsAbstract: false, IsInterface: false }
+                && type.IsAssignableTo(typeof(IUseCase))
+            )
+            .ToArray();
+
+        foreach (var type in types)
+        {
+            services.AddScoped(type, type);
+        }
     }
 
     private static void AddFluentValidation(this IServiceCollection services)
