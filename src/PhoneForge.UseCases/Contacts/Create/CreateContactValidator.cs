@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace PhoneForge.UseCases.Contacts.Create;
 
-public class CreateContactValidator : AbstractValidator<CreateContactRequest>
+public sealed class CreateContactValidator : AbstractValidator<CreateContactRequest>
 {
     public CreateContactValidator()
     {

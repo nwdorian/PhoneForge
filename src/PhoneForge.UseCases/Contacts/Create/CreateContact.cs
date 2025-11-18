@@ -34,7 +34,7 @@ public sealed class CreateContact
         CancellationToken cancellationToken
     )
     {
-        _logger.LogInformation("Processing command {Command}", request);
+        _logger.LogInformation("Processing request {Request}", request);
 
         var firstNameResult = FirstName.Create(request.FirstName);
         var lastNameResult = LastName.Create(request.LastName);
@@ -86,7 +86,7 @@ public sealed class CreateContact
             contact.CreatedOnUtc
         );
 
-        _logger.LogInformation("Completed command {@Command}", request);
+        _logger.LogInformation("Completed request {@Request}", request);
         return response;
     }
 }
