@@ -3,7 +3,7 @@ using PhoneForge.WebApi.Core.Extensions;
 using PhoneForge.WebApi.Core.Infrastructure;
 using PhoneForge.WebApi.Endpoints;
 
-namespace PhoneForge.WebApi.Contacts.Create;
+namespace PhoneForge.WebApi.Contacts.V1;
 
 internal sealed class CreateContactEndpoint : IEndpoint
 {
@@ -24,14 +24,7 @@ internal sealed class CreateContactEndpoint : IEndpoint
         CancellationToken cancellationToken
     )
     {
-        var command = new CreateContactCommand(
-            request.FirstName,
-            request.LastName,
-            request.Email,
-            request.PhoneNumber
-        );
-
-        var result = await useCase.Handle(command, cancellationToken);
+        var result = await useCase.Handle(request, cancellationToken);
 
         return result.Match(Results.Ok, CustomResults.Problem);
     }

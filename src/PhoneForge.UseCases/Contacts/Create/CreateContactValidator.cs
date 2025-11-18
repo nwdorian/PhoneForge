@@ -1,11 +1,8 @@
 using FluentValidation;
 
-namespace PhoneForge.WebApi.Contacts.Create;
+namespace PhoneForge.UseCases.Contacts.Create;
 
-/// <summary>
-///
-/// </summary>
-public sealed class CreateContactValidator : AbstractValidator<CreateContactRequest>
+public class CreateContactValidator : AbstractValidator<CreateContactRequest>
 {
     public CreateContactValidator()
     {

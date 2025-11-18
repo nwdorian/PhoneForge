@@ -1,3 +1,5 @@
+using System.Reflection;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using PhoneForge.UseCases.Contacts.Create;
 
@@ -17,6 +19,13 @@ public static class DependencyInjection
     {
         services.AddScoped<CreateContact>();
 
+        services.AddFluentValidation();
+
         return services;
+    }
+
+    private static void AddFluentValidation(this IServiceCollection services)
+    {
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }

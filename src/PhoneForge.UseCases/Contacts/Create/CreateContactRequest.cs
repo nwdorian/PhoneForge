@@ -1,4 +1,4 @@
-namespace PhoneForge.WebApi.Contacts.Create;
+namespace PhoneForge.UseCases.Contacts.Create;
 
 public sealed record class CreateContactRequest(
     string FirstName,

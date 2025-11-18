@@ -7,7 +7,7 @@ using SharedKernel;
 namespace PhoneForge.UseCases.Contacts.Create;
 
 /// <summary>
-/// Represents the <see cref="CreateContactCommand"/> handler.
+/// Represents the <see cref="CreateContactRequest"/> handler.
 /// </summary>
 public sealed class CreateContact
 {
@@ -30,16 +30,16 @@ public sealed class CreateContact
     /// </summary>
     /// <returns>Response from the command.</returns>
     public async Task<Result<CreateContactResponse>> Handle(
-        CreateContactCommand command,
+        CreateContactRequest request,
         CancellationToken cancellationToken
     )
     {
-        _logger.LogInformation("Processing command {Command}", command);
+        _logger.LogInformation("Processing command {Command}", request);
 
-        var firstNameResult = FirstName.Create(command.FirstName);
-        var lastNameResult = LastName.Create(command.LastName);
-        var emailResult = Email.Create(command.Email);
-        var phoneNumberResult = PhoneNumber.Create(command.PhoneNumber);
+        var firstNameResult = FirstName.Create(request.FirstName);
+        var lastNameResult = LastName.Create(request.LastName);
+        var emailResult = Email.Create(request.Email);
+        var phoneNumberResult = PhoneNumber.Create(request.PhoneNumber);
 
         var firstFailOrSuccess = Result.FirstFailOrSuccess(
             firstNameResult,
@@ -56,7 +56,7 @@ public sealed class CreateContact
 
         if (
             await _context.Contacts.AnyAsync(
-                c => c.Email.Value == command.Email,
+                c => c.Email.Value == request.Email,
                 cancellationToken
             )
         )
@@ -86,7 +86,7 @@ public sealed class CreateContact
             contact.CreatedOnUtc
         );
 
-        _logger.LogInformation("Completed command {@Command}", command);
+        _logger.LogInformation("Completed command {@Command}", request);
         return response;
     }
 }

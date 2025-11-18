@@ -1,6 +1,5 @@
 using System.Reflection;
 using Asp.Versioning;
-using FluentValidation;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using PhoneForge.Infrastructure;
 using PhoneForge.Persistence;
@@ -30,8 +29,6 @@ public static class ServiceCollectionExtensions
         services.AddInfrastructure();
         services.AddPersistence(configuration);
 
-        services.AddFluentValidation();
-
         services.AddApiVersioning();
 
         services.AddCustomExceptionHandler();
@@ -46,11 +43,6 @@ public static class ServiceCollectionExtensions
     private static void AddPresentation(this IServiceCollection services)
     {
         services.AddOpenApi();
-    }
-
-    private static void AddFluentValidation(this IServiceCollection services)
-    {
-        services.AddValidatorsFromAssembly(typeof(Program).Assembly);
     }
 
     private static void AddApiVersioning(this IServiceCollection services)
