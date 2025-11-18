@@ -1,6 +1,6 @@
 using Serilog;
 
-namespace PhoneForge.WebApi.Extensions;
+namespace PhoneForge.WebApi.Core.Extensions;
 
 /// <summary>
 /// Provides extension methods for configuring Serilog in the application.

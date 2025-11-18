@@ -1,4 +1,4 @@
-using PhoneForge.WebApi.Extensions;
+using PhoneForge.WebApi.Core.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

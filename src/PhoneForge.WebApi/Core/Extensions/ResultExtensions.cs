@@ -1,6 +1,6 @@
 using SharedKernel;
 
-namespace PhoneForge.WebApi.Extensions;
+namespace PhoneForge.WebApi.Core.Extensions;
 
 /// <summary>
 /// Contains extension methods for the result class.

@@ -1,11 +1,9 @@
-using Asp.Versioning;
 using Microsoft.EntityFrameworkCore;
 using PhoneForge.Persistence;
-using PhoneForge.WebApi.Endpoints.V1.Contacts;
-using PhoneForge.WebApi.Middleware;
+using PhoneForge.WebApi.Core.Middleware;
 using Serilog;
 
-namespace PhoneForge.WebApi.Extensions;
+namespace PhoneForge.WebApi.Core.Extensions;
 
 /// <summary>
 /// Provides extension methods for registering application middleware.
@@ -21,7 +19,7 @@ public static class MiddlewareExtensions
         this WebApplication app
     )
     {
-        app.MapV1Endpoints();
+        app.MapEndpoints();
 
         app.UseOpenApi();
         app.UseHttpsRedirection();
@@ -34,19 +32,6 @@ public static class MiddlewareExtensions
         await app.ApplyMigrations();
 
         return app;
-    }
-
-    private static void MapV1Endpoints(this WebApplication app)
-    {
-        var apiVersionSet = app.NewApiVersionSet()
-            .HasApiVersion(new ApiVersion(1))
-            .ReportApiVersions()
-            .Build();
-
-        var versionedGroup = app.MapGroup("api/v{apiVersion:apiVersion}")
-            .WithApiVersionSet(apiVersionSet);
-
-        versionedGroup.MapContactsEndpoints();
     }
 
     private static void UseOpenApi(this WebApplication app)

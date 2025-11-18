@@ -26,20 +26,20 @@ public sealed class CreateContact
     }
 
     /// <summary>
-    /// Handles a request.
+    /// Handles a command.
     /// </summary>
-    /// <returns>Response from the request.</returns>
+    /// <returns>Response from the command.</returns>
     public async Task<Result<CreateContactResponse>> Handle(
-        CreateContactCommand request,
+        CreateContactCommand command,
         CancellationToken cancellationToken
     )
     {
-        _logger.LogInformation("Processing request {Request}", request);
+        _logger.LogInformation("Processing command {Command}", command);
 
-        var firstNameResult = FirstName.Create(request.FirstName);
-        var lastNameResult = LastName.Create(request.LastName);
-        var emailResult = Email.Create(request.Email);
-        var phoneNumberResult = PhoneNumber.Create(request.PhoneNumber);
+        var firstNameResult = FirstName.Create(command.FirstName);
+        var lastNameResult = LastName.Create(command.LastName);
+        var emailResult = Email.Create(command.Email);
+        var phoneNumberResult = PhoneNumber.Create(command.PhoneNumber);
 
         var firstFailOrSuccess = Result.FirstFailOrSuccess(
             firstNameResult,
@@ -56,7 +56,7 @@ public sealed class CreateContact
 
         if (
             await _context.Contacts.AnyAsync(
-                c => c.Email.Value == request.Email,
+                c => c.Email.Value == command.Email,
                 cancellationToken
             )
         )
@@ -86,7 +86,7 @@ public sealed class CreateContact
             contact.CreatedOnUtc
         );
 
-        _logger.LogInformation("Completed request {@Request}", request);
+        _logger.LogInformation("Completed command {@Command}", command);
         return response;
     }
 }

@@ -1,6 +1,6 @@
 using SharedKernel;
 
-namespace PhoneForge.WebApi.Infrastructure;
+namespace PhoneForge.WebApi.Core.Infrastructure;
 
 /// <summary>
 /// Provides custom result helpers for converting <see cref="Result"/> errors
@@ -32,12 +32,11 @@ public static class CustomResults
 
         return Results.Problem(
             title: GetTitle(result.Error),
-            detail: GetDetail(result.Error),
             type: GetType(result.Error.Type),
             statusCode: GetStatusCode(result.Error.Type),
             extensions: new Dictionary<string, object?>
             {
-                { "errors", new[] { result.Error } },
+                { "errors", new[] { result.Error.Description } },
             }
         );
 
@@ -49,17 +48,6 @@ public static class CustomResults
                 ErrorType.NotFound => error.Code,
                 ErrorType.Conflict => error.Code,
                 _ => "Server failure",
-            };
-        }
-
-        static string GetDetail(Error error)
-        {
-            return error.Type switch
-            {
-                ErrorType.Validation => error.Description,
-                ErrorType.NotFound => error.Description,
-                ErrorType.Conflict => error.Description,
-                _ => "An unexpected error occurred",
             };
         }
 

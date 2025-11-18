@@ -1,11 +1,13 @@
+using System.Reflection;
 using Asp.Versioning;
 using FluentValidation;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using PhoneForge.Infrastructure;
 using PhoneForge.Persistence;
 using PhoneForge.UseCases;
-using PhoneForge.WebApi.Infrastructure;
+using PhoneForge.WebApi.Core.Infrastructure;
 
-namespace PhoneForge.WebApi.Extensions;
+namespace PhoneForge.WebApi.Core.Extensions;
 
 /// <summary>
 /// Provides extension methods for registering application services.
@@ -33,6 +35,10 @@ public static class ServiceCollectionExtensions
         services.AddApiVersioning();
 
         services.AddCustomExceptionHandler();
+
+        services.AddCustomProblemDetails();
+
+        services.AddEndpoints(Assembly.GetExecutingAssembly());
 
         return services;
     }
@@ -66,6 +72,10 @@ public static class ServiceCollectionExtensions
     private static void AddCustomExceptionHandler(this IServiceCollection services)
     {
         services.AddExceptionHandler<GlobalExceptionHandler>();
+    }
+
+    private static void AddCustomProblemDetails(this IServiceCollection services)
+    {
         services.AddProblemDetails(configure =>
         {
             configure.CustomizeProblemDetails = context =>

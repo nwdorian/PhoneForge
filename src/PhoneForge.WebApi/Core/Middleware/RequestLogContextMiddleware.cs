@@ -1,6 +1,6 @@
 using Serilog.Context;
 
-namespace PhoneForge.WebApi.Middleware;
+namespace PhoneForge.WebApi.Core.Middleware;
 
 /// <summary>
 /// Middleware that enriches the logging context with a correlation ID
