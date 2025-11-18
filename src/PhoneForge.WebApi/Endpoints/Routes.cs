@@ -1,11 +1,23 @@
 namespace PhoneForge.WebApi.Endpoints;
 
-internal static class Routes
+/// <summary>
+/// Provides route definitions for the application's endpoints.
+/// </summary>
+public static class Routes
 {
-    internal static class Contacts
+    /// <summary>
+    /// Contains route definitions related to contacts.
+    /// </summary>
+    public static class Contacts
     {
+        /// <summary>
+        /// The base route for contact related endpoints.
+        /// </summary>
         private const string Base = "contacts";
 
+        /// <summary>
+        /// The route used for creating a new contact.
+        /// </summary>
         public const string Create = Base;
     }
 }

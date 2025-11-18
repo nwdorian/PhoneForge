@@ -6,9 +6,18 @@ using PhoneForge.WebApi.Endpoints;
 
 namespace PhoneForge.WebApi.Core.Extensions;
 
-internal static class EndpointExtensions
+/// <summary>
+/// Provides extension methods for registering and mapping API endpoints.
+/// </summary>
+public static class EndpointExtensions
 {
-    internal static IApplicationBuilder MapEndpoints(this WebApplication app)
+    /// <summary>
+    /// Maps all registered <see cref="IEndpoint"/> implementations to the application's routing pipeline,
+    /// using API versioning.
+    /// </summary>
+    /// <param name="app">The <see cref="WebApplication"/> used to map the endpoints.</param>
+    /// <returns>The same <see cref="IApplicationBuilder"/> instance for chaining.</returns>
+    public static IApplicationBuilder MapEndpoints(this WebApplication app)
     {
         var apiVersionSet = app.NewApiVersionSet()
             .HasApiVersion(new ApiVersion(1))
@@ -29,6 +38,13 @@ internal static class EndpointExtensions
         return app;
     }
 
+    /// <summary>
+    /// Scans the specified assembly for all types implementing <see cref="IEndpoint"/>
+    /// and registers them as transient services in the dependency injection container.
+    /// </summary>
+    /// <param name="services">The service collection to add the endpoint services to.</param>
+    /// <param name="assembly">The assembly to scan for endpoint implementations.</param>
+    /// <returns>The same <see cref="IServiceCollection"/> instance for chaining.</returns>
     public static IServiceCollection AddEndpoints(
         this IServiceCollection services,
         Assembly assembly
@@ -47,6 +63,13 @@ internal static class EndpointExtensions
         return services;
     }
 
+    /// <summary>
+    /// Adds a request validation filter of type <typeparamref name="TRequest"/> to the route handler
+    /// and configures the endpoint to produce validation problem responses.
+    /// </summary>
+    /// <typeparam name="TRequest">The type of request to validate.</typeparam>
+    /// <param name="app">The route handler builder to configure.</param>
+    /// <returns>The same <see cref="RouteHandlerBuilder"/> instance for chaining.</returns>
     public static RouteHandlerBuilder WithRequestValidation<TRequest>(
         this RouteHandlerBuilder app
     )
