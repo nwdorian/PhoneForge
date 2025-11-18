@@ -1,4 +1,5 @@
 using FluentValidation;
+using PhoneForge.Domain.Contacts;
 
 namespace PhoneForge.UseCases.Contacts.Create;
 
@@ -13,9 +14,20 @@ public sealed class CreateContactValidator : AbstractValidator<CreateContactRequ
     /// </summary>
     public CreateContactValidator()
     {
-        RuleFor(r => r.FirstName).NotEmpty().WithMessage("First name is required.");
-        RuleFor(r => r.LastName).NotEmpty().WithMessage("Last name is required.");
-        RuleFor(r => r.Email).NotEmpty().WithMessage("Email is required.");
-        RuleFor(r => r.PhoneNumber).NotEmpty().WithMessage("Phone number is required.");
+        RuleFor(r => r.FirstName)
+            .NotEmpty()
+            .WithMessage(ContactErrors.FirstName.IsRequired.Description);
+
+        RuleFor(r => r.LastName)
+            .NotEmpty()
+            .WithMessage(ContactErrors.LastName.IsRequired.Description);
+
+        RuleFor(r => r.Email)
+            .NotEmpty()
+            .WithMessage(ContactErrors.Email.IsRequired.Description);
+
+        RuleFor(r => r.PhoneNumber)
+            .NotEmpty()
+            .WithMessage(ContactErrors.PhoneNumber.IsRequired.Description);
     }
 }

@@ -5,9 +5,9 @@ using PhoneForge.WebApi.Endpoints;
 
 namespace PhoneForge.WebApi.Contacts.V1;
 
-internal sealed class CreateContactEndpoint : IEndpoint
+internal sealed class Create : IEndpoint
 {
-    public const string Name = "CreateContact";
+    private const string Name = "CreateContact";
 
     public void MapEndpoint(IEndpointRouteBuilder app)
     {

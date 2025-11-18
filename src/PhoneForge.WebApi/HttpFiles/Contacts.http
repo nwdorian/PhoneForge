@@ -9,8 +9,8 @@ POST {{HostAddress}}/api/v1/contacts
 Content-type: application/json
 
 {
-    "firstName": "",
-    "lastName": "a",
-    "email": "jdoe3@gmail.com",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "jdoe@gmail.com",
     "phoneNumber": "091212121212"
 }
