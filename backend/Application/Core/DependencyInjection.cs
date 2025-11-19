@@ -1,9 +1,9 @@
 using System.Reflection;
-using Application.Abstractions;
+using Application.Core.Abstractions;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application;
+namespace Application.Core;
 
 /// <summary>
 /// Provides extension methods for registering use case services.

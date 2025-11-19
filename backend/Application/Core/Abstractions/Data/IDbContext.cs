@@ -1,7 +1,7 @@
 using Domain.Contacts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Abstractions.Data;
+namespace Application.Core.Abstractions.Data;
 
 /// <summary>
 /// Represents the application database context interface.

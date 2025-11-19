@@ -1,4 +1,4 @@
-namespace Application.Abstractions;
+namespace Application.Core.Abstractions;
 
 /// <summary>
 /// Represents a use case marker interface.

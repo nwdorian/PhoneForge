@@ -1,7 +1,7 @@
 using System.Reflection;
-using Application;
+using Application.Core;
 using Asp.Versioning;
-using Infrastructure;
+using Infrastructure.Core;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using WebApi.Core.Infrastructure;
 

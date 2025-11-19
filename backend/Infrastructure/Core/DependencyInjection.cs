@@ -1,12 +1,12 @@
-using Application.Abstractions.Data;
+using Application.Core.Abstractions.Data;
 using Domain.Core.Abstractions;
+using Infrastructure.Core.Time;
 using Infrastructure.Database;
-using Infrastructure.Time;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure;
+namespace Infrastructure.Core;
 
 /// <summary>
 /// Provides extension methods for registering infrastructure services.

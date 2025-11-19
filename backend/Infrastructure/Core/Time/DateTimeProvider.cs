@@ -1,6 +1,6 @@
 using Domain.Core.Abstractions;
 
-namespace Infrastructure.Time;
+namespace Infrastructure.Core.Time;
 
 /// <summary>
 /// Represents the machine date time service.

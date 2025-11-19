@@ -1,5 +1,5 @@
-using Application.Abstractions;
-using Application.Abstractions.Data;
+using Application.Core.Abstractions;
+using Application.Core.Abstractions.Data;
 using Domain.Contacts;
 using Domain.Core.Primitives;
 using Microsoft.EntityFrameworkCore;
