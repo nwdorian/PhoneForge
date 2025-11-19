@@ -76,4 +76,20 @@ public static class EndpointExtensions
         return app.AddEndpointFilter<ValidationFilter<TRequest>>()
             .ProducesValidationProblem();
     }
+
+    /// <summary>
+    /// Adds a name and a tag to the endpoint metadata.
+    /// </summary>
+    /// <param name="app">The route handler builder to configure.</param>
+    /// <param name="name">Name of the endpoint.</param>
+    /// <param name="tags">Tag of the endpoint.</param>
+    /// <returns></returns>
+    public static RouteHandlerBuilder WithNameAndTags(
+        this RouteHandlerBuilder app,
+        string name,
+        string tags
+    )
+    {
+        return app.WithName(name).WithTags(tags);
+    }
 }

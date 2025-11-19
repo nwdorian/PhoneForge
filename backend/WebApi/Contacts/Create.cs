@@ -12,10 +12,9 @@ internal sealed class Create : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost(Routes.Contacts.Create, Handler)
-            .WithName(Name)
-            .WithTags(Tags.Contacts)
-            .MapToApiVersion(1)
-            .WithRequestValidation<CreateContactRequest>();
+            .WithNameAndTags(Name, Tags.Contacts)
+            .WithRequestValidation<CreateContactRequest>()
+            .MapToApiVersion(1);
     }
 
     private static async Task<IResult> Handler(
