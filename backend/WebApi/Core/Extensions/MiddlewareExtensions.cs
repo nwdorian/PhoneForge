@@ -25,7 +25,7 @@ public static class MiddlewareExtensions
         app.UseHttpsRedirection();
 
         app.UseRequestContextLogging();
-        app.UseSerilogRequestLogging();
+        app.UseCustomSerilogRequestLogging();
 
         app.UseExceptionHandler();
 
@@ -45,6 +45,21 @@ public static class MiddlewareExtensions
     private static void UseRequestContextLogging(this WebApplication app)
     {
         app.UseMiddleware<RequestLogContextMiddleware>();
+    }
+
+    private static void UseCustomSerilogRequestLogging(this WebApplication app)
+    {
+        app.UseSerilogRequestLogging(opts =>
+        {
+            opts.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+            {
+                diagnosticContext.Set("RequestMethod", httpContext.Request.Method);
+                diagnosticContext.Set("RequestPath", httpContext.Request.Path);
+            };
+
+            opts.MessageTemplate =
+                "Handled {RequestMethod} {RequestPath} in {Elapsed:0.0000} ms";
+        });
     }
 
     private static async Task ApplyMigrations(this IApplicationBuilder app)
