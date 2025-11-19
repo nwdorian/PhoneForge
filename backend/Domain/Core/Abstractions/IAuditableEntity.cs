@@ -1,4 +1,4 @@
-namespace SharedKernel;
+namespace Domain.Core.Abstractions;
 
 /// <summary>
 /// Represents the marker interface for auditable entities.

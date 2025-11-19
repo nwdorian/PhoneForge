@@ -1,4 +1,4 @@
-namespace PhoneForge.WebApi.Endpoints;
+namespace WebApi.Core;
 
 /// <summary>
 /// Represents a marker interface for types that define API endpoints.

@@ -1,4 +1,4 @@
-namespace PhoneForge.UseCases.Abstractions;
+namespace Application.Abstractions;
 
 /// <summary>
 /// Represents a use case marker interface.

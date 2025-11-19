@@ -1,6 +1,6 @@
-using SharedKernel;
+using Domain.Core.Primitives;
 
-namespace PhoneForge.Domain.Contacts;
+namespace Domain.Contacts;
 
 /// <summary>
 /// Contains the contact errors.

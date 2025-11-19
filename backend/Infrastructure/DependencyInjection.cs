@@ -1,8 +1,12 @@
+using Application.Abstractions.Data;
+using Domain.Core.Abstractions;
+using Infrastructure.Database;
+using Infrastructure.Time;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PhoneForge.Infrastructure.Time;
-using SharedKernel;
 
-namespace PhoneForge.Infrastructure;
+namespace Infrastructure;
 
 /// <summary>
 /// Provides extension methods for registering infrastructure services.
@@ -13,13 +17,31 @@ public static class DependencyInjection
     /// Registers the infrastructure layer services with the dependency injection container.
     /// </summary>
     /// <param name="services">The service collection.</param>
+    /// <param name="configuration">The application configuration.</param>
     /// <returns>
     /// The same <see cref="IServiceCollection"/> instance, allowing for method chaining.
     /// </returns>
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructure(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
     {
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+        services.AddDatabase(configuration);
 
         return services;
+    }
+
+    private static void AddDatabase(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
+    {
+        var connectionString = configuration.GetConnectionString("PhoneForgeDb");
+        services.AddDbContext<PhoneForgeDbContext>(options =>
+            options.UseSqlServer(connectionString)
+        );
+
+        services.AddScoped<IDbContext, PhoneForgeDbContext>();
     }
 }

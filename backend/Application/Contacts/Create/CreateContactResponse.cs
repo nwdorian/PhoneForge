@@ -1,4 +1,4 @@
-namespace PhoneForge.UseCases.Contacts.Create;
+namespace Application.Contacts.Create;
 
 /// <summary>
 /// Represents the response returned after creating a new contact.

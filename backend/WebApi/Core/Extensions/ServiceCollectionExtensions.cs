@@ -1,12 +1,11 @@
 using System.Reflection;
+using Application;
 using Asp.Versioning;
+using Infrastructure;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using PhoneForge.Infrastructure;
-using PhoneForge.Persistence;
-using PhoneForge.UseCases;
-using PhoneForge.WebApi.Core.Infrastructure;
+using WebApi.Core.Infrastructure;
 
-namespace PhoneForge.WebApi.Core.Extensions;
+namespace WebApi.Core.Extensions;
 
 /// <summary>
 /// Provides extension methods for registering application services.
@@ -26,8 +25,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddPresentation();
         services.AddUseCases();
-        services.AddInfrastructure();
-        services.AddPersistence(configuration);
+        services.AddInfrastructure(configuration);
 
         services.AddApiVersioning();
 

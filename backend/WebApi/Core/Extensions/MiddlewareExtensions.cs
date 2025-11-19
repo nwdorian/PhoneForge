@@ -1,9 +1,9 @@
+using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
-using PhoneForge.Persistence;
-using PhoneForge.WebApi.Core.Middleware;
 using Serilog;
+using WebApi.Core.Middleware;
 
-namespace PhoneForge.WebApi.Core.Extensions;
+namespace WebApi.Core.Extensions;
 
 /// <summary>
 /// Provides extension methods for registering application middleware.

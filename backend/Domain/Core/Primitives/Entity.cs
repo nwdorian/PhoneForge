@@ -1,4 +1,4 @@
-namespace SharedKernel;
+namespace Domain.Core.Primitives;
 
 /// <summary>
 /// Represents the base class that all entities derive from.

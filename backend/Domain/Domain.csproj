@@ -3,6 +3,6 @@
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="..\SharedKernel\SharedKernel.csproj" />
+        <Folder Include="Core\" />
     </ItemGroup>
 </Project>

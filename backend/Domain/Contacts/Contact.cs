@@ -1,6 +1,8 @@
-using SharedKernel;
+using Domain.Core;
+using Domain.Core.Abstractions;
+using Domain.Core.Primitives;
 
-namespace PhoneForge.Domain.Contacts;
+namespace Domain.Contacts;
 
 /// <summary>
 /// Represents the user entity.

@@ -1,11 +1,11 @@
+using Application.Abstractions;
+using Application.Abstractions.Data;
+using Domain.Contacts;
+using Domain.Core.Primitives;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using PhoneForge.Domain.Contacts;
-using PhoneForge.UseCases.Abstractions;
-using PhoneForge.UseCases.Abstractions.Data;
-using SharedKernel;
 
-namespace PhoneForge.UseCases.Contacts.Create;
+namespace Application.Contacts.Create;
 
 /// <summary>
 /// Represents the <see cref="CreateContactRequest"/> handler.

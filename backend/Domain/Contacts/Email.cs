@@ -1,7 +1,7 @@
 using System.Net.Mail;
-using SharedKernel;
+using Domain.Core.Primitives;
 
-namespace PhoneForge.Domain.Contacts;
+namespace Domain.Contacts;
 
 /// <summary>
 /// Represents the email value object.

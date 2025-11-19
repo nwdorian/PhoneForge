@@ -1,4 +1,4 @@
-namespace SharedKernel;
+namespace Domain.Core.Primitives;
 
 /// <summary>
 /// Specifies the category of an <see cref="Error"/>.

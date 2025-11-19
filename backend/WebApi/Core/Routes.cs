@@ -1,4 +1,4 @@
-namespace PhoneForge.WebApi.Endpoints;
+namespace WebApi.Core;
 
 /// <summary>
 /// Provides route definitions for the application's endpoints.

@@ -1,7 +1,7 @@
+using Domain.Contacts;
 using Microsoft.EntityFrameworkCore;
-using PhoneForge.Domain.Contacts;
 
-namespace PhoneForge.UseCases.Abstractions.Data;
+namespace Application.Abstractions.Data;
 
 /// <summary>
 /// Represents the application database context interface.

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PhoneForge.WebApi.Core.Infrastructure;
+namespace WebApi.Core.Infrastructure;
 
 /// <summary>
 /// A global exception handler that captures unhandled exceptions and converts them

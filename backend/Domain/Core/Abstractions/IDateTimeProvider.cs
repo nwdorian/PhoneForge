@@ -1,4 +1,4 @@
-namespace SharedKernel;
+namespace Domain.Core.Abstractions;
 
 /// <summary>
 /// Represents the interface for getting the current date and time.

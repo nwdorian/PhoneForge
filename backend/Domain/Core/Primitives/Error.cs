@@ -1,4 +1,4 @@
-namespace SharedKernel;
+namespace Domain.Core.Primitives;
 
 /// <summary>
 /// Represents a concrete domain error.

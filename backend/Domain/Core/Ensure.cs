@@ -1,4 +1,4 @@
-namespace SharedKernel;
+namespace Domain.Core;
 
 /// <summary>
 /// Contains assertions for the most common application checks.

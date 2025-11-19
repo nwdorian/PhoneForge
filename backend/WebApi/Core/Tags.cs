@@ -1,4 +1,4 @@
-namespace PhoneForge.WebApi.Endpoints;
+namespace WebApi.Core;
 
 /// <summary>
 /// Provides string constants for endpoint tags used in API documentation and grouping.

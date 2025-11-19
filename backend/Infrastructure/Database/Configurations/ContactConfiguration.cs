@@ -1,8 +1,8 @@
+using Domain.Contacts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PhoneForge.Domain.Contacts;
 
-namespace PhoneForge.Persistence.Configurations;
+namespace Infrastructure.Database.Configurations;
 
 /// <summary>
 /// Represents the configuration for the <see cref="Contact"/> entity.

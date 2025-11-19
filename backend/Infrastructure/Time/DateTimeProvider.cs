@@ -1,6 +1,6 @@
-using SharedKernel;
+using Domain.Core.Abstractions;
 
-namespace PhoneForge.Infrastructure.Time;
+namespace Infrastructure.Time;
 
 /// <summary>
 /// Represents the machine date time service.

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace PhoneForge.WebApi.Core.Infrastructure;
+namespace WebApi.Core.Infrastructure;
 
 /// <summary>
 /// An endpoint filter that validates incoming requests of type <typeparamref name="TRequest"/>

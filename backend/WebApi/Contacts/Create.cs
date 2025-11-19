@@ -1,9 +1,9 @@
-using PhoneForge.UseCases.Contacts.Create;
-using PhoneForge.WebApi.Core.Extensions;
-using PhoneForge.WebApi.Core.Infrastructure;
-using PhoneForge.WebApi.Endpoints;
+using Application.Contacts.Create;
+using WebApi.Core;
+using WebApi.Core.Extensions;
+using WebApi.Core.Infrastructure;
 
-namespace PhoneForge.WebApi.Contacts;
+namespace WebApi.Contacts;
 
 internal sealed class Create : IEndpoint
 {

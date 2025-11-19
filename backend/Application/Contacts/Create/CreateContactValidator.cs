@@ -1,7 +1,7 @@
+using Domain.Contacts;
 using FluentValidation;
-using PhoneForge.Domain.Contacts;
 
-namespace PhoneForge.UseCases.Contacts.Create;
+namespace Application.Contacts.Create;
 
 /// <summary>
 /// Validates <see cref="CreateContactRequest"/> instances.

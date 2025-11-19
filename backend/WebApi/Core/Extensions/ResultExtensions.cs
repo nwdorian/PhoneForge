@@ -1,6 +1,6 @@
-using SharedKernel;
+using Domain.Core.Primitives;
 
-namespace PhoneForge.WebApi.Core.Extensions;
+namespace WebApi.Core.Extensions;
 
 /// <summary>
 /// Contains extension methods for the result class.

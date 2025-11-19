@@ -15,7 +15,9 @@
         <PackageReference Include="Serilog.Sinks.File" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\PhoneForge.Infrastructure\PhoneForge.Infrastructure.csproj" />
-        <ProjectReference Include="..\PhoneForge.Persistence\PhoneForge.Persistence.csproj" />
+        <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Core\Endpoints\" />
     </ItemGroup>
 </Project>

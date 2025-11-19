@@ -1,9 +1,9 @@
 using System.Reflection;
+using Application.Abstractions;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using PhoneForge.UseCases.Abstractions;
 
-namespace PhoneForge.UseCases;
+namespace Application;
 
 /// <summary>
 /// Provides extension methods for registering use case services.

@@ -1,10 +1,10 @@
+using Application.Abstractions.Data;
+using Domain.Contacts;
+using Domain.Core.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using PhoneForge.Domain.Contacts;
-using PhoneForge.UseCases.Abstractions.Data;
-using SharedKernel;
 
-namespace PhoneForge.Persistence;
+namespace Infrastructure.Database;
 
 /// <summary>
 /// Represents the applications database context.

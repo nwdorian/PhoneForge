@@ -1,10 +1,9 @@
 using System.Reflection;
 using Asp.Versioning;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using PhoneForge.WebApi.Core.Infrastructure;
-using PhoneForge.WebApi.Endpoints;
+using WebApi.Core.Infrastructure;
 
-namespace PhoneForge.WebApi.Core.Extensions;
+namespace WebApi.Core.Extensions;
 
 /// <summary>
 /// Provides extension methods for registering and mapping API endpoints.

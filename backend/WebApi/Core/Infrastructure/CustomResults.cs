@@ -1,6 +1,6 @@
-using SharedKernel;
+using Domain.Core.Primitives;
 
-namespace PhoneForge.WebApi.Core.Infrastructure;
+namespace WebApi.Core.Infrastructure;
 
 /// <summary>
 /// Provides custom result helpers for converting <see cref="Result"/> errors
