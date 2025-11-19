@@ -3,7 +3,7 @@ using PhoneForge.WebApi.Core.Extensions;
 using PhoneForge.WebApi.Core.Infrastructure;
 using PhoneForge.WebApi.Endpoints;
 
-namespace PhoneForge.WebApi.Contacts.V1;
+namespace PhoneForge.WebApi.Contacts;
 
 internal sealed class Create : IEndpoint
 {
