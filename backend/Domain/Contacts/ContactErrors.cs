@@ -14,6 +14,19 @@ public static class ContactErrors
         Error.Conflict("Contact.EmailNotUnique", "The provided email is not unique.");
 
     /// <summary>
+    /// Gets an error indicating that the contact was not found by Id.
+    /// </summary>
+    /// <param name="contactId">The unique identifier of the contact.</param>
+    /// <returns></returns>
+    public static Error NotFoundById(Guid contactId)
+    {
+        return Error.NotFound(
+            "Contact.NotFoundById",
+            $"The contact with the Id = {contactId} was not found."
+        );
+    }
+
+    /// <summary>
     /// Contains the first name errors.
     /// </summary>
     public static class FirstName

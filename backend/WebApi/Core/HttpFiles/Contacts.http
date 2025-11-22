@@ -1,7 +1,10 @@
 @HostAddress = http://localhost:5111
 
-GET {{HostAddress}}/
+### Get contact by Id
+
+GET {{HostAddress}}/api/v1/contacts/dc421216-5672-489f-9e5d-1692c8d1d4be
 Accept: application/json
+
 
 ### Create contact
 
