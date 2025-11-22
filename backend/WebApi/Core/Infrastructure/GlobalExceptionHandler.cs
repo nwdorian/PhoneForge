@@ -11,7 +11,6 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
 {
     private readonly IProblemDetailsService _problemDetailsService;
     private readonly ILogger<GlobalExceptionHandler> _logger;
-    private readonly IHostEnvironment _environment;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GlobalExceptionHandler"/> class.
@@ -20,16 +19,13 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
     /// The service responsible for writing <see cref="ProblemDetails"/> responses.
     /// </param>
     /// <param name="logger">The logger used to record exception details.</param>
-    /// <param name="environment">Provides information about the current hosting environment.</param>
     public GlobalExceptionHandler(
         IProblemDetailsService problemDetailsService,
-        ILogger<GlobalExceptionHandler> logger,
-        IHostEnvironment environment
+        ILogger<GlobalExceptionHandler> logger
     )
     {
         _problemDetailsService = problemDetailsService;
         _logger = logger;
-        _environment = environment;
     }
 
     /// <summary>
@@ -59,27 +55,10 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
                 ProblemDetails = new ProblemDetails
                 {
                     Status = StatusCodes.Status500InternalServerError,
-                    Type = exception.GetType().Name,
-                    Title = "An error occurred",
-                    Detail = GetErrorDetail(exception),
+                    Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1",
+                    Title = "Server failure",
                 },
             }
         );
-    }
-
-    /// <summary>
-    /// Returns an error message appropriate for the current hosting environment.
-    /// In development, the exception message is returned. In production, a generic
-    /// error message is used to avoid leaking internal details.
-    /// </summary>
-    /// <param name="exception">The exception to extract details from.</param>
-    /// <returns>
-    /// A detailed message in development, or a safe generic message in non-development environments.
-    /// </returns>
-    private string GetErrorDetail(Exception exception)
-    {
-        return _environment.IsDevelopment()
-            ? exception.Message
-            : "Something went wrong. Please try again later.";
     }
 }

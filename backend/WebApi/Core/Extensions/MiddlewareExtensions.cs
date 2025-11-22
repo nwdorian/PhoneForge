@@ -19,7 +19,7 @@ public static class MiddlewareExtensions
         this WebApplication app
     )
     {
-        app.MapEndpoints();
+        app.UseExceptionHandler();
 
         app.UseOpenApi();
         app.UseHttpsRedirection();
@@ -27,7 +27,7 @@ public static class MiddlewareExtensions
         app.UseRequestContextLogging();
         app.UseCustomSerilogRequestLogging();
 
-        app.UseExceptionHandler();
+        app.MapEndpoints();
 
         await app.ApplyMigrations();
 
