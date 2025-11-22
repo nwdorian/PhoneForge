@@ -82,6 +82,16 @@ public class Result
     }
 
     /// <summary>
+    /// Implicitly converts an <see cref="Error"/>
+    /// into a failed <see cref="Result"/>.
+    /// </summary>
+    /// <param name="error">The error to wrap in a failure result.</param>
+    public static implicit operator Result(Error error)
+    {
+        return Result.Failure(error);
+    }
+
+    /// <summary>
     /// Returns the first failure from the specified <paramref name="results"/>.
     /// If there is no failure, a success is returned.
     /// </summary>
