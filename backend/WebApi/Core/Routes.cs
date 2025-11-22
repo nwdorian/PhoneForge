@@ -19,5 +19,10 @@ public static class Routes
         /// The route used for creating a new contact.
         /// </summary>
         public const string Create = Base;
+
+        /// <summary>
+        /// The route used for retrieving contact by an identifier.
+        /// </summary>
+        public const string GetById = $"{Base}/{{id:guid}}";
     }
 }

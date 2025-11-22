@@ -3,11 +3,11 @@ using WebApi.Core;
 using WebApi.Core.Extensions;
 using WebApi.Core.Infrastructure;
 
-namespace WebApi.Contacts;
+namespace WebApi.Contacts.Create;
 
-internal sealed class Create : IEndpoint
+internal sealed class CreateContactEndpoint : IEndpoint
 {
-    private const string Name = "CreateContact";
+    public const string Name = "CreateContact";
 
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
@@ -23,7 +23,14 @@ internal sealed class Create : IEndpoint
         CancellationToken cancellationToken
     )
     {
-        var result = await useCase.Handle(request, cancellationToken);
+        var command = new CreateContactCommand(
+            request.FirstName,
+            request.LastName,
+            request.Email,
+            request.PhoneNumber
+        );
+
+        var result = await useCase.Handle(command, cancellationToken);
 
         return result.Match(Results.Ok, CustomResults.Problem);
     }

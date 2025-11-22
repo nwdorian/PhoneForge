@@ -1,6 +1,5 @@
 using System.Reflection;
 using Application.Core.Abstractions;
-using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Core;
@@ -19,8 +18,6 @@ public static class DependencyInjection
     {
         services.AddUseCases(typeof(IUseCase).Assembly);
 
-        services.AddFluentValidation();
-
         return services;
     }
 
@@ -37,10 +34,5 @@ public static class DependencyInjection
         {
             services.AddScoped(type, type);
         }
-    }
-
-    private static void AddFluentValidation(this IServiceCollection services)
-    {
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }

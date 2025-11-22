@@ -1,6 +1,7 @@
 using System.Reflection;
 using Application.Core;
 using Asp.Versioning;
+using FluentValidation;
 using Infrastructure.Core;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using WebApi.Core.Infrastructure;
@@ -34,6 +35,8 @@ public static class ServiceCollectionExtensions
         services.AddCustomProblemDetails();
 
         services.AddEndpoints(Assembly.GetExecutingAssembly());
+
+        services.AddFluentValidation();
 
         return services;
     }
@@ -76,5 +79,10 @@ public static class ServiceCollectionExtensions
                 );
             };
         });
+    }
+
+    private static void AddFluentValidation(this IServiceCollection services)
+    {
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }

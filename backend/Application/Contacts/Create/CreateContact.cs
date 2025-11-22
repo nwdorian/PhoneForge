@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace Application.Contacts.Create;
 
 /// <summary>
-/// Represents the <see cref="CreateContactRequest"/> handler.
+/// Represents the <see cref="CreateContact"/> use case.
 /// </summary>
 public sealed class CreateContact : IUseCase
 {
@@ -19,7 +19,7 @@ public sealed class CreateContact : IUseCase
     /// Initializes a new instance of the <see cref="CreateContact"/> class.
     /// </summary>
     /// <param name="context">The database context used to persist the new contact.</param>
-    /// <param name="logger">The logger used to record diagnostic information</param>
+    /// <param name="logger">The logger used to record diagnostic information.</param>
     public CreateContact(IDbContext context, ILogger<CreateContact> logger)
     {
         _context = context;
@@ -27,20 +27,20 @@ public sealed class CreateContact : IUseCase
     }
 
     /// <summary>
-    /// Handles a command.
+    /// Handles a <see cref="CreateContactCommand"/>.
     /// </summary>
     /// <returns>Response from the command.</returns>
     public async Task<Result<CreateContactResponse>> Handle(
-        CreateContactRequest request,
+        CreateContactCommand command,
         CancellationToken cancellationToken
     )
     {
-        _logger.LogInformation("Processing request {Request}", request);
+        _logger.LogInformation("Processing command {Command}", command);
 
-        var firstNameResult = FirstName.Create(request.FirstName);
-        var lastNameResult = LastName.Create(request.LastName);
-        var emailResult = Email.Create(request.Email);
-        var phoneNumberResult = PhoneNumber.Create(request.PhoneNumber);
+        var firstNameResult = FirstName.Create(command.FirstName);
+        var lastNameResult = LastName.Create(command.LastName);
+        var emailResult = Email.Create(command.Email);
+        var phoneNumberResult = PhoneNumber.Create(command.PhoneNumber);
 
         var firstFailOrSuccess = Result.FirstFailOrSuccess(
             firstNameResult,
@@ -57,7 +57,7 @@ public sealed class CreateContact : IUseCase
 
         if (
             await _context.Contacts.AnyAsync(
-                c => c.Email.Value == request.Email,
+                c => c.Email.Value == command.Email,
                 cancellationToken
             )
         )
@@ -79,15 +79,13 @@ public sealed class CreateContact : IUseCase
 
         var response = new CreateContactResponse(
             contact.Id,
-            contact.FirstName,
-            contact.LastName,
             contact.FullName,
             contact.Email,
             contact.PhoneNumber,
             contact.CreatedOnUtc
         );
 
-        _logger.LogInformation("Completed request {@Request}", request);
+        _logger.LogInformation("Completed command {@Command}", command);
         return response;
     }
 }

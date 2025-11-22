@@ -1,18 +1,17 @@
 using Domain.Contacts;
 using FluentValidation;
 
-namespace Application.Contacts.Create;
+namespace WebApi.Contacts.Create;
 
 /// <summary>
 /// Validates <see cref="CreateContactRequest"/> instances.
 /// </summary>
-public sealed class CreateContactValidator : AbstractValidator<CreateContactRequest>
+public class CreateContactRequestValidator : AbstractValidator<CreateContactRequest>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CreateContactValidator"/> class
-    /// and defines the validation rules for a <see cref="CreateContactRequest"/>.
+    /// Defines the validation rules for a <see cref="CreateContactRequest"/>.
     /// </summary>
-    public CreateContactValidator()
+    public CreateContactRequestValidator()
     {
         RuleFor(r => r.FirstName)
             .NotEmpty()
