@@ -1,8 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    </PropertyGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\PhoneForge.UseCases\PhoneForge.UseCases.csproj" />
-    </ItemGroup>
-</Project>

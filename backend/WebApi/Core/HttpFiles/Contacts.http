@@ -1,0 +1,16 @@
+@HostAddress = http://localhost:5111
+
+GET {{HostAddress}}/
+Accept: application/json
+
+### Create contact
+
+POST {{HostAddress}}/api/v1/contacts
+Content-type: application/json
+
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "jdoe@gmail.com",
+    "phoneNumber": "091212121212"
+}
