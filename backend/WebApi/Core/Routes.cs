@@ -23,6 +23,6 @@ public static class Routes
         /// <summary>
         /// The route used for retrieving contact by an identifier.
         /// </summary>
-        public const string GetById = $"{Base}/{{id:guid}}";
+        public const string GetById = $"{Base}/{{contactId:guid}}";
     }
 }
