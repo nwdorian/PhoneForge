@@ -32,8 +32,8 @@ public class DeleteContact : IUseCase
     /// <param name="command">The command containing the contact identifier.</param>
     /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
     /// <returns>
-    /// A successful <see cref="Result"/> if the contact was deleted
-    /// or an <see cref="Error"/> if the contact was not found.
+    /// A successful result if the contact was deleted
+    /// or an error if the contact was not found.
     /// </returns>
     public async Task<Result> Handle(
         DeleteContactCommand command,
