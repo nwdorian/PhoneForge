@@ -35,7 +35,7 @@ public sealed class CreateContact : IUseCase
     /// A successful result containing a <see cref="ContactResponse"/> if the contact was created
     /// or an error result.
     /// </returns>
-    public async Task<Result<CreateContactResponse>> Handle(
+    public async Task<Result<ContactResponse>> Handle(
         CreateContactCommand command,
         CancellationToken cancellationToken
     )
@@ -82,8 +82,10 @@ public sealed class CreateContact : IUseCase
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var response = new CreateContactResponse(
+        var response = new ContactResponse(
             contact.Id,
+            contact.FirstName,
+            contact.LastName,
             contact.FullName,
             contact.Email,
             contact.PhoneNumber,
