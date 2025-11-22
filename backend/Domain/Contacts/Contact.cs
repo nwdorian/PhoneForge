@@ -1,4 +1,3 @@
-using Domain.Core;
 using Domain.Core.Abstractions;
 using Domain.Core.Primitives;
 
@@ -24,11 +23,6 @@ public sealed class Contact : Entity, ISoftDeletableEntity, IAuditableEntity
     )
         : base(Guid.NewGuid())
     {
-        Ensure.NotNull(firstName, "The first name is required", nameof(firstName));
-        Ensure.NotNull(lastName, "The last name is required", nameof(lastName));
-        Ensure.NotNull(email, "The email is required", nameof(email));
-        Ensure.NotNull(phoneNumber, "The phone number is required", nameof(phoneNumber));
-
         FirstName = firstName;
         LastName = lastName;
         Email = email;
