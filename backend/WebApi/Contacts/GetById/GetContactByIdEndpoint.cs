@@ -1,3 +1,4 @@
+using Application.Contacts;
 using Application.Contacts.GetById;
 using WebApi.Core;
 using WebApi.Core.Extensions;
@@ -13,6 +14,8 @@ internal sealed class GetContactByIdEndpoint : IEndpoint
     {
         app.MapGet(Routes.Contacts.GetById, Handler)
             .WithNameAndTags(Name, Tags.Contacts)
+            .Produces<ContactResponse>(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status404NotFound)
             .MapToApiVersion(1);
     }
 
