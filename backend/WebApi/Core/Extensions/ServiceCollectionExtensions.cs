@@ -25,7 +25,7 @@ public static class ServiceCollectionExtensions
     )
     {
         services.AddPresentation();
-        services.AddUseCases();
+        services.AddApplication();
         services.AddInfrastructure(configuration);
 
         services.AddApiVersioning();

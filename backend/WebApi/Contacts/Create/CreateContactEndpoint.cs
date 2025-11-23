@@ -1,5 +1,6 @@
 using Application.Contacts;
 using Application.Contacts.Create;
+using Application.Core.Abstractions.Messaging;
 using Domain.Core.Primitives;
 using WebApi.Contacts.GetById;
 using WebApi.Core;
@@ -25,7 +26,7 @@ internal sealed class CreateContactEndpoint : IEndpoint
 
     private static async Task<IResult> Handler(
         CreateContactRequest request,
-        CreateContact useCase,
+        ICommandHandler<CreateContactCommand, ContactResponse> useCase,
         CancellationToken cancellationToken
     )
     {

@@ -1,4 +1,5 @@
 using Application.Contacts.Delete;
+using Application.Core.Abstractions.Messaging;
 using Domain.Core.Primitives;
 using WebApi.Core;
 using WebApi.Core.Extensions;
@@ -21,7 +22,7 @@ internal sealed class DeleteContactEndpoint : IEndpoint
 
     private static async Task<IResult> Handler(
         Guid contactId,
-        DeleteContact useCase,
+        ICommandHandler<DeleteContactCommand> useCase,
         CancellationToken cancellationToken
     )
     {

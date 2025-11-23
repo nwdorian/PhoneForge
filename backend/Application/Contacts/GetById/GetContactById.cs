@@ -1,35 +1,19 @@
-using Application.Core.Abstractions;
 using Application.Core.Abstractions.Data;
+using Application.Core.Abstractions.Messaging;
 using Domain.Contacts;
 using Domain.Core.Primitives;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace Application.Contacts.GetById;
 
-/// <summary>
-/// Represents the <see cref="GetContactById"/> use case.
-/// </summary>
-/// <param name="context">The database context used to retrieve the contact.</param>
-/// <param name="logger">The logger used to record diagnostic information.</param>
-public class GetContactById(IDbContext context, ILogger<GetContactById> logger) : IUseCase
+internal sealed class GetContactById(IDbContext context)
+    : IQueryHandler<GetContactByIdQuery, ContactResponse>
 {
-    /// <summary>
-    /// Handles a <see cref="GetContactByIdQuery"/>.
-    /// </summary>
-    /// <param name="query">The query containing the contact identifier.</param>
-    /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
-    /// <returns>
-    /// A result containing a <see cref="ContactResponse"/> if the contact is found,
-    /// or an error result if the contact does not exist.
-    /// </returns>
     public async Task<Result<ContactResponse>> Handle(
         GetContactByIdQuery query,
         CancellationToken cancellationToken
     )
     {
-        logger.LogInformation("Processing {Query}", query);
-
         ContactResponse? contact = await context
             .Contacts.AsNoTracking()
             .Where(c => c.Id == query.Id)
@@ -46,11 +30,9 @@ public class GetContactById(IDbContext context, ILogger<GetContactById> logger) 
 
         if (contact is null)
         {
-            logger.LogError("Error: {@Error}", ContactErrors.NotFoundById(query.Id));
             return ContactErrors.NotFoundById(query.Id);
         }
 
-        logger.LogInformation("Completed {@Query}", query);
         return contact;
     }
 }

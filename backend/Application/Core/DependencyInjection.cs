@@ -1,5 +1,5 @@
-using System.Reflection;
-using Application.Core.Abstractions;
+using Application.Core.Abstractions.Behaviors;
+using Application.Core.Abstractions.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Core;
@@ -14,25 +14,52 @@ public static class DependencyInjection
     /// </summary>
     /// <param name="services">The service collection.</param>
     /// <returns>The same <see cref="IServiceCollection"/> instance, allowing for method chaining.</returns>
-    public static IServiceCollection AddUseCases(this IServiceCollection services)
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddUseCases(typeof(IUseCase).Assembly);
+        services.AddUseCases();
+        services.AddDecorators();
 
         return services;
     }
 
-    private static void AddUseCases(this IServiceCollection services, Assembly assembly)
+    private static void AddUseCases(this IServiceCollection services)
     {
-        TypeInfo[] types = assembly
-            .DefinedTypes.Where(type =>
-                type is { IsAbstract: false, IsInterface: false }
-                && type.IsAssignableTo(typeof(IUseCase))
-            )
-            .ToArray();
+        services.Scan(scan =>
+            scan.FromAssembliesOf(typeof(DependencyInjection))
+                .AddClasses(
+                    classes => classes.AssignableTo(typeof(IQueryHandler<,>)),
+                    publicOnly: false
+                )
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
+                .AddClasses(
+                    classes => classes.AssignableTo(typeof(ICommandHandler<>)),
+                    publicOnly: false
+                )
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
+                .AddClasses(
+                    classes => classes.AssignableTo(typeof(ICommandHandler<,>)),
+                    publicOnly: false
+                )
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
+        );
+    }
 
-        foreach (TypeInfo type in types)
-        {
-            services.AddScoped(type, type);
-        }
+    private static void AddDecorators(this IServiceCollection services)
+    {
+        services.Decorate(
+            typeof(IQueryHandler<,>),
+            typeof(LoggingDecorator.QueryHandler<,>)
+        );
+        services.Decorate(
+            typeof(ICommandHandler<,>),
+            typeof(LoggingDecorator.CommandHandler<,>)
+        );
+        services.Decorate(
+            typeof(ICommandHandler<>),
+            typeof(LoggingDecorator.CommandBaseHandler<>)
+        );
     }
 }
