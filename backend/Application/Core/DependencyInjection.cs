@@ -23,14 +23,14 @@ public static class DependencyInjection
 
     private static void AddUseCases(this IServiceCollection services, Assembly assembly)
     {
-        var types = assembly
+        TypeInfo[] types = assembly
             .DefinedTypes.Where(type =>
                 type is { IsAbstract: false, IsInterface: false }
                 && type.IsAssignableTo(typeof(IUseCase))
             )
             .ToArray();
 
-        foreach (var type in types)
+        foreach (TypeInfo type in types)
         {
             services.AddScoped(type, type);
         }

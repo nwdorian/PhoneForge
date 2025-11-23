@@ -1,5 +1,6 @@
 using Application.Contacts;
 using Application.Contacts.Create;
+using Domain.Core.Primitives;
 using WebApi.Contacts.GetById;
 using WebApi.Core;
 using WebApi.Core.Extensions;
@@ -28,14 +29,14 @@ internal sealed class CreateContactEndpoint : IEndpoint
         CancellationToken cancellationToken
     )
     {
-        var command = new CreateContactCommand(
+        CreateContactCommand command = new(
             request.FirstName,
             request.LastName,
             request.Email,
             request.PhoneNumber
         );
 
-        var result = await useCase.Handle(command, cancellationToken);
+        Result<ContactResponse> result = await useCase.Handle(command, cancellationToken);
 
         return result.Match(
             result =>

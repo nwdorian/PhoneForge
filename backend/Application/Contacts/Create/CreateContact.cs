@@ -42,12 +42,12 @@ public sealed class CreateContact : IUseCase
     {
         _logger.LogInformation("Processing command {Command}", command);
 
-        var firstNameResult = FirstName.Create(command.FirstName);
-        var lastNameResult = LastName.Create(command.LastName);
-        var emailResult = Email.Create(command.Email);
-        var phoneNumberResult = PhoneNumber.Create(command.PhoneNumber);
+        Result<FirstName> firstNameResult = FirstName.Create(command.FirstName);
+        Result<LastName> lastNameResult = LastName.Create(command.LastName);
+        Result<Email> emailResult = Email.Create(command.Email);
+        Result<PhoneNumber> phoneNumberResult = PhoneNumber.Create(command.PhoneNumber);
 
-        var firstFailOrSuccess = Result.FirstFailOrSuccess(
+        Result firstFailOrSuccess = Result.FirstFailOrSuccess(
             firstNameResult,
             lastNameResult,
             emailResult,
@@ -71,7 +71,7 @@ public sealed class CreateContact : IUseCase
             return ContactErrors.EmailNotUnique;
         }
 
-        var contact = Contact.Create(
+        Contact contact = Contact.Create(
             firstNameResult.Value,
             lastNameResult.Value,
             emailResult.Value,
@@ -82,7 +82,7 @@ public sealed class CreateContact : IUseCase
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var response = new ContactResponse(
+        ContactResponse response = new(
             contact.Id,
             contact.FirstName,
             contact.LastName,

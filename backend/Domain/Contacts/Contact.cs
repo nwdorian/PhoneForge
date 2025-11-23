@@ -91,7 +91,7 @@ public sealed class Contact : Entity, ISoftDeletableEntity, IAuditableEntity
         PhoneNumber phoneNumber
     )
     {
-        var contact = new Contact(firstName, lastName, email, phoneNumber);
+        Contact contact = new(firstName, lastName, email, phoneNumber);
         return contact;
     }
 }

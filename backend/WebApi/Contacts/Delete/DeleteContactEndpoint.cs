@@ -1,4 +1,5 @@
 using Application.Contacts.Delete;
+using Domain.Core.Primitives;
 using WebApi.Core;
 using WebApi.Core.Extensions;
 using WebApi.Core.Infrastructure;
@@ -24,9 +25,9 @@ internal sealed class DeleteContactEndpoint : IEndpoint
         CancellationToken cancellationToken
     )
     {
-        var command = new DeleteContactCommand(contactId);
+        DeleteContactCommand command = new(contactId);
 
-        var result = await useCase.Handle(command, cancellationToken);
+        Result result = await useCase.Handle(command, cancellationToken);
 
         return result.Match(Results.NoContent, CustomResults.Problem);
     }

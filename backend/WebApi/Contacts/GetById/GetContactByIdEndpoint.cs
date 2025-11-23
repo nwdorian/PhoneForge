@@ -1,5 +1,6 @@
 using Application.Contacts;
 using Application.Contacts.GetById;
+using Domain.Core.Primitives;
 using WebApi.Core;
 using WebApi.Core.Extensions;
 using WebApi.Core.Infrastructure;
@@ -25,9 +26,9 @@ internal sealed class GetContactByIdEndpoint : IEndpoint
         CancellationToken cancellationToken
     )
     {
-        var query = new GetContactByIdQuery(contactId);
+        GetContactByIdQuery query = new(contactId);
 
-        var result = await useCase.Handle(query, cancellationToken);
+        Result<ContactResponse> result = await useCase.Handle(query, cancellationToken);
 
         return result.Match(Results.Ok, CustomResults.Problem);
     }

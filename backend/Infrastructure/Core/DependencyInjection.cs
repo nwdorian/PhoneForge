@@ -37,7 +37,7 @@ public static class DependencyInjection
         IConfiguration configuration
     )
     {
-        var connectionString = configuration.GetConnectionString("PhoneForgeDb");
+        string? connectionString = configuration.GetConnectionString("PhoneForgeDb");
         services.AddDbContext<PhoneForgeDbContext>(options =>
             options.UseSqlServer(connectionString)
         );

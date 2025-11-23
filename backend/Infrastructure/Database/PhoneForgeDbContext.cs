@@ -43,7 +43,7 @@ public sealed class PhoneForgeDbContext : DbContext, IDbContext
         CancellationToken cancellationToken = default
     )
     {
-        var utcNow = _dateTimeProvider.UtcNow;
+        DateTime utcNow = _dateTimeProvider.UtcNow;
 
         UpdateAuditableEntities(utcNow);
 
@@ -58,9 +58,11 @@ public sealed class PhoneForgeDbContext : DbContext, IDbContext
     /// <param name="utcNow">The current date and time in UTC format.</param>
     private void UpdateAuditableEntities(DateTime utcNow)
     {
-        var entities = ChangeTracker.Entries<IAuditableEntity>().ToList();
+        List<EntityEntry<IAuditableEntity>> entities = ChangeTracker
+            .Entries<IAuditableEntity>()
+            .ToList();
 
-        foreach (var entity in entities)
+        foreach (EntityEntry<IAuditableEntity>? entity in entities)
         {
             if (entity.State == EntityState.Added)
             {
@@ -82,12 +84,12 @@ public sealed class PhoneForgeDbContext : DbContext, IDbContext
     /// <param name="utcNow">The current date and time in UTC format.</param>
     private void UpdateSoftDeletableEntities(DateTime utcNow)
     {
-        var entities = ChangeTracker
+        List<EntityEntry<ISoftDeletableEntity>> entities = ChangeTracker
             .Entries<ISoftDeletableEntity>()
             .Where(e => e.State == EntityState.Deleted)
             .ToList();
 
-        foreach (var entity in entities)
+        foreach (EntityEntry<ISoftDeletableEntity>? entity in entities)
         {
             entity.Property(nameof(ISoftDeletableEntity.DeletedOnUtc)).CurrentValue =
                 utcNow;
@@ -112,11 +114,11 @@ public sealed class PhoneForgeDbContext : DbContext, IDbContext
             return;
         }
 
-        var references = entity
+        IEnumerable<EntityEntry> references = entity
             .References.Where(r => r.TargetEntry?.State == EntityState.Deleted)
             .Select(r => r.TargetEntry!);
 
-        foreach (var reference in references)
+        foreach (EntityEntry? reference in references)
         {
             reference.State = EntityState.Unchanged;
 

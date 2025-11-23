@@ -42,7 +42,7 @@ public class GetContactById : IUseCase
     {
         _logger.LogInformation("Processing {Query}", query);
 
-        var contact = await _context
+        ContactResponse? contact = await _context
             .Contacts.AsNoTracking()
             .Where(c => c.Id == query.Id)
             .Select(c => new ContactResponse(

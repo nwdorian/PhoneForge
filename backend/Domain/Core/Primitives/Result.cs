@@ -101,7 +101,7 @@ public class Result
     /// </returns>
     public static Result FirstFailOrSuccess(params Result[] results)
     {
-        foreach (var result in results)
+        foreach (Result result in results)
         {
             if (result.IsFailure)
             {

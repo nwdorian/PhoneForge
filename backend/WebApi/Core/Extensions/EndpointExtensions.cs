@@ -1,5 +1,6 @@
 using System.Reflection;
 using Asp.Versioning;
+using Asp.Versioning.Builder;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using WebApi.Core.Infrastructure;
 
@@ -18,18 +19,20 @@ public static class EndpointExtensions
     /// <returns>The same <see cref="IApplicationBuilder"/> instance for chaining.</returns>
     public static IApplicationBuilder MapEndpoints(this WebApplication app)
     {
-        var apiVersionSet = app.NewApiVersionSet()
+        ApiVersionSet apiVersionSet = app.NewApiVersionSet()
             .HasApiVersion(new ApiVersion(1))
             .HasApiVersion(new ApiVersion(2))
             .ReportApiVersions()
             .Build();
 
-        var builder = app.MapGroup("api/v{apiVersion:apiVersion}")
+        RouteGroupBuilder builder = app.MapGroup("api/v{apiVersion:apiVersion}")
             .WithApiVersionSet(apiVersionSet);
 
-        var endpoints = app.Services.GetRequiredService<IEnumerable<IEndpoint>>();
+        IEnumerable<IEndpoint> endpoints = app.Services.GetRequiredService<
+            IEnumerable<IEndpoint>
+        >();
 
-        foreach (var endpoint in endpoints)
+        foreach (IEndpoint endpoint in endpoints)
         {
             endpoint.MapEndpoint(builder);
         }
@@ -49,7 +52,7 @@ public static class EndpointExtensions
         Assembly assembly
     )
     {
-        var types = assembly
+        ServiceDescriptor[] types = assembly
             .DefinedTypes.Where(type =>
                 type is { IsAbstract: false, IsInterface: false }
                 && type.IsAssignableTo(typeof(IEndpoint))

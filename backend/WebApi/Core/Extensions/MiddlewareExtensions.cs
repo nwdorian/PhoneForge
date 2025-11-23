@@ -64,9 +64,9 @@ public static class MiddlewareExtensions
 
     private static async Task ApplyMigrations(this IApplicationBuilder app)
     {
-        using var scope = app.ApplicationServices.CreateScope();
+        using IServiceScope scope = app.ApplicationServices.CreateScope();
 
-        using var dbContext =
+        using PhoneForgeDbContext dbContext =
             scope.ServiceProvider.GetRequiredService<PhoneForgeDbContext>();
 
         await dbContext.Database.MigrateAsync();

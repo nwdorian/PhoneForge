@@ -1,4 +1,5 @@
 using FluentValidation;
+using FluentValidation.Results;
 
 namespace WebApi.Core.Infrastructure;
 
@@ -34,9 +35,9 @@ public sealed class ValidationFilter<TRequest> : IEndpointFilter
         EndpointFilterDelegate next
     )
     {
-        var request = context.Arguments.OfType<TRequest>().First();
+        TRequest? request = context.Arguments.OfType<TRequest>().First();
 
-        var result = await _validator.ValidateAsync(
+        ValidationResult result = await _validator.ValidateAsync(
             request,
             context.HttpContext.RequestAborted
         );

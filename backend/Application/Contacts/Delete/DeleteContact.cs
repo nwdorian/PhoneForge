@@ -42,7 +42,7 @@ public class DeleteContact : IUseCase
     {
         _logger.LogInformation("Processing command {Command}", command);
 
-        var contact = await _context.Contacts.SingleOrDefaultAsync(
+        Contact? contact = await _context.Contacts.SingleOrDefaultAsync(
             c => c.Id == command.Id,
             cancellationToken
         );

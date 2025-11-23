@@ -66,7 +66,7 @@ public sealed record Email
     {
         try
         {
-            var mailAdress = new MailAddress(email);
+            MailAddress mailAdress = new(email);
 
             return mailAdress.Address == email;
         }
