@@ -1,4 +1,6 @@
+using System.Globalization;
 using Serilog;
+using Serilog.Formatting.Json;
 
 namespace WebApi.Core.Extensions;
 
@@ -23,6 +25,18 @@ public static class ApplicationBuilderExtensions
             (context, config) =>
             {
                 config.ReadFrom.Configuration(context.Configuration);
+
+                config
+                    .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
+                    .WriteTo.File(
+                        new JsonFormatter(renderMessage: true),
+                        "../../logs/log-.txt",
+                        rollingInterval: RollingInterval.Day,
+                        rollOnFileSizeLimit: true,
+                        shared: true
+                    );
+
+                config.Enrich.FromLogContext();
             }
         );
 
