@@ -7,27 +7,15 @@ namespace WebApi.Core.Infrastructure;
 /// A global exception handler that captures unhandled exceptions and converts them
 /// into standardized <see cref="ProblemDetails"/> responses.
 /// </summary>
-public sealed class GlobalExceptionHandler : IExceptionHandler
+/// <param name="problemDetailsService">
+/// The service responsible for writing <see cref="ProblemDetails"/> responses.
+/// </param>
+/// <param name="logger">The logger used to record exception details.</param>
+public sealed class GlobalExceptionHandler(
+    IProblemDetailsService problemDetailsService,
+    ILogger<GlobalExceptionHandler> logger
+) : IExceptionHandler
 {
-    private readonly IProblemDetailsService _problemDetailsService;
-    private readonly ILogger<GlobalExceptionHandler> _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="GlobalExceptionHandler"/> class.
-    /// </summary>
-    /// <param name="problemDetailsService">
-    /// The service responsible for writing <see cref="ProblemDetails"/> responses.
-    /// </param>
-    /// <param name="logger">The logger used to record exception details.</param>
-    public GlobalExceptionHandler(
-        IProblemDetailsService problemDetailsService,
-        ILogger<GlobalExceptionHandler> logger
-    )
-    {
-        _problemDetailsService = problemDetailsService;
-        _logger = logger;
-    }
-
     /// <summary>
     /// Attempts to handle an unhandled exception by logging it and returning a standardized
     /// <see cref="ProblemDetails"/> response to the client.
@@ -45,9 +33,9 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
         CancellationToken cancellationToken
     )
     {
-        _logger.LogError(exception, "Unhandled exception occurred");
+        logger.LogError(exception, "Unhandled exception occurred");
 
-        return await _problemDetailsService.TryWriteAsync(
+        return await problemDetailsService.TryWriteAsync(
             new ProblemDetailsContext
             {
                 HttpContext = httpContext,

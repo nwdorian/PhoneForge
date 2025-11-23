@@ -10,22 +10,10 @@ namespace Application.Contacts.Delete;
 /// <summary>
 /// Represents the <see cref="DeleteContact"/> use case.
 /// </summary>
-public class DeleteContact : IUseCase
+/// <param name="context">The database context used to delete the contact.</param>
+/// <param name="logger">The logger used to record diagnostic information.</param>
+public class DeleteContact(IDbContext context, ILogger<DeleteContact> logger) : IUseCase
 {
-    private readonly IDbContext _context;
-    private readonly ILogger<DeleteContact> _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DeleteContact"/> class.
-    /// </summary>
-    /// <param name="context">The database context used to delete the contact.</param>
-    /// <param name="logger">The logger used to record diagnostic information.</param>
-    public DeleteContact(IDbContext context, ILogger<DeleteContact> logger)
-    {
-        _context = context;
-        _logger = logger;
-    }
-
     /// <summary>
     /// Represents the <see cref="DeleteContactCommand"/> handler.
     /// </summary>
@@ -40,24 +28,24 @@ public class DeleteContact : IUseCase
         CancellationToken cancellationToken
     )
     {
-        _logger.LogInformation("Processing command {Command}", command);
+        logger.LogInformation("Processing command {Command}", command);
 
-        Contact? contact = await _context.Contacts.SingleOrDefaultAsync(
+        Contact? contact = await context.Contacts.SingleOrDefaultAsync(
             c => c.Id == command.Id,
             cancellationToken
         );
 
         if (contact is null)
         {
-            _logger.LogError("Error: {@Error}", ContactErrors.NotFoundById(command.Id));
+            logger.LogError("Error: {@Error}", ContactErrors.NotFoundById(command.Id));
             return ContactErrors.NotFoundById(command.Id);
         }
 
-        _context.Contacts.Remove(contact);
+        context.Contacts.Remove(contact);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
 
-        _logger.LogInformation("Completed command {@Command}", command);
+        logger.LogInformation("Completed command {@Command}", command);
         return Result.Success();
     }
 }

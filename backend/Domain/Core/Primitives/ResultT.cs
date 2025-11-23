@@ -4,22 +4,12 @@ namespace Domain.Core.Primitives;
 /// Represents the result of some operation, with status information and possibly a value and an error.
 /// </summary>
 /// <typeparam name="TValue">The result value type.</typeparam>
-public class Result<TValue> : Result
+/// <param name="value">The result value.</param>
+/// <param name="isSuccess">The flag indicating if the result is successful.</param>
+/// <param name="error">The error.</param>
+public class Result<TValue>(TValue? value, bool isSuccess, Error error)
+    : Result(isSuccess, error)
 {
-    private readonly TValue? _value;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Result{TValueType}"/> class with the specified parameters.
-    /// </summary>
-    /// <param name="value">The result value.</param>
-    /// <param name="isSuccess">The flag indicating if the result is successful.</param>
-    /// <param name="error">The error.</param>
-    public Result(TValue? value, bool isSuccess, Error error)
-        : base(isSuccess, error)
-    {
-        _value = value;
-    }
-
     /// <summary>
     /// Gets the result value if the result is successful, otherwise throws an exception.
     /// </summary>
@@ -27,7 +17,7 @@ public class Result<TValue> : Result
     /// <exception cref="InvalidOperationException"> when <see cref="Result.IsFailure"/> is true.</exception>
     public TValue Value =>
         IsSuccess
-            ? _value!
+            ? value!
             : throw new InvalidOperationException(
                 "The value of a failure result can't be accessed."
             );

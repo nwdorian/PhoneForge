@@ -8,19 +8,10 @@ namespace WebApi.Core.Infrastructure;
 /// using FluentValidation before invoking the endpoint handler.
 /// </summary>
 /// <typeparam name="TRequest">The type of request to validate.</typeparam>
-public sealed class ValidationFilter<TRequest> : IEndpointFilter
+/// <param name="validator">The validator used to validate the request.</param>
+public sealed class ValidationFilter<TRequest>(IValidator<TRequest> validator)
+    : IEndpointFilter
 {
-    private readonly IValidator<TRequest> _validator;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ValidationFilter{TRequest}"/> class.
-    /// </summary>
-    /// <param name="validator">The validator used to validate the request.</param>
-    public ValidationFilter(IValidator<TRequest> validator)
-    {
-        _validator = validator;
-    }
-
     /// <summary>
     /// Invokes the filter, validating the request before calling the next delegate in the pipeline.
     /// </summary>
@@ -37,7 +28,7 @@ public sealed class ValidationFilter<TRequest> : IEndpointFilter
     {
         TRequest? request = context.Arguments.OfType<TRequest>().First();
 
-        ValidationResult result = await _validator.ValidateAsync(
+        ValidationResult result = await validator.ValidateAsync(
             request,
             context.HttpContext.RequestAborted
         );

@@ -10,22 +10,10 @@ namespace Application.Contacts.GetById;
 /// <summary>
 /// Represents the <see cref="GetContactById"/> use case.
 /// </summary>
-public class GetContactById : IUseCase
+/// <param name="context">The database context used to retrieve the contact.</param>
+/// <param name="logger">The logger used to record diagnostic information.</param>
+public class GetContactById(IDbContext context, ILogger<GetContactById> logger) : IUseCase
 {
-    private readonly IDbContext _context;
-    private readonly ILogger<GetContactById> _logger;
-
-    /// <summary>
-    /// Initializes a new instance of <see cref="GetContactById"/> class.
-    /// </summary>
-    /// <param name="context">The database context used to retrieve the contact.</param>
-    /// <param name="logger">The logger used to record diagnostic information.</param>
-    public GetContactById(IDbContext context, ILogger<GetContactById> logger)
-    {
-        _context = context;
-        _logger = logger;
-    }
-
     /// <summary>
     /// Handles a <see cref="GetContactByIdQuery"/>.
     /// </summary>
@@ -40,9 +28,9 @@ public class GetContactById : IUseCase
         CancellationToken cancellationToken
     )
     {
-        _logger.LogInformation("Processing {Query}", query);
+        logger.LogInformation("Processing {Query}", query);
 
-        ContactResponse? contact = await _context
+        ContactResponse? contact = await context
             .Contacts.AsNoTracking()
             .Where(c => c.Id == query.Id)
             .Select(c => new ContactResponse(
@@ -58,11 +46,11 @@ public class GetContactById : IUseCase
 
         if (contact is null)
         {
-            _logger.LogError("Error: {@Error}", ContactErrors.NotFoundById(query.Id));
+            logger.LogError("Error: {@Error}", ContactErrors.NotFoundById(query.Id));
             return ContactErrors.NotFoundById(query.Id);
         }
 
-        _logger.LogInformation("Completed {@Query}", query);
+        logger.LogInformation("Completed {@Query}", query);
         return contact;
     }
 }
