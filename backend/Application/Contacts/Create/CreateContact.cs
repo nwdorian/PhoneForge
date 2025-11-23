@@ -27,10 +27,15 @@ public sealed class CreateContact : IUseCase
     }
 
     /// <summary>
-    /// Handles a <see cref="CreateContactCommand"/>.
+    /// Represents the <see cref="CreateContactCommand"/> handler.
     /// </summary>
-    /// <returns>Response from the command.</returns>
-    public async Task<Result<CreateContactResponse>> Handle(
+    /// <param name="command">The command containing the new contact information.</param>
+    /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
+    /// <returns>
+    /// A successful result containing a <see cref="ContactResponse"/> if the contact was created
+    /// or an error result.
+    /// </returns>
+    public async Task<Result<ContactResponse>> Handle(
         CreateContactCommand command,
         CancellationToken cancellationToken
     )
@@ -77,8 +82,10 @@ public sealed class CreateContact : IUseCase
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        var response = new CreateContactResponse(
+        var response = new ContactResponse(
             contact.Id,
+            contact.FirstName,
+            contact.LastName,
             contact.FullName,
             contact.Email,
             contact.PhoneNumber,

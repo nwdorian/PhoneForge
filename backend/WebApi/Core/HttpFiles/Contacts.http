@@ -17,3 +17,7 @@ Content-type: application/json
     "email": "jdoe@gmail.com",
     "phoneNumber": "091212121212"
 }
+
+### Delete contact
+
+DELETE {{HostAddress}}/api/v1/contacts/b0ef7a3f-e137-427b-9cd4-06c7ce6158a2
