@@ -10,22 +10,11 @@ namespace Application.Contacts.Create;
 /// <summary>
 /// Represents the <see cref="CreateContact"/> use case.
 /// </summary>
-public sealed class CreateContact : IUseCase
+/// <param name="context">The database context used to persist the new contact.</param>
+/// <param name="logger">The logger used to record diagnostic information.</param>
+public sealed class CreateContact(IDbContext context, ILogger<CreateContact> logger)
+    : IUseCase
 {
-    private readonly IDbContext _context;
-    private readonly ILogger<CreateContact> _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CreateContact"/> class.
-    /// </summary>
-    /// <param name="context">The database context used to persist the new contact.</param>
-    /// <param name="logger">The logger used to record diagnostic information.</param>
-    public CreateContact(IDbContext context, ILogger<CreateContact> logger)
-    {
-        _context = context;
-        _logger = logger;
-    }
-
     /// <summary>
     /// Represents the <see cref="CreateContactCommand"/> handler.
     /// </summary>
@@ -40,7 +29,7 @@ public sealed class CreateContact : IUseCase
         CancellationToken cancellationToken
     )
     {
-        _logger.LogInformation("Processing command {Command}", command);
+        logger.LogInformation("Processing command {Command}", command);
 
         Result<FirstName> firstNameResult = FirstName.Create(command.FirstName);
         Result<LastName> lastNameResult = LastName.Create(command.LastName);
@@ -56,18 +45,18 @@ public sealed class CreateContact : IUseCase
 
         if (firstFailOrSuccess.IsFailure)
         {
-            _logger.LogWarning("Error: {@Error}", firstFailOrSuccess.Error);
+            logger.LogWarning("Error: {@Error}", firstFailOrSuccess.Error);
             return firstFailOrSuccess.Error;
         }
 
         if (
-            await _context.Contacts.AnyAsync(
+            await context.Contacts.AnyAsync(
                 c => c.Email.Value == command.Email,
                 cancellationToken
             )
         )
         {
-            _logger.LogWarning("Error: {@Error}", ContactErrors.EmailNotUnique);
+            logger.LogWarning("Error: {@Error}", ContactErrors.EmailNotUnique);
             return ContactErrors.EmailNotUnique;
         }
 
@@ -78,9 +67,9 @@ public sealed class CreateContact : IUseCase
             phoneNumberResult.Value
         );
 
-        _context.Contacts.Add(contact);
+        context.Contacts.Add(contact);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
 
         ContactResponse response = new(
             contact.Id,
@@ -92,7 +81,7 @@ public sealed class CreateContact : IUseCase
             contact.CreatedOnUtc
         );
 
-        _logger.LogInformation("Completed command {@Command}", command);
+        logger.LogInformation("Completed command {@Command}", command);
         return response;
     }
 }

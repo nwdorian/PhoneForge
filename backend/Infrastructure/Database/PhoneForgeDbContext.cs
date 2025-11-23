@@ -9,24 +9,13 @@ namespace Infrastructure.Database;
 /// <summary>
 /// Represents the applications database context.
 /// </summary>
-public sealed class PhoneForgeDbContext : DbContext, IDbContext
+/// <param name="options">The database context options.</param>
+/// <param name="dateTimeProvider">The current date and time in UTC format.</param>
+public sealed class PhoneForgeDbContext(
+    DbContextOptions<PhoneForgeDbContext> options,
+    IDateTimeProvider dateTimeProvider
+) : DbContext(options), IDbContext
 {
-    private readonly IDateTimeProvider _dateTimeProvider;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PhoneForgeDbContext"/> class.
-    /// </summary>
-    /// <param name="options">The database context options.</param>
-    /// <param name="dateTimeProvider">The current date and time in UTC format.</param>
-    public PhoneForgeDbContext(
-        DbContextOptions<PhoneForgeDbContext> options,
-        IDateTimeProvider dateTimeProvider
-    )
-        : base(options)
-    {
-        _dateTimeProvider = dateTimeProvider;
-    }
-
     /// <inheritdoc />
     public DbSet<Contact> Contacts { get; set; }
 
@@ -43,7 +32,7 @@ public sealed class PhoneForgeDbContext : DbContext, IDbContext
         CancellationToken cancellationToken = default
     )
     {
-        DateTime utcNow = _dateTimeProvider.UtcNow;
+        DateTime utcNow = dateTimeProvider.UtcNow;
 
         UpdateAuditableEntities(utcNow);
 
