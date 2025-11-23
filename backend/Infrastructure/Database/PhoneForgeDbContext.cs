@@ -107,7 +107,7 @@ public sealed class PhoneForgeDbContext : DbContext, IDbContext
     /// <param name="entity">The entity entry.</param>
     private static void UpdateDeletedEntityReferencesToUnchanged(EntityEntry entity)
     {
-        if (entity.References.Any())
+        if (!entity.References.Any())
         {
             return;
         }
