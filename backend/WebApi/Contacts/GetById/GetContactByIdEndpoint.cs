@@ -1,5 +1,6 @@
 using Application.Contacts;
 using Application.Contacts.GetById;
+using Application.Core.Abstractions.Messaging;
 using Domain.Core.Primitives;
 using WebApi.Core;
 using WebApi.Core.Extensions;
@@ -22,7 +23,7 @@ internal sealed class GetContactByIdEndpoint : IEndpoint
 
     private static async Task<IResult> Handler(
         Guid contactId,
-        GetContactById useCase,
+        IQueryHandler<GetContactByIdQuery, ContactResponse> useCase,
         CancellationToken cancellationToken
     )
     {

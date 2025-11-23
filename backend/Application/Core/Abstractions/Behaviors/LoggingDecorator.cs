@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Core.Abstractions.Behaviors;
 
-internal class LoggingDecorator
+internal static class LoggingDecorator
 {
     internal sealed class CommandHandler<TCommand, TResponse>(
         ICommandHandler<TCommand, TResponse> innerHandler,

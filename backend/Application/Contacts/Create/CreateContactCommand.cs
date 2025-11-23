@@ -1,3 +1,5 @@
+using Application.Core.Abstractions.Messaging;
+
 namespace Application.Contacts.Create;
 
 /// <summary>
@@ -7,9 +9,9 @@ namespace Application.Contacts.Create;
 /// <param name="LastName">The last name of the contact.</param>
 /// <param name="Email">The email of the contact.</param>
 /// <param name="PhoneNumber">The phone number of the contact.</param>
-public sealed record class CreateContactCommand(
+public sealed record CreateContactCommand(
     string FirstName,
     string LastName,
     string Email,
     string PhoneNumber
-);
+) : ICommand<ContactResponse>;

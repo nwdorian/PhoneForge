@@ -1,36 +1,19 @@
-using Application.Core.Abstractions;
 using Application.Core.Abstractions.Data;
+using Application.Core.Abstractions.Messaging;
 using Domain.Contacts;
 using Domain.Core.Primitives;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace Application.Contacts.Create;
 
-/// <summary>
-/// Represents the <see cref="CreateContact"/> use case.
-/// </summary>
-/// <param name="context">The database context used to persist the new contact.</param>
-/// <param name="logger">The logger used to record diagnostic information.</param>
-public sealed class CreateContact(IDbContext context, ILogger<CreateContact> logger)
-    : IUseCase
+internal sealed class CreateContact(IDbContext context)
+    : ICommandHandler<CreateContactCommand, ContactResponse>
 {
-    /// <summary>
-    /// Represents the <see cref="CreateContactCommand"/> handler.
-    /// </summary>
-    /// <param name="command">The command containing the new contact information.</param>
-    /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
-    /// <returns>
-    /// A successful result containing a <see cref="ContactResponse"/> if the contact was created
-    /// or an error result.
-    /// </returns>
     public async Task<Result<ContactResponse>> Handle(
         CreateContactCommand command,
         CancellationToken cancellationToken
     )
     {
-        logger.LogInformation("Processing command {Command}", command);
-
         Result<FirstName> firstNameResult = FirstName.Create(command.FirstName);
         Result<LastName> lastNameResult = LastName.Create(command.LastName);
         Result<Email> emailResult = Email.Create(command.Email);
@@ -45,7 +28,6 @@ public sealed class CreateContact(IDbContext context, ILogger<CreateContact> log
 
         if (firstFailOrSuccess.IsFailure)
         {
-            logger.LogWarning("Error: {@Error}", firstFailOrSuccess.Error);
             return firstFailOrSuccess.Error;
         }
 
@@ -56,7 +38,6 @@ public sealed class CreateContact(IDbContext context, ILogger<CreateContact> log
             )
         )
         {
-            logger.LogWarning("Error: {@Error}", ContactErrors.EmailNotUnique);
             return ContactErrors.EmailNotUnique;
         }
 
@@ -81,7 +62,6 @@ public sealed class CreateContact(IDbContext context, ILogger<CreateContact> log
             contact.CreatedOnUtc
         );
 
-        logger.LogInformation("Completed command {@Command}", command);
         return response;
     }
 }
