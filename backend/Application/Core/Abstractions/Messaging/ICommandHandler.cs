@@ -24,7 +24,7 @@ public interface ICommandHandler<in TCommand>
 /// <typeparam name="TCommand">The type of command to handle.</typeparam>
 /// <typeparam name="TResponse">The type of the response returned by the command.</typeparam>
 public interface ICommandHandler<in TCommand, TResponse>
-    where TCommand : ICommand
+    where TCommand : ICommand<TResponse>
 {
     /// <summary>
     /// Handles the specified command.
