@@ -17,60 +17,44 @@ public class ContactConfiguration : IEntityTypeConfiguration<Contact>
     {
         builder.HasKey(contact => contact.Id);
 
-        builder.OwnsOne(
-            contact => contact.FirstName,
-            firstNameBuilder =>
-            {
-                firstNameBuilder.WithOwner();
-
-                firstNameBuilder
-                    .Property(firstName => firstName.Value)
+        builder.ComplexProperty(
+            c => c.FirstName,
+            firstName =>
+                firstName
+                    .Property(f => f.Value)
                     .HasColumnName(nameof(Contact.FirstName))
                     .HasMaxLength(FirstName.MaxLength)
-                    .IsRequired();
-            }
+                    .IsRequired()
         );
 
-        builder.OwnsOne(
-            contact => contact.LastName,
-            lastNameBuilder =>
-            {
-                lastNameBuilder.WithOwner();
-
-                lastNameBuilder
-                    .Property(lastName => lastName.Value)
+        builder.ComplexProperty(
+            c => c.LastName,
+            lastName =>
+                lastName
+                    .Property(l => l.Value)
                     .HasColumnName(nameof(Contact.LastName))
                     .HasMaxLength(LastName.MaxLength)
-                    .IsRequired();
-            }
+                    .IsRequired()
         );
 
-        builder.OwnsOne(
-            contact => contact.Email,
-            emailBuilder =>
-            {
-                emailBuilder.WithOwner();
-
-                emailBuilder
-                    .Property(email => email.Value)
+        builder.ComplexProperty(
+            c => c.Email,
+            email =>
+                email
+                    .Property(e => e.Value)
                     .HasColumnName(nameof(Contact.Email))
                     .HasMaxLength(Email.MaxLength)
-                    .IsRequired();
-            }
+                    .IsRequired()
         );
 
-        builder.OwnsOne(
-            contact => contact.PhoneNumber,
-            phoneNumberBuilder =>
-            {
-                phoneNumberBuilder.WithOwner();
-
-                phoneNumberBuilder
-                    .Property(phoneNumber => phoneNumber.Value)
+        builder.ComplexProperty(
+            c => c.PhoneNumber,
+            phoneNumber =>
+                phoneNumber
+                    .Property(p => p.Value)
                     .HasColumnName(nameof(Contact.PhoneNumber))
                     .HasMaxLength(PhoneNumber.MaxLength)
-                    .IsRequired();
-            }
+                    .IsRequired()
         );
 
         builder.Property(contact => contact.DeletedOnUtc);
