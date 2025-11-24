@@ -5,6 +5,7 @@ using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,9 +13,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(PhoneForgeDbContext))]
-    partial class PhoneForgeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251124203322_RefactorToComplexProperties")]
+    partial class RefactorToComplexProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,8 +53,7 @@ namespace Infrastructure.Migrations
                             b1.Property<string>("Value")
                                 .IsRequired()
                                 .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)")
-                                .HasColumnName("Email");
+                                .HasColumnType("nvarchar(100)");
                         });
 
                     b.ComplexProperty(typeof(Dictionary<string, object>), "FirstName", "Domain.Contacts.Contact.FirstName#FirstName", b1 =>
@@ -61,8 +63,7 @@ namespace Infrastructure.Migrations
                             b1.Property<string>("Value")
                                 .IsRequired()
                                 .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)")
-                                .HasColumnName("FirstName");
+                                .HasColumnType("nvarchar(100)");
                         });
 
                     b.ComplexProperty(typeof(Dictionary<string, object>), "LastName", "Domain.Contacts.Contact.LastName#LastName", b1 =>
@@ -72,8 +73,7 @@ namespace Infrastructure.Migrations
                             b1.Property<string>("Value")
                                 .IsRequired()
                                 .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)")
-                                .HasColumnName("LastName");
+                                .HasColumnType("nvarchar(100)");
                         });
 
                     b.ComplexProperty(typeof(Dictionary<string, object>), "PhoneNumber", "Domain.Contacts.Contact.PhoneNumber#PhoneNumber", b1 =>
@@ -83,8 +83,7 @@ namespace Infrastructure.Migrations
                             b1.Property<string>("Value")
                                 .IsRequired()
                                 .HasMaxLength(20)
-                                .HasColumnType("nvarchar(20)")
-                                .HasColumnName("PhoneNumber");
+                                .HasColumnType("nvarchar(20)");
                         });
 
                     b.HasKey("Id");
