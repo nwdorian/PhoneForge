@@ -86,32 +86,6 @@ public sealed class PhoneForgeDbContext(
             entity.Property(nameof(ISoftDeletableEntity.Deleted)).CurrentValue = true;
 
             entity.State = EntityState.Modified;
-
-            UpdateDeletedEntityReferencesToUnchanged(entity);
-        }
-    }
-
-    /// <summary>
-    /// Updates the specified entity entry's referenced entries in the deleted state to the unchanged state.
-    /// This method is recursive.
-    /// </summary>
-    /// <param name="entity">The entity entry.</param>
-    private static void UpdateDeletedEntityReferencesToUnchanged(EntityEntry entity)
-    {
-        if (!entity.References.Any())
-        {
-            return;
-        }
-
-        IEnumerable<EntityEntry> references = entity
-            .References.Where(r => r.TargetEntry?.State == EntityState.Deleted)
-            .Select(r => r.TargetEntry!);
-
-        foreach (EntityEntry? reference in references)
-        {
-            reference.State = EntityState.Unchanged;
-
-            UpdateDeletedEntityReferencesToUnchanged(reference);
         }
     }
 }
