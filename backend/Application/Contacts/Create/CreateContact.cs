@@ -33,7 +33,7 @@ internal sealed class CreateContact(IDbContext context)
 
         if (
             await context.Contacts.AnyAsync(
-                c => c.Email.Value == command.Email,
+                c => c.Email.Value == emailResult.Value,
                 cancellationToken
             )
         )
