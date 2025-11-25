@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Contacts.Update;
 
-internal class UpdateContact(IDbContext context) : ICommandHandler<UpdateContactCommand>
+internal sealed class UpdateContact(IDbContext context)
+    : ICommandHandler<UpdateContactCommand>
 {
     public async Task<Result> Handle(
         UpdateContactCommand command,
@@ -38,6 +39,16 @@ internal class UpdateContact(IDbContext context) : ICommandHandler<UpdateContact
         if (firstFailOrSuccess.IsFailure)
         {
             return firstFailOrSuccess.Error;
+        }
+
+        if (
+            await context.Contacts.AnyAsync(
+                c => c.Email == emailResult.Value,
+                cancellationToken
+            )
+        )
+        {
+            return ContactErrors.EmailNotUnique;
         }
 
         contact.UpdateContact(
