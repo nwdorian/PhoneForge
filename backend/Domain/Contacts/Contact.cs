@@ -94,4 +94,24 @@ public sealed class Contact : Entity, ISoftDeletableEntity, IAuditableEntity
         Contact contact = new(firstName, lastName, email, phoneNumber);
         return contact;
     }
+
+    /// <summary>
+    /// Updates the first and last name of the contact.
+    /// </summary>
+    /// <param name="firstName">The first name.</param>
+    /// <param name="lastName">The last name.</param>
+    /// <param name="email">The email.</param>
+    /// <param name="phoneNumber">The phone number.</param>
+    public void UpdateContact(
+        FirstName firstName,
+        LastName lastName,
+        Email email,
+        PhoneNumber phoneNumber
+    )
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+        PhoneNumber = phoneNumber;
+    }
 }

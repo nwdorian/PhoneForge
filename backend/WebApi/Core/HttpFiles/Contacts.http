@@ -2,7 +2,7 @@
 
 ### Get contact by Id
 
-GET {{HostAddress}}/api/v1/contacts/dc421216-5672-489f-9e5d-1692c8d1d4be
+GET {{HostAddress}}/api/v1/contacts/81023bac-163f-4eb0-bfb5-a834ef213d16
 Accept: application/json
 
 
@@ -21,3 +21,16 @@ Content-type: application/json
 ### Delete contact
 
 DELETE {{HostAddress}}/api/v1/contacts/b0ef7a3f-e137-427b-9cd4-06c7ce6158a2
+Accept: application/json
+
+### Update contact
+
+PUT {{HostAddress}}/api/v1/contacts/81023bac-163f-4eb0-bfb5-a834ef213d16
+Content-Type: application/json
+
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "jdoe2@gmail.com",
+    "phoneNumber": "091212121212"
+}

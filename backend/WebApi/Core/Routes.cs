@@ -29,5 +29,10 @@ public static class Routes
         /// The route used for deleting a contact.
         /// </summary>
         public const string Delete = $"{Base}/{{contactId:guid}}";
+
+        /// <summary>
+        /// The route used for updating a contact.
+        /// </summary>
+        public const string Update = $"{Base}/{{contactId:guid}}";
     }
 }
