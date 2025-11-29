@@ -1,4 +1,4 @@
-namespace WebApi.Core;
+namespace WebApi.Core.Constants;
 
 /// <summary>
 /// Provides string constants for endpoint tags used in API documentation and grouping.

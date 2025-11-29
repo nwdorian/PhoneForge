@@ -1,4 +1,4 @@
-namespace WebApi.Core;
+namespace WebApi.Core.Constants;
 
 /// <summary>
 /// Provides route definitions for the application's endpoints.
@@ -16,14 +16,19 @@ public static class Routes
         private const string Base = "contacts";
 
         /// <summary>
-        /// The route used for creating a new contact.
+        /// The route used for retrieving a list of contacts.
         /// </summary>
-        public const string Create = Base;
+        public const string Get = Base;
 
         /// <summary>
         /// The route used for retrieving contact by an identifier.
         /// </summary>
         public const string GetById = $"{Base}/{{contactId:guid}}";
+
+        /// <summary>
+        /// The route used for creating a new contact.
+        /// </summary>
+        public const string Create = Base;
 
         /// <summary>
         /// The route used for deleting a contact.

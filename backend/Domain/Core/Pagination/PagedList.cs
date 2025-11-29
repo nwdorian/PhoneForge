@@ -1,4 +1,4 @@
-namespace Domain.Core;
+namespace Domain.Core.Pagination;
 
 /// <summary>
 /// Generic paged list.
@@ -10,8 +10,8 @@ namespace Domain.Core;
 /// <param name="totalCount">Total count of the items.</param>
 public sealed class PagedList<T>(
     IEnumerable<T> items,
-    int page,
-    int pageSize,
+    Page page,
+    PageSize pageSize,
     int totalCount
 )
 {
