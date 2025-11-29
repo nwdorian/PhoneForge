@@ -2,6 +2,7 @@ using Application.Contacts.Delete;
 using Application.Core.Abstractions.Messaging;
 using Domain.Core.Primitives;
 using WebApi.Core;
+using WebApi.Core.Constants;
 using WebApi.Core.Extensions;
 using WebApi.Core.Infrastructure;
 

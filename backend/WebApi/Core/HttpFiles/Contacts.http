@@ -1,5 +1,9 @@
 @HostAddress = http://localhost:5111
 
+### Get contacts
+
+GET {{HostAddress}}/api/v1/contacts?searchTerm=&page=1&pageSize=10&sortColumn=created_on&sortOrder=asc
+
 ### Get contact by Id
 
 GET {{HostAddress}}/api/v1/contacts/81023bac-163f-4eb0-bfb5-a834ef213d16
