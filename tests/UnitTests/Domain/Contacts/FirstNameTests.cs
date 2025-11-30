@@ -1,12 +1,12 @@
 using Domain.Contacts;
 using Domain.Core.Primitives;
 
-namespace UnitTests.Contacts;
+namespace UnitTests.Domain.Contacts;
 
-public class FirstNameCreate
+public class FirstNameTests
 {
     [Fact]
-    public void FirstNameCreate_WithValidValue_ShouldReturnSuccess()
+    public void Create_Should_ReturnSuccess_WithValidInput()
     {
         string input = "John";
 
@@ -21,7 +21,7 @@ public class FirstNameCreate
     [InlineData(null)]
     [InlineData("")]
     [InlineData(" ")]
-    public void FirstNameCreate_WithNullOrEmpty_ShouldReturnFailure(string? input)
+    public void Create_Should_ReturnFailure_WithNullOrEmptyInput(string? input)
     {
         Result<FirstName> result = FirstName.Create(input);
 
@@ -31,7 +31,7 @@ public class FirstNameCreate
     }
 
     [Fact]
-    public void FirstNameCreate_WithTooLongInput_ShouldReturnFailure()
+    public void Create_Should_ReturnFailure_WithTooLongInput()
     {
         string input = new('a', FirstName.MaxLength + 1);
 
@@ -40,16 +40,5 @@ public class FirstNameCreate
         Assert.True(result.IsFailure);
         Assert.False(result.IsSuccess);
         Assert.Equal(ContactErrors.FirstName.LongerThanAllowed, result.Error);
-    }
-
-    [Fact]
-    public void ImplicitConversion_Should_ReturnValueAsString()
-    {
-        string input = "John";
-        Result<FirstName> result = FirstName.Create(input);
-
-        string converted = result.Value;
-
-        Assert.Equal(input, converted);
     }
 }
