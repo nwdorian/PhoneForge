@@ -2,7 +2,7 @@ using Domain.Contacts;
 
 namespace UnitTests.Contacts;
 
-public class UpdateContact
+public class ContactUpdate
 {
     [Fact]
     public void UpdateContact_ShouldChangeAllProperties()

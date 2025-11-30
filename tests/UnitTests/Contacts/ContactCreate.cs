@@ -2,7 +2,7 @@ using Domain.Contacts;
 
 namespace UnitTests.Contacts;
 
-public class CreateContact
+public class ContactCreate
 {
     [Fact]
     public void CreateContact_ShouldReturnContact_WithCorrectData()
