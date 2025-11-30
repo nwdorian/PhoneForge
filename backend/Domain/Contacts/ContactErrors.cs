@@ -18,13 +18,11 @@ public static class ContactErrors
     /// </summary>
     /// <param name="contactId">The unique identifier of the contact.</param>
     /// <returns></returns>
-    public static Error NotFoundById(Guid contactId)
-    {
-        return Error.NotFound(
+    public static Error NotFoundById(Guid contactId) =>
+        Error.NotFound(
             "Contact.NotFoundById",
             $"The contact with the Id = {contactId} was not found."
         );
-    }
 
     /// <summary>
     /// Contains the first name errors.
