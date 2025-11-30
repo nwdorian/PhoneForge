@@ -21,7 +21,7 @@ public class FirstNameTests
     [InlineData(null)]
     [InlineData("")]
     [InlineData(" ")]
-    public void Create_Should_ReturnFailure_WithNullOrEmptyInput(string? input)
+    public void Create_Should_ReturnError_WithNullOrEmptyInput(string? input)
     {
         Result<FirstName> result = FirstName.Create(input);
 
@@ -31,7 +31,7 @@ public class FirstNameTests
     }
 
     [Fact]
-    public void Create_Should_ReturnFailure_WithTooLongInput()
+    public void Create_Should_ReturnError_WithTooLongInput()
     {
         string input = new('a', FirstName.MaxLength + 1);
 
