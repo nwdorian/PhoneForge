@@ -1,7 +1,7 @@
 using Domain.Contacts;
 using Domain.Core.Primitives;
 
-namespace UnitTests.Domain.Contacts;
+namespace Domain.UnitTests.Contacts;
 
 public class EmailTests
 {
