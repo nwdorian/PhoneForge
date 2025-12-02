@@ -1,7 +1,7 @@
 using Domain.Core.Pagination;
 using Domain.Core.Primitives;
 
-namespace UnitTests.Domain.Pagination;
+namespace Domain.UnitTests.Pagination;
 
 public class PageTests
 {
