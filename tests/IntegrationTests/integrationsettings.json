@@ -1,0 +1,5 @@
+{
+    "ConnectionStrings":{
+        "PhoneForgeTests": "Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=PhoneForgeDb_Tests; Integrated Security=SSPI"
+    }
+}

@@ -30,18 +30,21 @@ public static class DependencyInjection
                     classes => classes.AssignableTo(typeof(IQueryHandler<,>)),
                     publicOnly: false
                 )
+                .AsSelf()
                 .AsImplementedInterfaces()
                 .WithScopedLifetime()
                 .AddClasses(
                     classes => classes.AssignableTo(typeof(ICommandHandler<>)),
                     publicOnly: false
                 )
+                .AsSelf()
                 .AsImplementedInterfaces()
                 .WithScopedLifetime()
                 .AddClasses(
                     classes => classes.AssignableTo(typeof(ICommandHandler<,>)),
                     publicOnly: false
                 )
+                .AsSelf()
                 .AsImplementedInterfaces()
                 .WithScopedLifetime()
         );
