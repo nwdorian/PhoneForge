@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace IntegrationTests;
+namespace IntegrationTests.Core;
 
 public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>
 {
@@ -15,6 +15,8 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
+        builder.UseEnvironment("Testing");
+
         builder.ConfigureAppConfiguration(config =>
         {
             Configuration = new ConfigurationBuilder()
@@ -33,20 +35,6 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>
             );
 
             services.AddSqlServer<PhoneForgeDbContext>(connectionString);
-
-            PhoneForgeDbContext dbContext = CreateDbContext(services);
-
-            dbContext.Database.EnsureDeleted();
         });
-    }
-
-    private static PhoneForgeDbContext CreateDbContext(IServiceCollection services)
-    {
-        ServiceProvider serviceProvider = services.BuildServiceProvider();
-        IServiceScope scope = serviceProvider.CreateScope();
-
-        PhoneForgeDbContext dbContext =
-            scope.ServiceProvider.GetRequiredService<PhoneForgeDbContext>();
-        return dbContext;
     }
 }

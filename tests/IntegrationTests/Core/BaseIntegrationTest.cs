@@ -1,18 +1,15 @@
-using Bogus;
 using Infrastructure.Database;
 using IntegrationTests.TestData;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace IntegrationTests;
+namespace IntegrationTests.Core;
 
-public abstract class BaseIntegrationTest
-    : IClassFixture<IntegrationTestWebAppFactory>,
-        IAsyncLifetime
+[Collection("IntegrationTests")]
+public abstract class BaseIntegrationTest : IAsyncLifetime
 {
     private readonly IServiceScope _scope;
     protected readonly PhoneForgeDbContext DbContext;
     protected readonly TestDataSeeder DataSeeder;
-    protected readonly Faker Faker;
 
     protected BaseIntegrationTest(IntegrationTestWebAppFactory factory)
     {
@@ -20,7 +17,6 @@ public abstract class BaseIntegrationTest
 
         DbContext = _scope.ServiceProvider.GetRequiredService<PhoneForgeDbContext>();
         DataSeeder = new TestDataSeeder(DbContext);
-        Faker = new Faker();
     }
 
     protected T GetUseCase<T>()
@@ -29,9 +25,11 @@ public abstract class BaseIntegrationTest
         return _scope.ServiceProvider.GetRequiredService<T>();
     }
 
-    public Task InitializeAsync()
+    public async Task InitializeAsync()
     {
-        return DataSeeder.SeedAsync();
+        await DbContext.Database.EnsureDeletedAsync();
+        await DbContext.Database.EnsureCreatedAsync();
+        await DataSeeder.SeedAsync();
     }
 
     public Task DisposeAsync()

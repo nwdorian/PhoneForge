@@ -29,8 +29,10 @@ public static class MiddlewareExtensions
 
         app.MapEndpoints();
 
-        await app.ApplyMigrations();
-
+        if (app.Environment.IsDevelopment())
+        {
+            await app.ApplyMigrations();
+        }
         return app;
     }
 

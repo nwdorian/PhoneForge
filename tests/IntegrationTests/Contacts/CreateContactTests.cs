@@ -2,6 +2,7 @@ using Application.Contacts;
 using Application.Contacts.Create;
 using Domain.Contacts;
 using Domain.Core.Primitives;
+using IntegrationTests.Core;
 using IntegrationTests.TestData.Contacts;
 
 namespace IntegrationTests.Contacts;
@@ -16,16 +17,10 @@ public class CreateContactTests : BaseIntegrationTest
         _useCase = GetUseCase<CreateContact>();
     }
 
-    [Fact]
-    public async Task Handle_Should_AddNewContactToDatabase()
+    [Theory]
+    [ClassData(typeof(CreateContactValidData))]
+    public async Task Handle_Should_AddNewContactToDatabase(CreateContactCommand command)
     {
-        CreateContactCommand command = new(
-            Faker.Name.FirstName(),
-            Faker.Name.LastName(),
-            Faker.Internet.Email(),
-            $"09{Faker.Random.Int(1000000, 9999999)}"
-        );
-
         Result<ContactResponse> result = await _useCase.Handle(
             command,
             CancellationToken.None
@@ -55,20 +50,19 @@ public class CreateContactTests : BaseIntegrationTest
         Assert.Equal(expected, result.Error);
     }
 
-    [Fact]
-    public async Task Handle_Should_ReturnError_WhenEmailIsNotUnique()
+    [Theory]
+    [ClassData(typeof(CreateContactValidData))]
+    public async Task Handle_Should_ReturnError_WhenEmailIsNotUnique(
+        CreateContactCommand command
+    )
     {
-        string existingEmail = DataSeeder.GetTestContact().Email;
-
-        CreateContactCommand command = new(
-            Faker.Name.FirstName(),
-            Faker.Name.LastName(),
-            existingEmail,
-            $"09{Faker.Random.Int(1000000, 9999999)}"
-        );
+        CreateContactCommand commandWithExistingEmail = command with
+        {
+            Email = DataSeeder.GetTestContact().Email,
+        };
 
         Result<ContactResponse> result = await _useCase.Handle(
-            command,
+            commandWithExistingEmail,
             CancellationToken.None
         );
 
