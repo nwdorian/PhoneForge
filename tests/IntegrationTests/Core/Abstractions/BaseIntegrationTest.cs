@@ -1,8 +1,8 @@
 using Infrastructure.Database;
-using IntegrationTests.TestData;
 using Microsoft.Extensions.DependencyInjection;
+using TestData.Seeding;
 
-namespace IntegrationTests.Core;
+namespace IntegrationTests.Core.Abstractions;
 
 [Collection("IntegrationTests")]
 public abstract class BaseIntegrationTest : IAsyncLifetime
@@ -10,6 +10,7 @@ public abstract class BaseIntegrationTest : IAsyncLifetime
     private readonly IServiceScope _scope;
     protected readonly PhoneForgeDbContext DbContext;
     protected readonly TestDataSeeder DataSeeder;
+    protected readonly HttpClient HttpClient;
 
     protected BaseIntegrationTest(IntegrationTestWebAppFactory factory)
     {
@@ -17,6 +18,7 @@ public abstract class BaseIntegrationTest : IAsyncLifetime
 
         DbContext = _scope.ServiceProvider.GetRequiredService<PhoneForgeDbContext>();
         DataSeeder = new TestDataSeeder(DbContext);
+        HttpClient = factory.CreateClient();
     }
 
     protected T GetUseCase<T>()

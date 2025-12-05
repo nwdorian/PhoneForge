@@ -10,6 +10,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\backend\WebApi\WebApi.csproj" />
+        <ProjectReference Include="..\TestData\TestData.csproj" />
     </ItemGroup>
 
     <ItemGroup>

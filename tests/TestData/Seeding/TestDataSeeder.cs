@@ -2,7 +2,7 @@ using Bogus;
 using Domain.Contacts;
 using Infrastructure.Database;
 
-namespace IntegrationTests.TestData;
+namespace TestData.Seeding;
 
 public class TestDataSeeder(PhoneForgeDbContext context)
 {

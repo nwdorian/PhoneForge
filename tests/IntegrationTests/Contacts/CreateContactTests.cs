@@ -1,72 +1,80 @@
+using System.Net;
+using System.Net.Http.Json;
 using Application.Contacts;
-using Application.Contacts.Create;
 using Domain.Contacts;
 using Domain.Core.Primitives;
-using IntegrationTests.Core;
-using IntegrationTests.TestData.Contacts;
+using IntegrationTests.Core.Abstractions;
+using IntegrationTests.Core.Contracts;
+using IntegrationTests.Core.Extensions;
+using TestData.Contacts.CreateContact;
+using WebApi.Contacts.Create;
+using WebApi.Core.Constants;
 
 namespace IntegrationTests.Contacts;
 
-public class CreateContactTests : BaseIntegrationTest
+public class CreateContactTests(IntegrationTestWebAppFactory factory)
+    : BaseIntegrationTest(factory)
 {
-    private readonly CreateContact _useCase;
-
-    public CreateContactTests(IntegrationTestWebAppFactory factory)
-        : base(factory)
-    {
-        _useCase = GetUseCase<CreateContact>();
-    }
+    private const string CreateContactRoute = $"api/v1/{Routes.Contacts.Create}";
 
     [Theory]
     [ClassData(typeof(CreateContactValidData))]
-    public async Task Handle_Should_AddNewContactToDatabase(CreateContactCommand command)
+    public async Task Should_ReturnCreated_WhenContactIsCreated(
+        CreateContactRequest request
+    )
     {
-        Result<ContactResponse> result = await _useCase.Handle(
-            command,
-            CancellationToken.None
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync(
+            CreateContactRoute,
+            request
         );
 
-        ContactResponse response = result.Value;
+        ContactResponse? result =
+            await response.Content.ReadFromJsonAsync<ContactResponse>();
 
-        Contact? contact = DbContext.Contacts.FirstOrDefault(c => c.Id == response.Id);
+        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+        Assert.NotNull(result);
 
-        Assert.True(result.IsSuccess);
+        Contact? contact = DbContext.Contacts.FirstOrDefault(c => c.Id == result.Id);
         Assert.NotNull(contact);
     }
 
     [Theory]
     [ClassData(typeof(CreateContactInvalidData))]
-    public async Task Handle_Should_ReturnError_WhenCommandIsInvalid(
-        CreateContactCommand command,
+    public async Task Should_ReturnBadRequest_WhenRequestIsInvalid(
+        CreateContactRequest request,
         Error expected
     )
     {
-        Result<ContactResponse> result = await _useCase.Handle(
-            command,
-            CancellationToken.None
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync(
+            CreateContactRoute,
+            request
         );
 
-        Assert.True(result.IsFailure);
-        Assert.Equal(expected, result.Error);
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+
+        CustomProblemDetails? problemDetails = await response.GetProblemDetails();
+
+        Assert.NotNull(problemDetails);
+        Assert.Equal(expected.Description, problemDetails.Errors[0]);
+        Assert.Equal(expected.Code, problemDetails.Title);
     }
 
     [Theory]
     [ClassData(typeof(CreateContactValidData))]
-    public async Task Handle_Should_ReturnError_WhenEmailIsNotUnique(
-        CreateContactCommand command
+    public async Task Should_ReturnConflict_WhenEmailIsNotUnique(
+        CreateContactRequest request
     )
     {
-        CreateContactCommand commandWithExistingEmail = command with
+        CreateContactRequest requestWithExistingEmail = request with
         {
             Email = DataSeeder.GetTestContact().Email,
         };
 
-        Result<ContactResponse> result = await _useCase.Handle(
-            commandWithExistingEmail,
-            CancellationToken.None
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync(
+            CreateContactRoute,
+            requestWithExistingEmail
         );
 
-        Assert.True(result.IsFailure);
-        Assert.Equal(ContactErrors.EmailNotUnique, result.Error);
+        Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
     }
 }
