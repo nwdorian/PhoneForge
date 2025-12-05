@@ -6,7 +6,7 @@ using Domain.Core.Primitives;
 using IntegrationTests.Core.Abstractions;
 using IntegrationTests.Core.Contracts;
 using IntegrationTests.Core.Extensions;
-using TestData.Contacts.CreateContact;
+using TestData.Contacts.Create;
 using WebApi.Contacts.Create;
 using WebApi.Core.Constants;
 
