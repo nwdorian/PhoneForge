@@ -27,13 +27,12 @@ public abstract class BaseIntegrationTest : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
-        await DbContext.Database.EnsureDeletedAsync();
         await DbContext.Database.EnsureCreatedAsync();
         await DataSeeder.SeedAsync();
     }
 
-    public Task DisposeAsync()
+    public async Task DisposeAsync()
     {
-        return Task.CompletedTask;
+        await DbContext.Database.EnsureDeletedAsync();
     }
 }
