@@ -4,7 +4,6 @@ using Application.Contacts;
 using Domain.Contacts;
 using Domain.Core.Primitives;
 using IntegrationTests.Core.Abstractions;
-using IntegrationTests.Core.Contracts;
 using IntegrationTests.Core.Extensions;
 using TestData.Contacts.Create;
 using WebApi.Contacts.Create;
@@ -50,13 +49,7 @@ public class CreateContactTests(IntegrationTestWebAppFactory factory)
             request
         );
 
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-
-        CustomProblemDetails? problemDetails = await response.GetProblemDetails();
-
-        Assert.NotNull(problemDetails);
-        Assert.Equal(expected.Description, problemDetails.Errors[0]);
-        Assert.Equal(expected.Code, problemDetails.Title);
+        await response.AssertResponseErrorDetails(HttpStatusCode.BadRequest, expected);
     }
 
     [Theory]
@@ -70,11 +63,13 @@ public class CreateContactTests(IntegrationTestWebAppFactory factory)
             Email = DataSeeder.GetTestContact().Email,
         };
 
+        Error expected = ContactErrors.EmailNotUnique;
+
         HttpResponseMessage response = await HttpClient.PostAsJsonAsync(
             CreateContactRoute,
             requestWithExistingEmail
         );
 
-        Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
+        await response.AssertResponseErrorDetails(HttpStatusCode.Conflict, expected);
     }
 }

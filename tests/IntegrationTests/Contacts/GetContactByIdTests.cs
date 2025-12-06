@@ -4,7 +4,6 @@ using Application.Contacts;
 using Domain.Contacts;
 using Domain.Core.Primitives;
 using IntegrationTests.Core.Abstractions;
-using IntegrationTests.Core.Contracts;
 using IntegrationTests.Core.Extensions;
 using WebApi.Core.Constants;
 
@@ -37,12 +36,6 @@ public class GetContactByIdTests(IntegrationTestWebAppFactory factory)
             $"{GetByIdRoute}/{contactId}"
         );
 
-        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
-
-        CustomProblemDetails? problemDetails = await response.GetProblemDetails();
-
-        Assert.NotNull(problemDetails);
-        Assert.Equal(expected.Description, problemDetails.Errors[0]);
-        Assert.Equal(expected.Code, problemDetails.Title);
+        await response.AssertResponseErrorDetails(HttpStatusCode.NotFound, expected);
     }
 }

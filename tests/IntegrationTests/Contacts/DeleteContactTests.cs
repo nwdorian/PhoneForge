@@ -2,7 +2,6 @@ using System.Net;
 using Domain.Contacts;
 using Domain.Core.Primitives;
 using IntegrationTests.Core.Abstractions;
-using IntegrationTests.Core.Contracts;
 using IntegrationTests.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,12 +41,6 @@ public class DeleteContactTests(IntegrationTestWebAppFactory factory)
             $"api/v1/contacts/{contactId}"
         );
 
-        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
-
-        CustomProblemDetails problemDetails = await response.GetProblemDetails();
-
-        Assert.NotNull(problemDetails);
-        Assert.Equal(expected.Description, problemDetails.Errors[0]);
-        Assert.Equal(expected.Code, problemDetails.Title);
+        await response.AssertResponseErrorDetails(HttpStatusCode.NotFound, expected);
     }
 }
