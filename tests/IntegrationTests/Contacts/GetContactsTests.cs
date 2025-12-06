@@ -1,8 +1,13 @@
+using System.Net;
 using System.Net.Http.Json;
-using Application.Contacts;
-using Domain.Core.Pagination;
+using Application.Contacts.Get;
+using Domain.Contacts;
+using Domain.Core.Primitives;
 using Infrastructure.Database;
 using IntegrationTests.Core.Abstractions;
+using IntegrationTests.Core.Extensions;
+using TestData.Contacts.Get;
+using WebApi.Contacts.Get;
 using WebApi.Core.Constants;
 
 namespace IntegrationTests.Contacts;
@@ -12,19 +17,28 @@ public class GetContactsTests(IntegrationTestWebAppFactory factory)
 {
     private const string GetContactsRoute = $"api/v1/{Routes.Contacts.Get}";
 
-    [Fact]
-    public async Task Should_ReturnFirstPage()
+    [Theory]
+    [ClassData(typeof(GetContactsValidData))]
+    public async Task Should_ReturnCorrectPages(
+        GetContactsRequest request,
+        int totalCount,
+        int totalPages,
+        bool hasPreviousPage,
+        bool hasNextPage
+    )
     {
-        PagedList<ContactResponse>? response = await HttpClient.GetFromJsonAsync<
-            PagedList<ContactResponse>
-        >(GetContactsRoute);
+        GetContactsResponse? response =
+            await HttpClient.GetFromJsonAsync<GetContactsResponse>(
+                $"{GetContactsRoute}?page={request.Page}"
+            );
 
         Assert.NotNull(response);
-        Assert.Equal(20, response.TotalCount);
-        Assert.Equal(1, response.Page);
-        Assert.Equal(10, response.PageSize);
-        Assert.False(response.HasPreviousPage);
-        Assert.True(response.HasNextPage);
+        Assert.Equal(totalCount, response.TotalCount);
+        Assert.Equal(totalPages, response.TotalPages);
+        Assert.Equal(request.Page, response.Page);
+        Assert.Equal(request.PageSize, response.PageSize);
+        Assert.Equal(hasPreviousPage, response.HasPreviousPage);
+        Assert.Equal(hasNextPage, response.HasNextPage);
 
         using PhoneForgeDbContext context = CreateDbContext();
 
@@ -35,5 +49,40 @@ public class GetContactsTests(IntegrationTestWebAppFactory factory)
             .ToList();
 
         Assert.Equal(response.Items.Count, contacts.Count);
+    }
+
+    [Fact]
+    public async Task Should_ReturnContacts_WithSearchTerm()
+    {
+        string email = DataSeeder.GetTestContact().Email;
+
+        GetContactsResponse? response =
+            await HttpClient.GetFromJsonAsync<GetContactsResponse>(
+                $"{GetContactsRoute}?searchTerm={email}"
+            );
+
+        Assert.NotNull(response);
+
+        using PhoneForgeDbContext context = CreateDbContext();
+
+        List<Contact> contacts = context
+            .Contacts.Where(x => x.Email.Value.Contains(email))
+            .ToList();
+
+        Assert.Equal(contacts.Count, response.Items.Count);
+    }
+
+    [Theory]
+    [ClassData(typeof(GetContactsInvalidData))]
+    public async Task Should_ReturnError_WhenPagingDataIsInvalid(
+        GetContactsRequest request,
+        Error expected
+    )
+    {
+        HttpResponseMessage? response = await HttpClient.GetAsync(
+            $"{GetContactsRoute}?page={request.Page}&pageSize={request.PageSize}"
+        );
+
+        await response.AssertResponseErrorDetails(HttpStatusCode.BadRequest, expected);
     }
 }

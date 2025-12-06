@@ -1,3 +1,4 @@
+using Domain.Core.Pagination;
 using WebApi.Contacts.Get;
 
 namespace TestData.Contacts.Get;
@@ -9,9 +10,9 @@ public static class GetContactsRequestData
         return new GetContactsRequest(null);
     }
 
-    public static GetContactsRequest CreateValidRequestWithSearchTerm()
+    public static GetContactsRequest CreateValidRequestWithSecondPage()
     {
-        return new GetContactsRequest(EmailData.ValidEmail);
+        return new GetContactsRequest(null, 2);
     }
 
     public static GetContactsRequest CreateRequestWithInvalidPage()
@@ -19,8 +20,13 @@ public static class GetContactsRequestData
         return new GetContactsRequest(null, Page: 0);
     }
 
-    public static GetContactsRequest CreateRequestWithInvalidPageSize()
+    public static GetContactsRequest CreateRequestWithGreaterThanAllowedPageSize()
     {
-        return new GetContactsRequest(null, PageSize: 40);
+        return new GetContactsRequest(null, PageSize: PageSize.MaximumPageSize + 1);
+    }
+
+    public static GetContactsRequest CreateRequestWithLowerThanAllowedPageSize()
+    {
+        return new GetContactsRequest(null, PageSize: PageSize.MinimumPageSize - 1);
     }
 }
