@@ -18,8 +18,6 @@ public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.UseEnvironment("Testing");
-
         builder.ConfigureAppConfiguration(config =>
         {
             Configuration = new ConfigurationBuilder()

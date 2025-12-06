@@ -3,6 +3,7 @@ using System.Net.Http.Json;
 using Application.Contacts;
 using Domain.Contacts;
 using Domain.Core.Primitives;
+using Infrastructure.Database;
 using IntegrationTests.Core.Abstractions;
 using IntegrationTests.Core.Extensions;
 using TestData.Contacts.Create;
@@ -33,7 +34,9 @@ public class CreateContactTests(IntegrationTestWebAppFactory factory)
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
         Assert.NotNull(result);
 
-        Contact? contact = DbContext.Contacts.FirstOrDefault(c => c.Id == result.Id);
+        using PhoneForgeDbContext context = CreateDbContext();
+
+        Contact? contact = context.Contacts.FirstOrDefault(c => c.Id == result.Id);
         Assert.NotNull(contact);
     }
 

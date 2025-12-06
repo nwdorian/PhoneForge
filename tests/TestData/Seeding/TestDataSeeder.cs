@@ -14,7 +14,6 @@ public class TestDataSeeder(PhoneForgeDbContext context)
         await SeedContacts();
 
         await _context.SaveChangesAsync();
-        _context.ChangeTracker.Clear();
     }
 
     public async Task SeedContacts()

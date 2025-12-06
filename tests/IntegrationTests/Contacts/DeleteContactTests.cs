@@ -1,6 +1,7 @@
 using System.Net;
 using Domain.Contacts;
 using Domain.Core.Primitives;
+using Infrastructure.Database;
 using IntegrationTests.Core.Abstractions;
 using IntegrationTests.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,9 @@ public class DeleteContactTests(IntegrationTestWebAppFactory factory)
 
         Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
 
-        Contact? contact = await DbContext
+        using PhoneForgeDbContext context = CreateDbContext();
+
+        Contact? contact = await context
             .Contacts.IgnoreQueryFilters()
             .FirstOrDefaultAsync(c => c.Id == contactId);
 

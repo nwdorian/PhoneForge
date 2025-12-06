@@ -1,4 +1,5 @@
 using Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using TestData.Seeding;
 
@@ -7,28 +8,38 @@ namespace IntegrationTests.Core.Abstractions;
 [Collection("IntegrationTests")]
 public abstract class BaseIntegrationTest : IAsyncLifetime
 {
-    private readonly IServiceScope _scope;
-    protected readonly PhoneForgeDbContext DbContext;
+    private readonly IntegrationTestWebAppFactory _factory;
+    private readonly PhoneForgeDbContext _context;
     protected readonly TestDataSeeder DataSeeder;
     protected readonly HttpClient HttpClient;
 
     protected BaseIntegrationTest(IntegrationTestWebAppFactory factory)
     {
-        _scope = factory.Services.CreateScope();
+        _factory = factory;
+        _context = _factory
+            .Services.CreateScope()
+            .ServiceProvider.GetRequiredService<PhoneForgeDbContext>();
 
-        DbContext = _scope.ServiceProvider.GetRequiredService<PhoneForgeDbContext>();
-        DataSeeder = new TestDataSeeder(DbContext);
+        DataSeeder = new TestDataSeeder(_context);
         HttpClient = factory.CreateClient();
     }
 
     public async Task InitializeAsync()
     {
-        await DbContext.Database.EnsureCreatedAsync();
         await DataSeeder.SeedAsync();
     }
 
     public async Task DisposeAsync()
     {
-        await DbContext.Database.EnsureDeletedAsync();
+        await _context.Database.ExecuteSqlRawAsync("DELETE FROM Contacts");
+    }
+
+    public PhoneForgeDbContext CreateDbContext()
+    {
+        PhoneForgeDbContext context = _factory
+            .Services.CreateScope()
+            .ServiceProvider.GetRequiredService<PhoneForgeDbContext>();
+
+        return context;
     }
 }
