@@ -10,9 +10,9 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.Contacts.Get;
 
 internal sealed class GetContacts(IDbContext context)
-    : IQueryHandler<GetContactsQuery, PagedList<ContactResponse>>
+    : IQueryHandler<GetContactsQuery, GetContactsResponse>
 {
-    public async Task<Result<PagedList<ContactResponse>>> Handle(
+    public async Task<Result<GetContactsResponse>> Handle(
         GetContactsQuery query,
         CancellationToken cancellationToken
     )
@@ -64,11 +64,21 @@ internal sealed class GetContacts(IDbContext context)
             ))
             .ToArrayAsync(cancellationToken);
 
-        return new PagedList<ContactResponse>(
+        PagedList<ContactResponse> pagedList = new(
             contactResponsesPage,
             pageResult.Value,
             pageSizeResult.Value,
             totalCount
+        );
+
+        return new GetContactsResponse(
+            pagedList.Page,
+            pagedList.PageSize,
+            pagedList.TotalCount,
+            pagedList.TotalPages,
+            pagedList.HasNextPage,
+            pagedList.HasPreviousPage,
+            pagedList.Items
         );
     }
 

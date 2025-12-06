@@ -31,6 +31,11 @@ public sealed class PagedList<T>(
     public int TotalCount { get; } = totalCount;
 
     /// <summary>
+    /// Gets the total number of pages.
+    /// </summary>
+    public int TotalPages => (int)Math.Ceiling(TotalCount / (double)PageSize);
+
+    /// <summary>
     /// Gets the flag indicating whether the next page exists.
     /// </summary>
     public bool HasNextPage => Page * PageSize < TotalCount;

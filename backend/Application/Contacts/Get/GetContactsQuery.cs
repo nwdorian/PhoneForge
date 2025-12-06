@@ -1,5 +1,4 @@
 using Application.Core.Abstractions.Messaging;
-using Domain.Core.Pagination;
 
 namespace Application.Contacts.Get;
 
@@ -17,4 +16,4 @@ public sealed record GetContactsQuery(
     int PageSize,
     string SortColumn,
     string SortOrder
-) : IQuery<PagedList<ContactResponse>>;
+) : IQuery<GetContactsResponse>;
