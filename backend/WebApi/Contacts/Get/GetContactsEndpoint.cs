@@ -1,7 +1,5 @@
-using Application.Contacts;
 using Application.Contacts.Get;
 using Application.Core.Abstractions.Messaging;
-using Domain.Core.Pagination;
 using Domain.Core.Primitives;
 using WebApi.Core;
 using WebApi.Core.Constants;
@@ -19,7 +17,7 @@ internal sealed class GetContactsEndpoint : IEndpoint
 
     private static async Task<IResult> Handler(
         [AsParameters] GetContactsRequest request,
-        IQueryHandler<GetContactsQuery, PagedList<ContactResponse>> useCase,
+        IQueryHandler<GetContactsQuery, GetContactsResponse> useCase,
         CancellationToken cancellationToken
     )
     {
@@ -31,7 +29,7 @@ internal sealed class GetContactsEndpoint : IEndpoint
             request.SortOrder
         );
 
-        Result<PagedList<ContactResponse>> result = await useCase.Handle(
+        Result<GetContactsResponse> result = await useCase.Handle(
             query,
             cancellationToken
         );
