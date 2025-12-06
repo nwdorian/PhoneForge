@@ -1,0 +1,53 @@
+using System.Net;
+using Domain.Contacts;
+using Domain.Core.Primitives;
+using IntegrationTests.Core.Abstractions;
+using IntegrationTests.Core.Contracts;
+using IntegrationTests.Core.Extensions;
+using Microsoft.EntityFrameworkCore;
+
+namespace IntegrationTests.Contacts;
+
+public class DeleteContactTests(IntegrationTestWebAppFactory factory)
+    : BaseIntegrationTest(factory)
+{
+    [Fact]
+    public async Task Should_ReturnNoContent_WhenContactIsDeleted()
+    {
+        Guid contactId = DataSeeder.GetTestContact().Id;
+
+        HttpResponseMessage response = await HttpClient.DeleteAsync(
+            $"api/v1/contacts/{contactId}"
+        );
+
+        Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
+
+        Contact? contact = await DbContext
+            .Contacts.IgnoreQueryFilters()
+            .FirstOrDefaultAsync(c => c.Id == contactId);
+
+        Assert.NotNull(contact);
+        Assert.Equal(contact.Id, contactId);
+        Assert.True(contact.Deleted);
+        Assert.NotNull(contact.DeletedOnUtc);
+    }
+
+    [Fact]
+    public async Task Should_ReturnNotFound_WhenContactDoesNotExist()
+    {
+        Guid contactId = Guid.NewGuid();
+        Error expected = ContactErrors.NotFoundById(contactId);
+
+        HttpResponseMessage response = await HttpClient.DeleteAsync(
+            $"api/v1/contacts/{contactId}"
+        );
+
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+
+        CustomProblemDetails problemDetails = await response.GetProblemDetails();
+
+        Assert.NotNull(problemDetails);
+        Assert.Equal(expected.Description, problemDetails.Errors[0]);
+        Assert.Equal(expected.Code, problemDetails.Title);
+    }
+}

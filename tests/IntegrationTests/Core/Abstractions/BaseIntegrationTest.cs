@@ -21,12 +21,6 @@ public abstract class BaseIntegrationTest : IAsyncLifetime
         HttpClient = factory.CreateClient();
     }
 
-    protected T GetUseCase<T>()
-        where T : notnull
-    {
-        return _scope.ServiceProvider.GetRequiredService<T>();
-    }
-
     public async Task InitializeAsync()
     {
         await DbContext.Database.EnsureCreatedAsync();
