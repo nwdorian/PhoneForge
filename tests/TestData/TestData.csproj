@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <PackageReference Include="Bogus" />
+        <PackageReference Include="xunit" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\backend\WebApi\WebApi.csproj" />
+    </ItemGroup>
+</Project>

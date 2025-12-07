@@ -10,4 +10,7 @@
         <PackageReference Include="Scrutor" />
         <PackageReference Include="Serilog" />
     </ItemGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="IntegrationTests" />
+    </ItemGroup>
 </Project>
