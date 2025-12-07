@@ -1,6 +1,6 @@
 using Domain.Contacts;
 
-namespace Domain.UnitTests.Contacts;
+namespace UnitTests.Contacts;
 
 public class ContactTests
 {

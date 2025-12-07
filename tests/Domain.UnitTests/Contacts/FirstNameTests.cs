@@ -1,7 +1,7 @@
 using Domain.Contacts;
 using Domain.Core.Primitives;
 
-namespace Domain.UnitTests.Contacts;
+namespace UnitTests.Contacts;
 
 public class FirstNameTests
 {
