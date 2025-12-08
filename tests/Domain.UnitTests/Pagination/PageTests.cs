@@ -1,31 +1,28 @@
 using Domain.Core.Pagination;
 using Domain.Core.Primitives;
+using UnitTests.Pagination.Cases;
 
 namespace UnitTests.Pagination;
 
 public class PageTests
 {
-    [Fact]
-    public void Create_Should_ReturnSuccess_WithValidInput()
+    [Theory]
+    [ClassData(typeof(PageValid))]
+    public void Create_Should_ReturnSuccess_WithValidInput(int input)
     {
-        int input = 1;
-
         Result<Page> result = Page.Create(input);
 
         Assert.True(result.IsSuccess);
-        Assert.False(result.IsFailure);
         Assert.Equal(input, result.Value);
     }
 
-    [Fact]
-    public void Create_Should_ReturnError_WithTooLowInput()
+    [Theory]
+    [ClassData(typeof(PageInvalid))]
+    public void Create_Should_ReturnError_WithTooLowInput(int input, Error expected)
     {
-        int input = 0;
-
         Result<Page> result = Page.Create(input);
 
         Assert.True(result.IsFailure);
-        Assert.False(result.IsSuccess);
-        Assert.Equal(PaginationErrors.InvalidPage, result.Error);
+        Assert.Equal(expected, result.Error);
     }
 }
