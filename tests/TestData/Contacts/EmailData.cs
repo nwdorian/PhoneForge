@@ -1,5 +1,3 @@
-using Domain.Contacts;
-
 namespace TestData.Contacts;
 
 public static class EmailData

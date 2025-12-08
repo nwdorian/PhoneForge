@@ -1,4 +1,3 @@
-using Domain.Core.Pagination;
 using WebApi.Contacts.Get;
 
 namespace TestData.Contacts.Requests;

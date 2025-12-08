@@ -1,5 +1,3 @@
-using Domain.Core.Pagination;
-
 namespace TestData.Pagination;
 
 public static class PageSizeData
