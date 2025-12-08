@@ -1,44 +1,28 @@
 using Domain.Contacts;
 using Domain.Core.Primitives;
+using TestData.LastNames.Cases;
 
-namespace Domain.UnitTests.Contacts;
+namespace UnitTests.Contacts;
 
 public class LastNameTests
 {
-    [Fact]
-    public void Create_Should_ReturnSuccess_WithValidInput()
+    [Theory]
+    [ClassData(typeof(LastNameValid))]
+    public void Create_Should_ReturnSuccess_WithValidInput(string input)
     {
-        string input = "Doe";
-
         Result<LastName> result = LastName.Create(input);
 
         Assert.True(result.IsSuccess);
-        Assert.False(result.IsFailure);
         Assert.Equal(input, result.Value);
     }
 
     [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    [InlineData(" ")]
-    public void Create_Should_ReturnError_WithNullOrEmptyInput(string? input)
+    [ClassData(typeof(LastNameInvalid))]
+    public void Create_Should_ReturnError_WithInvalidInput(string? input, Error expected)
     {
         Result<LastName> result = LastName.Create(input);
 
         Assert.True(result.IsFailure);
-        Assert.False(result.IsSuccess);
-        Assert.Equal(ContactErrors.LastName.NullOrEmpty, result.Error);
-    }
-
-    [Fact]
-    public void Create_Should_ReturnError_WithTooLongInput()
-    {
-        string input = new('a', LastName.MaxLength + 1);
-
-        Result<LastName> result = LastName.Create(input);
-
-        Assert.True(result.IsFailure);
-        Assert.False(result.IsSuccess);
-        Assert.Equal(ContactErrors.LastName.LongerThanAllowed, result.Error);
+        Assert.Equal(expected, result.Error);
     }
 }

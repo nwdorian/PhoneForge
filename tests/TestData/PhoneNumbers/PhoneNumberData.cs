@@ -1,6 +1,6 @@
 using Domain.Contacts;
 
-namespace TestData.Contacts;
+namespace TestData.PhoneNumbers;
 
 public static class PhoneNumberData
 {
@@ -17,4 +17,6 @@ public static class PhoneNumberData
         '*',
         PhoneNumber.MinLength - 1
     );
+
+    public static readonly string InvalidFormatPhoneNumber = new("091-1234/567");
 }

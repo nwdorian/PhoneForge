@@ -7,6 +7,7 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\backend\Domain\Domain.csproj" />
+        <ProjectReference Include="..\TestData\TestData.csproj" />
     </ItemGroup>
     <ItemGroup>
         <Using Include="Xunit" />

@@ -1,6 +1,6 @@
 using Domain.Contacts;
 
-namespace TestData.Contacts;
+namespace TestData.Emails;
 
 public static class EmailData
 {
