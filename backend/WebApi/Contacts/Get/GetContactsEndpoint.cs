@@ -10,9 +10,14 @@ namespace WebApi.Contacts.Get;
 
 internal sealed class GetContactsEndpoint : IEndpoint
 {
+    public const string Name = "GetContacts";
+
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet(Routes.Contacts.Get, Handler);
+        app.MapGet(Routes.Contacts.Get, Handler)
+            .WithNameAndTags(Name, Tags.Contacts)
+            .Produces<GetContactsResponse>(StatusCodes.Status200OK)
+            .MapToApiVersion(1);
     }
 
     private static async Task<IResult> Handler(
