@@ -7,6 +7,11 @@ namespace Domain.Core.Pagination;
 /// </summary>
 public sealed record Page
 {
+    /// <summary>
+    /// The first page.
+    /// </summary>
+    public const int FirstPage = 1;
+
     private Page(int value)
     {
         Value = value;
@@ -33,7 +38,7 @@ public sealed record Page
     /// <returns>The result of the page creation process containing the page or an error.</returns>
     public static Result<Page> Create(int page)
     {
-        if (page < 1)
+        if (page < FirstPage)
         {
             return PaginationErrors.InvalidPage;
         }
