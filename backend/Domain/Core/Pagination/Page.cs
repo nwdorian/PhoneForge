@@ -7,6 +7,11 @@ namespace Domain.Core.Pagination;
 /// </summary>
 public sealed record Page
 {
+    /// <summary>
+    /// The first page.
+    /// </summary>
+    public const int FirstPage = 1;
+
     private Page(int value)
     {
         Value = value;
