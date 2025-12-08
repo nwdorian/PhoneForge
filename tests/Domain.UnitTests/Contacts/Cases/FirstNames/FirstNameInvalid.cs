@@ -1,6 +1,6 @@
 using Domain.Contacts;
 using Domain.Core.Primitives;
-using TestData.FirstNames;
+using TestData.Contacts;
 
 namespace UnitTests.Contacts.Cases.FirstNames;
 

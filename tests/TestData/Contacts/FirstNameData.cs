@@ -1,6 +1,6 @@
 using Domain.Contacts;
 
-namespace TestData.FirstNames;
+namespace TestData.Contacts;
 
 public static class FirstNameData
 {

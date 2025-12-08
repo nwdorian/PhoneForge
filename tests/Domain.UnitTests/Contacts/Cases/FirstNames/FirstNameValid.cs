@@ -1,4 +1,4 @@
-using TestData.FirstNames;
+using TestData.Contacts;
 
 namespace UnitTests.Contacts.Cases.FirstNames;
 
