@@ -1,7 +1,6 @@
 using Domain.Contacts;
-using Xunit;
 
-namespace TestData.Contacts;
+namespace UnitTests.Contacts.Cases;
 
 public class ContactUpdate : TheoryData<FirstName, LastName, Email, PhoneNumber>
 {

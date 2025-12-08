@@ -1,7 +1,7 @@
 using Domain.Contacts;
-using Xunit;
+using TestData.Contacts;
 
-namespace TestData.Contacts;
+namespace UnitTests.Contacts.Cases;
 
 public class ContactValid : TheoryData<FirstName, LastName, Email, PhoneNumber, string>
 {
