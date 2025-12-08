@@ -4,7 +4,7 @@ namespace TestData.Pagination;
 
 public static class PageSizeData
 {
-    public static readonly PageSize ValidPageSize = PageSize
+    public static readonly PageSize MinimumPageSize = PageSize
         .Create(PageSize.MinimumPageSize)
         .Value;
 
