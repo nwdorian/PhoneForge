@@ -1,7 +1,7 @@
 using Domain.Core.Pagination;
 using WebApi.Contacts.Get;
 
-namespace TestData.Contacts.Get;
+namespace TestData.Contacts.Requests;
 
 public static class GetContactsRequestData
 {

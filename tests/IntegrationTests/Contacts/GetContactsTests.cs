@@ -4,9 +4,9 @@ using Application.Contacts.Get;
 using Domain.Contacts;
 using Domain.Core.Primitives;
 using Infrastructure.Database;
+using IntegrationTests.Contacts.Cases.Get;
 using IntegrationTests.Core.Abstractions;
 using IntegrationTests.Core.Extensions;
-using TestData.Contacts.Get;
 using WebApi.Contacts.Get;
 using WebApi.Core.Constants;
 

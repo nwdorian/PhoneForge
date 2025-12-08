@@ -6,9 +6,6 @@
     <ItemGroup>
         <ProjectReference Include="..\..\backend\WebApi\WebApi.csproj" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Contacts\Update\" />
-    </ItemGroup>
 
     <PropertyGroup>
         <IsTestProject>false</IsTestProject>

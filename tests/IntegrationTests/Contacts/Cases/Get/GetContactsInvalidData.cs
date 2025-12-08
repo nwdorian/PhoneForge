@@ -1,9 +1,9 @@
 using Domain.Core.Pagination;
 using Domain.Core.Primitives;
+using TestData.Contacts.Requests;
 using WebApi.Contacts.Get;
-using Xunit;
 
-namespace TestData.Contacts.Get;
+namespace IntegrationTests.Contacts.Cases.Get;
 
 public class GetContactsInvalidData : TheoryData<GetContactsRequest, Error>
 {

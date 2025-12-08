@@ -1,7 +1,7 @@
+using TestData.Contacts.Requests;
 using WebApi.Contacts.Get;
-using Xunit;
 
-namespace TestData.Contacts.Get;
+namespace IntegrationTests.Contacts.Cases.Get;
 
 public class GetContactsValidData : TheoryData<GetContactsRequest, int, int, bool, bool>
 {
