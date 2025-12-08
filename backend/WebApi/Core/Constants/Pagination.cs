@@ -1,3 +1,5 @@
+using Domain.Core.Pagination;
+
 namespace WebApi.Core.Constants;
 
 /// <summary>
@@ -8,12 +10,12 @@ public static class Pagination
     /// <summary>
     /// Default page.
     /// </summary>
-    public const int DefaultPage = 1;
+    public const int DefaultPage = Page.FirstPage;
 
     /// <summary>
     /// Default page size.
     /// </summary>
-    public const int DefaultPageSize = 10;
+    public const int DefaultPageSize = PageSize.MinimumPageSize;
 
     /// <summary>
     /// Default sort order.
