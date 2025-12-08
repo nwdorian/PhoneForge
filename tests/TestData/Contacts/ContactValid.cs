@@ -1,6 +1,5 @@
 using Domain.Contacts;
 using TestData.Emails;
-using TestData.LastNames;
 using TestData.PhoneNumbers;
 using Xunit;
 
