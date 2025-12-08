@@ -1,6 +1,6 @@
-using Xunit;
+using TestData.FirstNames;
 
-namespace TestData.FirstNames.Cases;
+namespace UnitTests.Contacts.Cases.FirstNames;
 
 public class FirstNameValid : TheoryData<string>
 {

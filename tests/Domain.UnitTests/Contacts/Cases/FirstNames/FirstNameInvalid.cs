@@ -1,8 +1,8 @@
 using Domain.Contacts;
 using Domain.Core.Primitives;
-using Xunit;
+using TestData.FirstNames;
 
-namespace TestData.FirstNames.Cases;
+namespace UnitTests.Contacts.Cases.FirstNames;
 
 public class FirstNameInvalid : TheoryData<string?, Error>
 {
