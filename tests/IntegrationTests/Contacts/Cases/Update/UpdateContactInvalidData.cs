@@ -1,9 +1,9 @@
 using Domain.Contacts;
 using Domain.Core.Primitives;
+using TestData.Contacts.Requests;
 using WebApi.Contacts.Update;
-using Xunit;
 
-namespace TestData.Contacts.Update;
+namespace IntegrationTests.Contacts.Cases.Update;
 
 public class UpdateContactInvalidData : TheoryData<UpdateContactRequest, Error>
 {

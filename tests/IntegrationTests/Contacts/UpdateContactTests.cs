@@ -3,9 +3,9 @@ using System.Net.Http.Json;
 using Domain.Contacts;
 using Domain.Core.Primitives;
 using Infrastructure.Database;
+using IntegrationTests.Contacts.Cases.Update;
 using IntegrationTests.Core.Abstractions;
 using IntegrationTests.Core.Extensions;
-using TestData.Contacts.Update;
 using WebApi.Contacts.Update;
 
 namespace IntegrationTests.Contacts;

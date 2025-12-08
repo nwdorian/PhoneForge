@@ -1,7 +1,7 @@
+using TestData.Contacts.Requests;
 using WebApi.Contacts.Update;
-using Xunit;
 
-namespace TestData.Contacts.Update;
+namespace IntegrationTests.Contacts.Cases.Update;
 
 public class UpdateContactValidData : TheoryData<UpdateContactRequest>
 {

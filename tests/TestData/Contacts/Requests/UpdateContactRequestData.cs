@@ -1,6 +1,6 @@
 using WebApi.Contacts.Update;
 
-namespace TestData.Contacts.Update;
+namespace TestData.Contacts.Requests;
 
 public static class UpdateContactRequestData
 {
