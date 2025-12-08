@@ -1,5 +1,3 @@
-using Domain.Contacts;
-using Domain.Core.Primitives;
 using UnitTests.Contacts.Cases.LastNames;
 
 namespace UnitTests.Contacts;

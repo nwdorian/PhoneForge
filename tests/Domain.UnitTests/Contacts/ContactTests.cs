@@ -1,4 +1,3 @@
-using Domain.Contacts;
 using TestData.Contacts;
 using UnitTests.Contacts.Cases;
 

@@ -1,5 +1,3 @@
-using Domain.Contacts;
-
 namespace UnitTests.Contacts.Cases;
 
 public class ContactUpdate : TheoryData<FirstName, LastName, Email, PhoneNumber>

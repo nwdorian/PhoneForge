@@ -1,5 +1,3 @@
-using Domain.Contacts;
-using Domain.Core.Primitives;
 using TestData.Contacts;
 
 namespace UnitTests.Contacts.Cases.Emails;
