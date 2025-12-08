@@ -1,7 +1,7 @@
 using Domain.Core.Pagination;
-using Xunit;
+using TestData.Pagination;
 
-namespace TestData.Pagination.Cases;
+namespace UnitTests.Pagination.Cases;
 
 public class PagedListValid : TheoryData<List<int>, Page, PageSize, int, int, bool, bool>
 {

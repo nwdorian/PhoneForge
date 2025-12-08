@@ -1,8 +1,8 @@
 using Domain.Core.Pagination;
 using Domain.Core.Primitives;
-using Xunit;
+using TestData.Pagination;
 
-namespace TestData.Pagination.Cases;
+namespace UnitTests.Pagination.Cases;
 
 public class PageSizeInvalid : TheoryData<int, Error>
 {

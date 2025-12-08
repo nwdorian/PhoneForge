@@ -1,6 +1,6 @@
-using Xunit;
+using TestData.Pagination;
 
-namespace TestData.Pagination.Cases;
+namespace UnitTests.Pagination.Cases;
 
 public class PageSizeValid : TheoryData<int>
 {
