@@ -38,7 +38,7 @@ public sealed record Page
     /// <returns>The result of the page creation process containing the page or an error.</returns>
     public static Result<Page> Create(int page)
     {
-        if (page < 1)
+        if (page < FirstPage)
         {
             return PaginationErrors.InvalidPage;
         }
