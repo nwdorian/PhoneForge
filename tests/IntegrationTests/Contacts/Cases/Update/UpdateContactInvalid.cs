@@ -3,9 +3,9 @@ using WebApi.Contacts.Update;
 
 namespace IntegrationTests.Contacts.Cases.Update;
 
-public class UpdateContactInvalidData : TheoryData<UpdateContactRequest, Error>
+public class UpdateContactInvalid : TheoryData<UpdateContactRequest, Error>
 {
-    public UpdateContactInvalidData()
+    public UpdateContactInvalid()
     {
         Add(
             UpdateContactRequestData.CreateRequestWithInvalidFirstName(),

@@ -10,7 +10,7 @@ public class UpdateContactTests(IntegrationTestWebAppFactory factory)
     : BaseIntegrationTest(factory)
 {
     [Theory]
-    [ClassData(typeof(UpdateContactValidData))]
+    [ClassData(typeof(UpdateContactValid))]
     public async Task Should_ReturnNoContent_WhenContactWasUpdated(
         UpdateContactRequest request
     )
@@ -39,7 +39,7 @@ public class UpdateContactTests(IntegrationTestWebAppFactory factory)
     }
 
     [Theory]
-    [ClassData(typeof(UpdateContactWithNonExistingIdData))]
+    [ClassData(typeof(UpdateContactWithNonExistingId))]
     public async Task Should_ReturnNotFound_WhenContactDoesNotExist(
         UpdateContactRequest request,
         Guid contactId,
@@ -55,7 +55,7 @@ public class UpdateContactTests(IntegrationTestWebAppFactory factory)
     }
 
     [Theory]
-    [ClassData(typeof(UpdateContactInvalidData))]
+    [ClassData(typeof(UpdateContactInvalid))]
     public async Task Should_ReturnBadRequest_WhenRequestIsInvalid(
         UpdateContactRequest request,
         Error expected
@@ -72,7 +72,7 @@ public class UpdateContactTests(IntegrationTestWebAppFactory factory)
     }
 
     [Theory]
-    [ClassData(typeof(UpdateContactValidData))]
+    [ClassData(typeof(UpdateContactValid))]
     public async Task Should_ReturnConflict_WhenEmailIsNotUnique(
         UpdateContactRequest request
     )

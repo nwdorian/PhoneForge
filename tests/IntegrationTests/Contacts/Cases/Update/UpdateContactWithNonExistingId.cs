@@ -3,12 +3,12 @@ using WebApi.Contacts.Update;
 
 namespace IntegrationTests.Contacts.Cases.Update;
 
-public class UpdateContactWithNonExistingIdData
+public class UpdateContactWithNonExistingId
     : TheoryData<UpdateContactRequest, Guid, Error>
 {
     private readonly Guid _id = Guid.NewGuid();
 
-    public UpdateContactWithNonExistingIdData()
+    public UpdateContactWithNonExistingId()
     {
         Add(
             UpdateContactRequestData.CreateValidRequest(),
