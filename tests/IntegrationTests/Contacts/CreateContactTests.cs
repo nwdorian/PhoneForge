@@ -14,7 +14,7 @@ public class CreateContactTests(IntegrationTestWebAppFactory factory)
     private const string CreateContactRoute = $"api/v1/{Routes.Contacts.Create}";
 
     [Theory]
-    [ClassData(typeof(CreateContactValidData))]
+    [ClassData(typeof(CreateContactValid))]
     public async Task Should_ReturnCreated_WhenContactIsCreated(
         CreateContactRequest request
     )
@@ -39,7 +39,7 @@ public class CreateContactTests(IntegrationTestWebAppFactory factory)
     }
 
     [Theory]
-    [ClassData(typeof(CreateContactInvalidData))]
+    [ClassData(typeof(CreateContactInvalid))]
     public async Task Should_ReturnBadRequest_WhenRequestIsInvalid(
         CreateContactRequest request,
         Error expected
@@ -54,7 +54,7 @@ public class CreateContactTests(IntegrationTestWebAppFactory factory)
     }
 
     [Theory]
-    [ClassData(typeof(CreateContactValidData))]
+    [ClassData(typeof(CreateContactValid))]
     public async Task Should_ReturnConflict_WhenEmailIsNotUnique(
         CreateContactRequest request
     )
