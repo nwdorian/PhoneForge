@@ -14,7 +14,7 @@ public class GetContactsTests(IntegrationTestWebAppFactory factory)
     private const string GetContactsRoute = $"api/v1/{Routes.Contacts.Get}";
 
     [Theory]
-    [ClassData(typeof(GetContactsValidData))]
+    [ClassData(typeof(GetContactsValid))]
     public async Task Should_ReturnCorrectPages(
         GetContactsRequest request,
         int totalCount,
@@ -69,7 +69,7 @@ public class GetContactsTests(IntegrationTestWebAppFactory factory)
     }
 
     [Theory]
-    [ClassData(typeof(GetContactsInvalidData))]
+    [ClassData(typeof(GetContactsInvalid))]
     public async Task Should_ReturnError_WhenPagingDataIsInvalid(
         GetContactsRequest request,
         Error expected

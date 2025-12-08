@@ -3,9 +3,9 @@ using WebApi.Contacts.Get;
 
 namespace IntegrationTests.Contacts.Cases.Get;
 
-public class GetContactsValidData : TheoryData<GetContactsRequest, int, int, bool, bool>
+public class GetContactsValid : TheoryData<GetContactsRequest, int, int, bool, bool>
 {
-    public GetContactsValidData()
+    public GetContactsValid()
     {
         Add(GetContactsRequestData.CreateDefaultValidRequest(), 20, 2, false, true);
         Add(

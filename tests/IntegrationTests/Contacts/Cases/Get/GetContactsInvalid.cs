@@ -3,9 +3,9 @@ using WebApi.Contacts.Get;
 
 namespace IntegrationTests.Contacts.Cases.Get;
 
-public class GetContactsInvalidData : TheoryData<GetContactsRequest, Error>
+public class GetContactsInvalid : TheoryData<GetContactsRequest, Error>
 {
-    public GetContactsInvalidData()
+    public GetContactsInvalid()
     {
         Add(
             GetContactsRequestData.CreateRequestWithInvalidPage(),
