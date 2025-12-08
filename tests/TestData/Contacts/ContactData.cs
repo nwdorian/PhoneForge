@@ -1,9 +1,3 @@
-using Domain.Contacts;
-using TestData.Emails;
-using TestData.FirstNames;
-using TestData.LastNames;
-using TestData.PhoneNumbers;
-
 namespace TestData.Contacts;
 
 public static class ContactData

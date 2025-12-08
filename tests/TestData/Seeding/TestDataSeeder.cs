@@ -1,5 +1,4 @@
 using Bogus;
-using Domain.Contacts;
 using Infrastructure.Database;
 
 namespace TestData.Seeding;

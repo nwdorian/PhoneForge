@@ -1,6 +1,4 @@
-using Domain.Contacts;
-using Domain.Core.Primitives;
-using TestData.Emails.Cases;
+using UnitTests.Contacts.Cases.Emails;
 
 namespace UnitTests.Contacts;
 

@@ -1,12 +1,8 @@
-using System.Net;
-using System.Net.Http.Json;
 using Application.Contacts;
-using Domain.Contacts;
-using Domain.Core.Primitives;
 using Infrastructure.Database;
+using IntegrationTests.Contacts.Cases.Create;
 using IntegrationTests.Core.Abstractions;
 using IntegrationTests.Core.Extensions;
-using TestData.Contacts.Create;
 using WebApi.Contacts.Create;
 using WebApi.Core.Constants;
 
@@ -36,7 +32,9 @@ public class CreateContactTests(IntegrationTestWebAppFactory factory)
 
         using PhoneForgeDbContext context = CreateDbContext();
 
-        Contact? contact = context.Contacts.FirstOrDefault(c => c.Id == result.Id);
+        Contact? contact = await context.Contacts.FirstOrDefaultAsync(c =>
+            c.Id == result.Id
+        );
         Assert.NotNull(contact);
     }
 

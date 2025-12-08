@@ -1,6 +1,4 @@
-using Domain.Contacts;
-using Domain.Core.Primitives;
-using TestData.PhoneNumbers.Cases;
+using UnitTests.Contacts.Cases.PhoneNumbers;
 
 namespace UnitTests.Contacts;
 

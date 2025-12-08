@@ -1,8 +1,4 @@
-using System.Net;
-using System.Net.Http.Json;
 using Application.Contacts;
-using Domain.Contacts;
-using Domain.Core.Primitives;
 using IntegrationTests.Core.Abstractions;
 using IntegrationTests.Core.Extensions;
 using WebApi.Core.Constants;
