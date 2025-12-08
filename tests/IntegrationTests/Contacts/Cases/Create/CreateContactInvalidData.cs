@@ -1,8 +1,5 @@
-using Domain.Contacts;
-using Domain.Core.Primitives;
 using TestData.Contacts.Requests;
 using WebApi.Contacts.Create;
-using Xunit;
 
 namespace IntegrationTests.Contacts.Cases.Create;
 

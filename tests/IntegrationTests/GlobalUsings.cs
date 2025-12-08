@@ -1,0 +1,14 @@
+global using System.Diagnostics.CodeAnalysis;
+global using System.Net;
+global using System.Net.Http.Json;
+global using Domain.Contacts;
+global using Domain.Core.Pagination;
+global using Domain.Core.Primitives;
+global using Microsoft.AspNetCore.Hosting;
+global using Microsoft.AspNetCore.Mvc.Testing;
+global using Microsoft.AspNetCore.TestHost;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.DependencyInjection.Extensions;
+global using Xunit;

@@ -1,5 +1,3 @@
-using Domain.Core.Pagination;
-using Domain.Core.Primitives;
 using TestData.Contacts.Requests;
 using WebApi.Contacts.Get;
 

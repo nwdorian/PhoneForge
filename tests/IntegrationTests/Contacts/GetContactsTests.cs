@@ -1,8 +1,4 @@
-using System.Net;
-using System.Net.Http.Json;
 using Application.Contacts.Get;
-using Domain.Contacts;
-using Domain.Core.Primitives;
 using Infrastructure.Database;
 using IntegrationTests.Contacts.Cases.Get;
 using IntegrationTests.Core.Abstractions;
@@ -42,11 +38,11 @@ public class GetContactsTests(IntegrationTestWebAppFactory factory)
 
         using PhoneForgeDbContext context = CreateDbContext();
 
-        List<Guid> contacts = context
+        List<Guid> contacts = await context
             .Contacts.OrderBy(c => c.CreatedOnUtc)
             .Select(c => c.Id)
             .Take(10)
-            .ToList();
+            .ToListAsync();
 
         Assert.Equal(response.Items.Count, contacts.Count);
     }
@@ -65,9 +61,9 @@ public class GetContactsTests(IntegrationTestWebAppFactory factory)
 
         using PhoneForgeDbContext context = CreateDbContext();
 
-        List<Contact> contacts = context
+        List<Contact> contacts = await context
             .Contacts.Where(x => x.Email.Value.Contains(email))
-            .ToList();
+            .ToListAsync();
 
         Assert.Equal(contacts.Count, response.Items.Count);
     }

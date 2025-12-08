@@ -1,6 +1,3 @@
-using System.Net;
-using System.Net.Http.Json;
-using Domain.Core.Primitives;
 using IntegrationTests.Core.Contracts;
 
 namespace IntegrationTests.Core.Extensions;

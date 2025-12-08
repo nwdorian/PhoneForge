@@ -1,10 +1,6 @@
-using System.Net;
-using Domain.Contacts;
-using Domain.Core.Primitives;
 using Infrastructure.Database;
 using IntegrationTests.Core.Abstractions;
 using IntegrationTests.Core.Extensions;
-using Microsoft.EntityFrameworkCore;
 
 namespace IntegrationTests.Contacts;
 

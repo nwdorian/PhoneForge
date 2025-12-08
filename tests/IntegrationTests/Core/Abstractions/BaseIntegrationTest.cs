@@ -1,6 +1,4 @@
 using Infrastructure.Database;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using TestData.Seeding;
 
 namespace IntegrationTests.Core.Abstractions;
