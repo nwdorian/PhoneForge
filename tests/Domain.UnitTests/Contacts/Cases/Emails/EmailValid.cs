@@ -1,6 +1,6 @@
-using Xunit;
+using TestData.Contacts;
 
-namespace TestData.Emails.Cases;
+namespace UnitTests.Contacts.Cases.Emails;
 
 public class EmailValid : TheoryData<string>
 {
