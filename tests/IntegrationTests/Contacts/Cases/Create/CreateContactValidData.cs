@@ -1,7 +1,7 @@
+using TestData.Contacts.Requests;
 using WebApi.Contacts.Create;
-using Xunit;
 
-namespace TestData.Contacts.Create;
+namespace IntegrationTests.Contacts.Cases.Create;
 
 public class CreateContactValidData : TheoryData<CreateContactRequest>
 {

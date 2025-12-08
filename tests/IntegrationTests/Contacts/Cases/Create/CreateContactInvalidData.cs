@@ -1,9 +1,10 @@
 using Domain.Contacts;
 using Domain.Core.Primitives;
+using TestData.Contacts.Requests;
 using WebApi.Contacts.Create;
 using Xunit;
 
-namespace TestData.Contacts.Create;
+namespace IntegrationTests.Contacts.Cases.Create;
 
 public class CreateContactInvalidData : TheoryData<CreateContactRequest, Error>
 {

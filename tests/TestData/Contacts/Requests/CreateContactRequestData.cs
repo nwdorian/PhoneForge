@@ -1,6 +1,6 @@
 using WebApi.Contacts.Create;
 
-namespace TestData.Contacts.Create;
+namespace TestData.Contacts.Requests;
 
 public static class CreateContactRequestData
 {
