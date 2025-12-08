@@ -1,4 +1,3 @@
-using TestData.PhoneNumbers;
 using WebApi.Contacts.Update;
 
 namespace TestData.Contacts.Update;

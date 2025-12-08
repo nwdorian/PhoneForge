@@ -1,4 +1,3 @@
-using TestData.PhoneNumbers;
 using WebApi.Contacts.Create;
 
 namespace TestData.Contacts.Create;

@@ -1,5 +1,4 @@
 using Domain.Contacts;
-using TestData.PhoneNumbers;
 using Xunit;
 
 namespace TestData.Contacts;

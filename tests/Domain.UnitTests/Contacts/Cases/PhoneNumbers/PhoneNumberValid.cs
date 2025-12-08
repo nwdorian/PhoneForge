@@ -1,6 +1,6 @@
-using Xunit;
+using TestData.Contacts;
 
-namespace TestData.PhoneNumbers.Cases;
+namespace UnitTests.Contacts.Cases.PhoneNumbers;
 
 public class PhoneNumberValid : TheoryData<string>
 {

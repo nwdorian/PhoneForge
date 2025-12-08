@@ -1,8 +1,8 @@
 using Domain.Contacts;
 using Domain.Core.Primitives;
-using Xunit;
+using TestData.Contacts;
 
-namespace TestData.PhoneNumbers.Cases;
+namespace UnitTests.Contacts.Cases.PhoneNumbers;
 
 public class PhoneNumberInvalid : TheoryData<string?, Error>
 {

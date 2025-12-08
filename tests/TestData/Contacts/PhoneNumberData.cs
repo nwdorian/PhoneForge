@@ -1,6 +1,6 @@
 using Domain.Contacts;
 
-namespace TestData.PhoneNumbers;
+namespace TestData.Contacts;
 
 public static class PhoneNumberData
 {
