@@ -6,7 +6,8 @@ namespace WebApi.Contacts.Update;
 /// <summary>
 /// Validates the <see cref="UpdateContactRequest"/> instances.
 /// </summary>
-public class UpdateContactRequestValidator : AbstractValidator<UpdateContactRequest>
+internal sealed class UpdateContactRequestValidator
+    : AbstractValidator<UpdateContactRequest>
 {
     /// <summary>
     /// Defines the validation rules for <see cref="UpdateContactRequest"/>
