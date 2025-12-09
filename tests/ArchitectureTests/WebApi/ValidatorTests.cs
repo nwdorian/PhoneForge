@@ -18,4 +18,32 @@ public class ValidatorTests : BaseTest
 
         Assert.True(result.IsSuccessful);
     }
+
+    [Fact]
+    public void Validator_Should_NotBePublic()
+    {
+        TestResult result = Types
+            .InAssembly(WebApiAssembly)
+            .That()
+            .Inherit(typeof(AbstractValidator<>))
+            .Should()
+            .NotBePublic()
+            .GetResult();
+
+        Assert.True(result.IsSuccessful);
+    }
+
+    [Fact]
+    public void Validator_Should_BeSealed()
+    {
+        TestResult result = Types
+            .InAssembly(WebApiAssembly)
+            .That()
+            .Inherit(typeof(AbstractValidator<>))
+            .Should()
+            .BeSealed()
+            .GetResult();
+
+        Assert.True(result.IsSuccessful);
+    }
 }

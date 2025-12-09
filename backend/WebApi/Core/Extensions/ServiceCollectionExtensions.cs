@@ -83,6 +83,9 @@ public static class ServiceCollectionExtensions
 
     private static void AddFluentValidation(this IServiceCollection services)
     {
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddValidatorsFromAssembly(
+            Assembly.GetExecutingAssembly(),
+            includeInternalTypes: true
+        );
     }
 }

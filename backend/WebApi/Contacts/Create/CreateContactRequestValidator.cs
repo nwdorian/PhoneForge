@@ -6,7 +6,8 @@ namespace WebApi.Contacts.Create;
 /// <summary>
 /// Validates <see cref="CreateContactRequest"/> instances.
 /// </summary>
-public class CreateContactRequestValidator : AbstractValidator<CreateContactRequest>
+internal sealed class CreateContactRequestValidator
+    : AbstractValidator<CreateContactRequest>
 {
     /// <summary>
     /// Defines the validation rules for a <see cref="CreateContactRequest"/>.
