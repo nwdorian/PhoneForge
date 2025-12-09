@@ -4,16 +4,26 @@ using Domain.Contacts;
 using Domain.Core.Primitives;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Contacts.Create;
+namespace Application.Contacts.Update;
 
-internal sealed class CreateContact(IDbContext context)
-    : ICommandHandler<CreateContactCommand, ContactResponse>
+internal sealed class UpdateContactHandler(IDbContext context)
+    : ICommandHandler<UpdateContactCommand>
 {
-    public async Task<Result<ContactResponse>> Handle(
-        CreateContactCommand command,
+    public async Task<Result> Handle(
+        UpdateContactCommand command,
         CancellationToken cancellationToken
     )
     {
+        Contact? contact = await context.Contacts.SingleOrDefaultAsync(
+            c => c.Id == command.Id,
+            cancellationToken
+        );
+
+        if (contact is null)
+        {
+            return ContactErrors.NotFoundById(command.Id);
+        }
+
         Result<FirstName> firstNameResult = FirstName.Create(command.FirstName);
         Result<LastName> lastNameResult = LastName.Create(command.LastName);
         Result<Email> emailResult = Email.Create(command.Email);
@@ -41,27 +51,15 @@ internal sealed class CreateContact(IDbContext context)
             return ContactErrors.EmailNotUnique;
         }
 
-        Contact contact = Contact.Create(
+        contact.UpdateContact(
             firstNameResult.Value,
             lastNameResult.Value,
             emailResult.Value,
             phoneNumberResult.Value
         );
 
-        context.Contacts.Add(contact);
-
         await context.SaveChangesAsync(cancellationToken);
 
-        ContactResponse response = new(
-            contact.Id,
-            contact.FirstName,
-            contact.LastName,
-            contact.FullName,
-            contact.Email,
-            contact.PhoneNumber,
-            contact.CreatedOnUtc
-        );
-
-        return response;
+        return Result.Success();
     }
 }

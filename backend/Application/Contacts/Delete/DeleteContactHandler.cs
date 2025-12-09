@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Contacts.Delete;
 
-internal sealed class DeleteContact(IDbContext context)
+internal sealed class DeleteContactHandler(IDbContext context)
     : ICommandHandler<DeleteContactCommand>
 {
     public async Task<Result> Handle(
