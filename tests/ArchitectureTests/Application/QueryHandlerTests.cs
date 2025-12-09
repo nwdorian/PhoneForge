@@ -32,4 +32,20 @@ public class QueryHandlerTests : BaseTest
 
         Assert.True(result.IsSuccessful);
     }
+
+    [Fact]
+    public void QueryHandler_ShouldHave_NameEndingWith_Handler()
+    {
+        TestResult result = Types
+            .InAssembly(ApplicationAssembly)
+            .That()
+            .ImplementInterface(typeof(IQueryHandler<,>))
+            .And()
+            .AreNotGeneric()
+            .Should()
+            .HaveNameEndingWith("Handler")
+            .GetResult();
+
+        Assert.True(result.IsSuccessful);
+    }
 }

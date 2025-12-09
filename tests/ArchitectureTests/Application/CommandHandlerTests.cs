@@ -36,4 +36,24 @@ public class CommandHandlerTests : BaseTest
 
         Assert.True(result.IsSuccessful);
     }
+
+    [Fact]
+    public void CommandHandler_ShouldHave_NameEndingWith_Handler()
+    {
+        TestResult result = Types
+            .InAssembly(ApplicationAssembly)
+            .That()
+            .ImplementInterface(typeof(ICommandHandler<>))
+            .And()
+            .AreNotGeneric()
+            .Or()
+            .ImplementInterface(typeof(ICommandHandler<,>))
+            .And()
+            .AreNotGeneric()
+            .Should()
+            .HaveNameEndingWith("Handler")
+            .GetResult();
+
+        Assert.True(result.IsSuccessful);
+    }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Contacts.GetById;
 
-internal sealed class GetContactById(IDbContext context)
+internal sealed class GetContactByIdHandler(IDbContext context)
     : IQueryHandler<GetContactByIdQuery, ContactResponse>
 {
     public async Task<Result<ContactResponse>> Handle(

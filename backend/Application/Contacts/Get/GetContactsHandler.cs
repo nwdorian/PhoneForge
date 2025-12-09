@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Contacts.Get;
 
-internal sealed class GetContacts(IDbContext context)
+internal sealed class GetContactsHandler(IDbContext context)
     : IQueryHandler<GetContactsQuery, GetContactsResponse>
 {
     public async Task<Result<GetContactsResponse>> Handle(
