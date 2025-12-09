@@ -1,5 +1,3 @@
-using Domain.Core.Pagination;
-
 namespace UnitTests.Pagination.Cases;
 
 public class PageValid : TheoryData<int>

@@ -3,9 +3,9 @@ using WebApi.Contacts.Update;
 
 namespace IntegrationTests.Contacts.Cases.Update;
 
-public class UpdateContactValidData : TheoryData<UpdateContactRequest>
+public class UpdateContactValid : TheoryData<UpdateContactRequest>
 {
-    public UpdateContactValidData()
+    public UpdateContactValid()
     {
         Add(UpdateContactRequestData.CreateValidRequest());
     }

@@ -3,9 +3,9 @@ using WebApi.Contacts.Create;
 
 namespace IntegrationTests.Contacts.Cases.Create;
 
-public class CreateContactValidData : TheoryData<CreateContactRequest>
+public class CreateContactValid : TheoryData<CreateContactRequest>
 {
-    public CreateContactValidData()
+    public CreateContactValid()
     {
         Add(CreateContactRequestData.CreateValidRequest());
     }

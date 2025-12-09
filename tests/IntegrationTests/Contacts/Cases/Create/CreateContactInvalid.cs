@@ -3,9 +3,9 @@ using WebApi.Contacts.Create;
 
 namespace IntegrationTests.Contacts.Cases.Create;
 
-public class CreateContactInvalidData : TheoryData<CreateContactRequest, Error>
+public class CreateContactInvalid : TheoryData<CreateContactRequest, Error>
 {
-    public CreateContactInvalidData()
+    public CreateContactInvalid()
     {
         Add(
             CreateContactRequestData.CreateRequestWithInvalidFirstName(),

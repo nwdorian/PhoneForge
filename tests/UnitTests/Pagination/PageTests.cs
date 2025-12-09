@@ -16,7 +16,7 @@ public class PageTests
 
     [Theory]
     [ClassData(typeof(PageInvalid))]
-    public void Create_Should_ReturnError_WithTooLowInput(int input, Error expected)
+    public void Create_Should_ReturnError_WithInvalidInput(int input, Error expected)
     {
         Result<Page> result = Page.Create(input);
 

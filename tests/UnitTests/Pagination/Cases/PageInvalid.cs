@@ -1,5 +1,3 @@
-using Domain.Core.Pagination;
-using Domain.Core.Primitives;
 using TestData.Pagination;
 
 namespace UnitTests.Pagination.Cases;
