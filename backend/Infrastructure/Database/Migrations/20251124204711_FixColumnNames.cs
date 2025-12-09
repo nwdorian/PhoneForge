@@ -13,22 +13,26 @@ namespace Infrastructure.Migrations
             migrationBuilder.RenameColumn(
                 name: "PhoneNumber_Value",
                 table: "Contacts",
-                newName: "PhoneNumber");
+                newName: "PhoneNumber"
+            );
 
             migrationBuilder.RenameColumn(
                 name: "LastName_Value",
                 table: "Contacts",
-                newName: "LastName");
+                newName: "LastName"
+            );
 
             migrationBuilder.RenameColumn(
                 name: "FirstName_Value",
                 table: "Contacts",
-                newName: "FirstName");
+                newName: "FirstName"
+            );
 
             migrationBuilder.RenameColumn(
                 name: "Email_Value",
                 table: "Contacts",
-                newName: "Email");
+                newName: "Email"
+            );
         }
 
         /// <inheritdoc />
@@ -37,22 +41,26 @@ namespace Infrastructure.Migrations
             migrationBuilder.RenameColumn(
                 name: "PhoneNumber",
                 table: "Contacts",
-                newName: "PhoneNumber_Value");
+                newName: "PhoneNumber_Value"
+            );
 
             migrationBuilder.RenameColumn(
                 name: "LastName",
                 table: "Contacts",
-                newName: "LastName_Value");
+                newName: "LastName_Value"
+            );
 
             migrationBuilder.RenameColumn(
                 name: "FirstName",
                 table: "Contacts",
-                newName: "FirstName_Value");
+                newName: "FirstName_Value"
+            );
 
             migrationBuilder.RenameColumn(
                 name: "Email",
                 table: "Contacts",
-                newName: "Email_Value");
+                newName: "Email_Value"
+            );
         }
     }
 }
