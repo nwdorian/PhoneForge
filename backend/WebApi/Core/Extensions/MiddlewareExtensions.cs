@@ -1,4 +1,5 @@
 using Infrastructure.Database;
+using Infrastructure.Documents;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using WebApi.Core.Middleware;
@@ -30,6 +31,7 @@ public static class MiddlewareExtensions
         app.MapEndpoints();
 
         await app.ApplyMigrations();
+        await app.SeedDatabase();
 
         return app;
     }
@@ -70,5 +72,15 @@ public static class MiddlewareExtensions
             scope.ServiceProvider.GetRequiredService<PhoneForgeDbContext>();
 
         await dbContext.Database.MigrateAsync();
+    }
+
+    private static async Task SeedDatabase(this IApplicationBuilder app)
+    {
+        using IServiceScope scope = app.ApplicationServices.CreateScope();
+
+        ExcelService excelService =
+            scope.ServiceProvider.GetRequiredService<ExcelService>();
+
+        await excelService.SeedExcelDataAsync();
     }
 }

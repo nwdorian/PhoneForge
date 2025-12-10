@@ -30,7 +30,7 @@ public class ExcelService(PhoneForgeDbContext context, ILogger<ExcelService> log
 
         List<Contact> contacts = [];
 
-        using XLWorkbook workbook = new("documents/contacts.xlsx");
+        using XLWorkbook workbook = new("../../documents/contacts.xlsx");
 
         IXLWorksheet worksheet = workbook.Worksheet(1);
 

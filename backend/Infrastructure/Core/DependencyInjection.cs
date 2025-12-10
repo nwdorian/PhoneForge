@@ -2,6 +2,7 @@ using Application.Core.Abstractions.Data;
 using Domain.Core.Abstractions;
 using Infrastructure.Core.Time;
 using Infrastructure.Database;
+using Infrastructure.Documents;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,7 @@ public static class DependencyInjection
     )
     {
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+        services.AddScoped<ExcelService>();
         services.AddDatabase(configuration);
 
         return services;
