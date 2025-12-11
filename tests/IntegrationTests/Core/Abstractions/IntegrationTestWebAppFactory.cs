@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using Infrastructure.Database;
 
 [assembly: ExcludeFromCodeCoverage]
@@ -7,28 +6,21 @@ namespace IntegrationTests.Core.Abstractions;
 
 public class IntegrationTestWebAppFactory : WebApplicationFactory<Program>
 {
-    public IConfiguration? Configuration { get; private set; }
-
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.ConfigureAppConfiguration(config =>
-        {
-            Configuration = new ConfigurationBuilder()
-                .AddJsonFile("integrationsettings.json")
-                .Build();
+        builder.UseEnvironment("Testing");
 
-            config.AddConfiguration(Configuration);
-        });
+        builder.ConfigureServices(
+            (context, services) =>
+            {
+                services.RemoveAll<DbContextOptions<PhoneForgeDbContext>>();
 
-        builder.ConfigureTestServices(services =>
-        {
-            services.RemoveAll<DbContextOptions<PhoneForgeDbContext>>();
+                string? connectionString = context.Configuration.GetConnectionString(
+                    "PhoneForgeTests"
+                );
 
-            string? connectionString = Configuration?.GetConnectionString(
-                "PhoneForgeTests"
-            );
-
-            services.AddSqlServer<PhoneForgeDbContext>(connectionString);
-        });
+                services.AddSqlServer<PhoneForgeDbContext>(connectionString);
+            }
+        );
     }
 }
