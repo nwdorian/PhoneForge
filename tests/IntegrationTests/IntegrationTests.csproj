@@ -12,8 +12,4 @@
         <ProjectReference Include="..\..\backend\WebApi\WebApi.csproj" />
         <ProjectReference Include="..\TestData\TestData.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-        <None Include="integrationsettings.json" CopyToOutputDirectory="Always" />
-    </ItemGroup>
 </Project>

@@ -31,7 +31,11 @@ public static class MiddlewareExtensions
         app.MapEndpoints();
 
         await app.ApplyMigrations();
-        await app.SeedDatabase();
+
+        if (!app.Environment.IsEnvironment("Testing"))
+        {
+            await app.SeedDatabase();
+        }
 
         return app;
     }
