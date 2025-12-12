@@ -13,4 +13,8 @@
     <ItemGroup>
         <InternalsVisibleTo Include="IntegrationTests" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Contacts\GenerateReport\" />
+      <Folder Include="Core\Abstractions\Reports\" />
+    </ItemGroup>
 </Project>

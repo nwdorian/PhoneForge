@@ -1,0 +1,58 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" context="width=device-widthm initial-scale=1.0" />
+    <title>Contacts Report</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            font-weight:
+                bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Contacts</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone number</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each Contacts}}
+            <tr>
+                <td>{{FullName}}</td>
+                <td>{{Email}}</td>
+                <td>{{PhoneNumber}}</td>
+                <td>{{formatDateTime CreatedOnUtc}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</body>
+
+</html>
