@@ -38,3 +38,7 @@ Content-Type: application/json
     "email": "jdoe2@gmail.com",
     "phoneNumber": "091212121212"
 }
+
+### Generate contacts report
+
+GET {{HostAddress}}/api/v1/contacts/report?sortColumn=first_name

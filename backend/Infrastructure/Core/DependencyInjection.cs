@@ -1,8 +1,10 @@
 using Application.Core.Abstractions.Data;
+using Application.Core.Abstractions.Reports;
 using Domain.Core.Abstractions;
 using Infrastructure.Core.Time;
 using Infrastructure.Database;
 using Infrastructure.Documents;
+using Infrastructure.Reports;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +31,8 @@ public static class DependencyInjection
     {
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddScoped<ExcelService>();
+        services.AddScoped<IReportsService, ReportsService>();
+
         services.AddDatabase(configuration);
 
         return services;

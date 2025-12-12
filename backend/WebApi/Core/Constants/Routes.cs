@@ -39,5 +39,10 @@ public static class Routes
         /// The route used for updating a contact.
         /// </summary>
         public const string Update = $"{Base}/{{contactId:guid}}";
+
+        /// <summary>
+        /// The route used to generate contacts report.
+        /// </summary>
+        public const string GenerateReport = $"{Base}/report";
     }
 }
