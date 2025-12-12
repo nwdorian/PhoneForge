@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Contacts.GenerateReport;
 
-internal class GenerateContactsReportHandler(
+internal sealed class GenerateContactsReportHandler(
     IDbContext context,
     IReportsService reportsService
 ) : ICommandHandler<GenerateContactsReportCommand>
