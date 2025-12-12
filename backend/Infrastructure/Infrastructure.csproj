@@ -12,6 +12,7 @@
         <PackageReference Include="PuppeteerSharp" />
     </ItemGroup>
     <ItemGroup>
+        <Folder Include="Database\Seeding\" />
         <Folder Include="Reports\" />
     </ItemGroup>
 </Project>
