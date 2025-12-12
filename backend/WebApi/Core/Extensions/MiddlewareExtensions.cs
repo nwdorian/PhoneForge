@@ -1,5 +1,5 @@
 using Infrastructure.Database;
-using Infrastructure.Documents;
+using Infrastructure.Database.Seeding;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using WebApi.Core.Middleware;
@@ -82,9 +82,9 @@ public static class MiddlewareExtensions
     {
         using IServiceScope scope = app.ApplicationServices.CreateScope();
 
-        ExcelService excelService =
-            scope.ServiceProvider.GetRequiredService<ExcelService>();
+        SeedingService excelService =
+            scope.ServiceProvider.GetRequiredService<SeedingService>();
 
-        await excelService.SeedExcelDataAsync();
+        await excelService.SeedContacts();
     }
 }

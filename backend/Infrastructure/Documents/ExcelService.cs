@@ -1,32 +1,31 @@
 using ClosedXML.Excel;
 using Domain.Contacts;
 using Domain.Core.Primitives;
-using Infrastructure.Database;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Documents;
 
 /// <summary>
-/// Provides functionality for interacting with excel documents.
+/// Represents the excel service.
 /// </summary>
-/// <param name="context">The database context.</param>
-/// <param name="logger">The logger used for diagnostic and error output</param>
-public class ExcelService(PhoneForgeDbContext context, ILogger<ExcelService> logger)
+/// <param name="logger">The logger used for diagnostic and error output.</param>
+public class ExcelService(ILogger<ExcelService> logger)
 {
     /// <summary>
-    /// Seeds data from excel spreadsheet to the database.
+    /// Reads contacts from the Excel document and loads them into memory.
     /// </summary>
-    /// <returns>The result of seeding process or an error.</returns>
-    public async Task SeedExcelDataAsync()
+    /// <remarks>
+    /// This method processes each row of the Excel worksheet and attempts to
+    /// create a <see cref="Contact"/> instance using the domain value objects.
+    /// If any validation error occurs while reading a row, the operation is aborted
+    /// and the error is logged.
+    /// </remarks>
+    /// <returns>A <see cref="Result"/> containing a list of successfully parsed <see cref="Contact"/> entities,
+    /// or an error describing why loading failed.
+    /// </returns>
+    public async Task<Result<List<Contact>>> GetContacts()
     {
-        logger.LogInformation("Started seeding the database from excel document.");
-
-        if (await context.Contacts.AnyAsync())
-        {
-            logger.LogWarning("Data already exists in the database. Aborting process.");
-            return;
-        }
+        logger.LogInformation("Loading contacts from excel document.");
 
         List<Contact> contacts = [];
 
@@ -55,7 +54,7 @@ public class ExcelService(PhoneForgeDbContext context, ILogger<ExcelService> log
                     row.RowNumber(),
                     firstFailOrSuccess.Error
                 );
-                return;
+                return firstFailOrSuccess.Error;
             }
 
             Contact contact = Contact.Create(
@@ -68,10 +67,20 @@ public class ExcelService(PhoneForgeDbContext context, ILogger<ExcelService> log
             contacts.Add(contact);
         }
 
-        context.AddRange(contacts);
+        if (contacts.Count == 0)
+        {
+            logger.LogInformation("No contacts found in excel document.");
+            return Error.Failure(
+                "ExcelDocument.Empty",
+                "No contacts found in excel document."
+            );
+        }
 
-        await context.SaveChangesAsync();
+        logger.LogInformation(
+            "Successfully retrieved {Count} contacts from excel document.",
+            contacts.Count
+        );
 
-        logger.LogInformation("Successfully seeded the database from excel document.");
+        return contacts;
     }
 }
