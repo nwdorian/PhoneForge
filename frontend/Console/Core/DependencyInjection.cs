@@ -1,4 +1,5 @@
 using Console.Contacts;
+using Console.Contacts.Abstractions;
 using Console.Contacts.Get;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,7 @@ internal static class DependencyInjection
 
         services.AddTransient<ContactsMenu>();
         services.AddTransient<GetContacts>();
+        services.AddTransient<IContactsService, ContactsService>();
 
         string apiAdress =
             configuration.GetValue<string>("ApiSettings:PhoneForgeApiAddress")
