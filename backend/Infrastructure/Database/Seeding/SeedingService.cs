@@ -36,6 +36,14 @@ public class SeedingService(
     {
         logger.LogInformation("Seeding contacts to the database.");
 
+        if (await context.Contacts.AnyAsync())
+        {
+            logger.LogWarning(
+                "Contacts already exists in the database. Aborting process."
+            );
+            return;
+        }
+
         Result<List<Contact>> getContactsResult = await excelService.GetContacts();
 
         if (getContactsResult.IsFailure)
@@ -44,14 +52,6 @@ public class SeedingService(
         }
 
         List<Contact> contacts = getContactsResult.Value;
-
-        if (await context.Contacts.AnyAsync())
-        {
-            logger.LogWarning(
-                "Contacts already exists in the database. Aborting process."
-            );
-            return;
-        }
 
         context.AddRange(contacts);
 
