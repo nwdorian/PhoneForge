@@ -5,6 +5,11 @@ on:
     branches:
       - main
       - develop
+    paths-ignore:
+      - "**/*.md"
+      - "**/*.gitignore"
+      - "**/*.gitattributes"
+  workflow_dispatch:
 
 env:
   DOTNET_VERSION: "10.0.x" # The .NET SDK version to use
@@ -20,9 +25,11 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+          cache: true
+          cache-dependency-path: "**/packages.lock.json"
 
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore --locked-mode
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
