@@ -12,16 +12,26 @@ on:
   workflow_dispatch:
 
 env:
-  DOTNET_VERSION: "10.0.x" # The .NET SDK version to use
+  DOTNET_VERSION: "10.0.x"
 
 jobs:
   build:
     name: build
     runs-on: ubuntu-latest
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      DOTNET_NOLOGO: true
+      DOTNET_GENERATE_ASPNET_CERTIFICATE: false
+      DOTNET_ADD_GLOBAL_TOOLS_TO_PATH: false
+      DOTNET_MULTILEVEL_LOOKUP: 0
+      DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: true
+      TERM: xterm
 
     steps:
       - uses: actions/checkout@v5
-      - name: Setup .NET Core
+
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
