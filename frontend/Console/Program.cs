@@ -9,6 +9,6 @@ builder.Services.AddConsoleServices(builder.Configuration);
 
 using IHost host = builder.Build();
 
-ContactsMenu mainMenu = host.Services.GetRequiredService<ContactsMenu>();
+ContactsView contactsView = host.Services.GetRequiredService<ContactsView>();
 
-await mainMenu.Display();
+await contactsView.Display();

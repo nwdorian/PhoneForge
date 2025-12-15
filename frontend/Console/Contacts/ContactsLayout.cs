@@ -4,12 +4,9 @@ using Spectre.Console;
 
 namespace Console.Contacts;
 
-internal static class ContactsTables
+internal static class ContactsLayout
 {
-    public static void RenderLayout(
-        GetContactsResponse response,
-        GetContactsRequest request
-    )
+    public static void Display(GetContactsResponse response, GetContactsRequest request)
     {
         Table table = new();
 
@@ -18,7 +15,7 @@ internal static class ContactsTables
         table.AddColumn(new TableColumn("[blue]Contacts[/]").Centered());
         table.AddColumn(new TableColumn("[blue]Options[/]").Centered());
 
-        table.AddRow(RenderContacts(response.Items), RenderPagination(request));
+        table.AddRow(RenderContacts(response.Items), RenderOptions(request));
 
         AnsiConsole.Clear();
         AnsiConsole.Write(table);
@@ -62,6 +59,20 @@ internal static class ContactsTables
         return table;
     }
 
+    private static Table RenderOptions(GetContactsRequest request)
+    {
+        Table table = new() { ShowHeaders = false };
+
+        table.Border(TableBorder.None);
+
+        table.AddColumn(new TableColumn("").Centered());
+
+        table.AddRow(RenderPagination(request));
+        table.AddRow(RenderFeatures());
+
+        return table;
+    }
+
     private static Table RenderPagination(GetContactsRequest request)
     {
         Table table = new() { ShowRowSeparators = true };
@@ -82,8 +93,6 @@ internal static class ContactsTables
             "Sort direction",
             $"{FormatSortOrder(request.SortOrder)}"
         );
-
-        table.AddRow("[white on grey] R [/]", "Generate report", "PDF");
 
         return table;
 
@@ -109,5 +118,20 @@ internal static class ContactsTables
                 _ => string.Empty,
             };
         }
+    }
+
+    private static Table RenderFeatures()
+    {
+        Table table = new() { ShowRowSeparators = true, ShowHeaders = false };
+
+        table.AddColumn(new TableColumn("").Centered());
+        table.AddColumn(new TableColumn("").Centered());
+
+        table.AddRow("[white on grey] A [/]", "Add contact");
+        table.AddRow("[white on grey] R [/]", "Remove contact");
+        table.AddRow("[white on grey] E [/]", "Edit contact");
+        table.AddRow("[white on grey] P [/]", "Create report");
+
+        return table;
     }
 }

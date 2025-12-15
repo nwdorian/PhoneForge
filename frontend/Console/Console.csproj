@@ -9,9 +9,13 @@
         <PackageReference Include="Spectre.Console" />
     </ItemGroup>
     <ItemGroup>
+        <Folder Include="Contacts\Create\" />
+        <Folder Include="Contacts\Delete\" />
+        <Folder Include="Contacts\Update\" />
         <Folder Include="Core\" />
         <Folder Include="Core\Enums\" />
         <Folder Include="Core\Input\" />
+        <Folder Include="Core\Validation\" />
     </ItemGroup>
 
     <ItemGroup>

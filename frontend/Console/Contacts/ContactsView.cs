@@ -1,16 +1,25 @@
-using Console.Contacts.Abstractions;
+using Console.Contacts.Create;
+using Console.Contacts.Delete;
+using Console.Contacts.GenerateReport;
+using Console.Contacts.Get;
+using Console.Contacts.Update;
 using Console.Core.Input;
-using Spectre.Console;
 
-namespace Console.Contacts.Get;
+namespace Console.Contacts;
 
-internal sealed class GetContacts(IContactsService contactsService)
+internal sealed class ContactsView(
+    ContactsService contactsService,
+    CreateContact createContact,
+    DeleteContact deleteContact,
+    UpdateContact updateContact,
+    GenerateContactsReport generateContactsReport
+)
 {
-    public async Task Handle()
+    public async Task Display()
     {
         bool exit = false;
 
-        GetContactsState state = new();
+        ContactsViewState state = new();
 
         while (!exit)
         {
@@ -29,7 +38,7 @@ internal sealed class GetContacts(IContactsService contactsService)
                 break;
             }
 
-            ContactsTables.RenderLayout(response, request);
+            ContactsLayout.Display(response, request);
 
             ConsoleKeyInfo key = System.Console.ReadKey(true);
 
@@ -37,14 +46,14 @@ internal sealed class GetContacts(IContactsService contactsService)
 
             if (key.Key == ConsoleKey.Escape)
             {
-                exit = true;
+                exit = UserInput.ConfirmExit();
             }
         }
     }
 
     private async Task HandleKeyInput(
         ConsoleKeyInfo key,
-        GetContactsState state,
+        ContactsViewState state,
         GetContactsResponse response
     )
     {
@@ -75,29 +84,18 @@ internal sealed class GetContacts(IContactsService contactsService)
                 state.PageSize = UserInput.PromptPageSize();
                 state.Page = 1;
                 break;
+            case ConsoleKey.P:
+                await generateContactsReport.Handle(state, response.Items);
+                break;
+            case ConsoleKey.A:
+                await createContact.Handle();
+                break;
             case ConsoleKey.R:
-                await GenerateReport(state);
+                await deleteContact.Handle(response.Items);
+                break;
+            case ConsoleKey.E:
+                await updateContact.Handle(response.Items);
                 break;
         }
-    }
-
-    private async Task GenerateReport(GetContactsState state)
-    {
-        if (
-            !await AnsiConsole.ConfirmAsync(
-                "Are you sure you want to generate a PDF report?"
-            )
-        )
-        {
-            return;
-        }
-
-        GenerateContactsReportRequest contactsReportRequest = new(
-            state.SearchTerm,
-            state.SortColumn,
-            state.SortOrder
-        );
-
-        await contactsService.GenerateReport(contactsReportRequest);
     }
 }

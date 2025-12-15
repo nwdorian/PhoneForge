@@ -1,4 +1,5 @@
 using Console.Core.Enums;
+using Console.Core.Validation;
 using Spectre.Console;
 
 namespace Console.Core.Input;
@@ -31,6 +32,60 @@ internal static class UserInput
         }
 
         return AnsiConsole.Prompt(prompt);
+    }
+
+    public static string PromptEmail(string displayMessage, bool allowEmpty)
+    {
+        TextPrompt<string> prompt = new(displayMessage);
+
+        if (allowEmpty)
+        {
+            prompt.AllowEmpty();
+        }
+
+        prompt.Validate(InputValidation.IsValidEmail);
+
+        return AnsiConsole.Prompt(prompt);
+    }
+
+    public static string PromptPhoneNumber(string displayMessage, bool allowEmpty)
+    {
+        TextPrompt<string> prompt = new(displayMessage);
+
+        if (allowEmpty)
+        {
+            prompt.AllowEmpty();
+        }
+
+        prompt.Validate(InputValidation.IsValidPhoneNumber);
+
+        return AnsiConsole.Prompt(prompt);
+    }
+
+    public static int PromptPositiveInteger(string displayMessage, bool allowZero)
+    {
+        TextPrompt<int> prompt = new(displayMessage);
+        prompt.ValidationErrorMessage("[red]Input must a positive integer![/]");
+
+        if (allowZero)
+        {
+            prompt.Validate(InputValidation.IsGreaterThanOrEqualToZero);
+        }
+
+        prompt.Validate(InputValidation.IsGreaterThanZero);
+
+        return AnsiConsole.Prompt(prompt);
+    }
+
+    public static int GetValidListIndex<T>(int input, IReadOnlyCollection<T> list)
+        where T : notnull
+    {
+        while (input > list.Count)
+        {
+            AnsiConsole.MarkupLine("[red]Invalid Id![/]");
+            input = PromptPositiveInteger("Enter contact Id:", allowZero: false);
+        }
+        return input - 1;
     }
 
     public static string PromptSortOrder()

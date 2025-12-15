@@ -1,6 +1,6 @@
-namespace Console.Contacts.Get;
+namespace Console.Contacts;
 
-internal sealed class GetContactsState
+internal sealed class ContactsViewState
 {
     public string SearchTerm { get; set; } = string.Empty;
     public int Page { get; set; } = 1;

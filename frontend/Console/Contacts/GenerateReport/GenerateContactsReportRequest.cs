@@ -1,4 +1,4 @@
-namespace Console.Contacts.Get;
+namespace Console.Contacts.GenerateReport;
 
 internal sealed record GenerateContactsReportRequest(
     string SearchTerm,

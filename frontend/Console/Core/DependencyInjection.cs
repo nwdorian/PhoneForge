@@ -1,6 +1,8 @@
 using Console.Contacts;
-using Console.Contacts.Abstractions;
-using Console.Contacts.Get;
+using Console.Contacts.Create;
+using Console.Contacts.Delete;
+using Console.Contacts.GenerateReport;
+using Console.Contacts.Update;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -17,9 +19,12 @@ internal static class DependencyInjection
     {
         services.AddLogging(b => b.ClearProviders());
 
-        services.AddTransient<ContactsMenu>();
-        services.AddTransient<GetContacts>();
-        services.AddTransient<IContactsService, ContactsService>();
+        services.AddTransient<ContactsView>();
+        services.AddTransient<CreateContact>();
+        services.AddTransient<DeleteContact>();
+        services.AddTransient<UpdateContact>();
+        services.AddTransient<GenerateContactsReport>();
+        services.AddTransient<ContactsService>();
 
         string apiAdress =
             configuration.GetValue<string>("ApiSettings:PhoneForgeApiAddress")
