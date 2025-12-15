@@ -14,9 +14,9 @@ public abstract class BaseIntegrationTest : IAsyncLifetime
     protected BaseIntegrationTest(IntegrationTestWebAppFactory factory)
     {
         _factory = factory;
-        _context = _factory
-            .Services.CreateScope()
-            .ServiceProvider.GetRequiredService<PhoneForgeDbContext>();
+
+        using IServiceScope scope = _factory.Services.CreateScope();
+        _context = scope.ServiceProvider.GetRequiredService<PhoneForgeDbContext>();
 
         DataSeeder = new TestDataSeeder(_context);
         HttpClient = factory.CreateClient();
@@ -34,9 +34,9 @@ public abstract class BaseIntegrationTest : IAsyncLifetime
 
     public PhoneForgeDbContext CreateDbContext()
     {
-        PhoneForgeDbContext context = _factory
-            .Services.CreateScope()
-            .ServiceProvider.GetRequiredService<PhoneForgeDbContext>();
+        using IServiceScope scope = _factory.Services.CreateScope();
+        PhoneForgeDbContext context =
+            scope.ServiceProvider.GetRequiredService<PhoneForgeDbContext>();
 
         return context;
     }
