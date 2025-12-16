@@ -1,0 +1,38 @@
+name: "Integration tests"
+
+on:
+  workflow_run:
+    workflows: ["Build"]
+    types:
+      - completed
+
+env:
+  DOTNET_VERSION: "10.0.x"
+
+jobs:
+  integration-tests:
+    name: "Integration tests"
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-output
+          path: ./bin/Release
+
+      - name: Run integration tests
+        run: >
+          dotnet test tests/IntegrationTests/IntegrationTests.csproj
+          --configuration Release
+          --no-restore
+          --no-build
+          --verbosity normal

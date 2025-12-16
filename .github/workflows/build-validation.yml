@@ -1,4 +1,4 @@
-name: build
+name: "Build"
 
 on:
   pull_request:
@@ -17,16 +17,7 @@ env:
 jobs:
   build:
     name: build
-    runs-on: ubuntu-latest
-    env:
-      DOTNET_CLI_TELEMETRY_OPTOUT: 1
-      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-      DOTNET_NOLOGO: true
-      DOTNET_GENERATE_ASPNET_CERTIFICATE: false
-      DOTNET_ADD_GLOBAL_TOOLS_TO_PATH: false
-      DOTNET_MULTILEVEL_LOOKUP: 0
-      DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: true
-      TERM: xterm
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v5
@@ -38,8 +29,15 @@ jobs:
           cache: true
           cache-dependency-path: "**/packages.lock.json"
 
-      - name: Install dependencies
+      - name: Restore dependencies
         run: dotnet restore --locked-mode
 
-      - name: Build
+      - name: Build projects
         run: dotnet build --configuration Release --no-restore
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output
+          path: |
+            **/bin/Release/**
