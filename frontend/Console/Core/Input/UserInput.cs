@@ -71,8 +71,10 @@ internal static class UserInput
         {
             prompt.Validate(InputValidation.IsGreaterThanOrEqualToZero);
         }
-
-        prompt.Validate(InputValidation.IsGreaterThanZero);
+        else
+        {
+            prompt.Validate(InputValidation.IsGreaterThanZero);
+        }
 
         return AnsiConsole.Prompt(prompt);
     }
