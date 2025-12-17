@@ -63,6 +63,10 @@ Backend is a .NET Web API and frontend is a simple console application for conta
 - Contacts management
   - Created, delete and update contacts
   - Pagination, sorting and filtering
+
+ <img width="1119" height="552" alt="image" src="https://github.com/user-attachments/assets/a812d3ae-8d8e-4267-9de8-368544878dc1" />
+
+
 - Excel data seeding
   - `./documents/contacts.xlsx` 
   - edit the Excel document to change seed data
