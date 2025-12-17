@@ -9,6 +9,21 @@ It allows users to work with contact data like in a phone book. They can load da
 
 Backend is a .NET Web API and frontend is a simple console application for contact management and PDF report generation.
 
+## Table of contents
+
+- [PhoneForge](#phoneforge)
+  - [Table of contents](#table-of-contents)
+  - [Technologies](#technologies)
+  - [Getting started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+  - [Features](#features)
+  - [Solution structure](#solution-structure)
+    - [Best practices](#best-practices)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Contact](#contact)
+
 ## Technologies
 
 - **.NET 10**
