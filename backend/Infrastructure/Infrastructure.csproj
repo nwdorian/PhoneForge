@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Application\Application.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="ClosedXML" />
+        <PackageReference Include="Handlebars.Net" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+        <PackageReference Include="PuppeteerSharp" />
+    </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Database\Seeding\" />
+        <Folder Include="Reports\" />
+    </ItemGroup>
+</Project>

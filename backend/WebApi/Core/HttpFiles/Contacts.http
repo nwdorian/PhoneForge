@@ -1,0 +1,44 @@
+@HostAddress = http://localhost:5111
+
+### Get contacts
+
+GET {{HostAddress}}/api/v1/contacts?searchTerm=&page=1&pageSize=10&sortColumn=created_on&sortOrder=asc
+
+### Get contact by Id
+
+GET {{HostAddress}}/api/v1/contacts/81023bac-163f-4eb0-bfb5-a834ef213d16
+Accept: application/json
+
+
+### Create contact
+
+POST {{HostAddress}}/api/v1/contacts
+Content-type: application/json
+
+{
+    "firstName": "",
+    "lastName": "Doe",
+    "email": "jdoe3@gmail.com",
+    "phoneNumber": "091212121212"
+}
+
+### Delete contact
+
+DELETE {{HostAddress}}/api/v1/contacts/b0ef7a3f-e137-427b-9cd4-06c7ce6158a2
+Accept: application/json
+
+### Update contact
+
+PUT {{HostAddress}}/api/v1/contacts/81023bac-163f-4eb0-bfb5-a834ef213d16
+Content-Type: application/json
+
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "jdoe2@gmail.com",
+    "phoneNumber": "091212121212"
+}
+
+### Generate contacts report
+
+GET {{HostAddress}}/api/v1/contacts/report?sortColumn=first_name

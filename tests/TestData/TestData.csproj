@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <PackageReference Include="Bogus" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\backend\WebApi\WebApi.csproj" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <IsTestProject>false</IsTestProject>
+    </PropertyGroup>
+</Project>
